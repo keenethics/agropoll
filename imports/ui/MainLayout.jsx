@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HelloWorld from './components/HelloWorld.jsx';
-import Page from './pages/Page.jsx';
+import HomePage from './pages/HomePage.jsx';
 
 
 
@@ -11,7 +11,7 @@ export default class MainLayout extends React.Component {
       <div>
         <HelloWorld />
 
-        <Page />
+        <HomePage />
 
       </div>
     );

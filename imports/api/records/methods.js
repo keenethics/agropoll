@@ -5,14 +5,24 @@ import { Meteor } from 'meteor/meteor';
 import { Records } from './records.js';
 
 Meteor.methods({
-  'records.insert'(title, url) {
+  'record.insert'(marketingYear, location, crop, sort, reproduction, area, cropCapacity, status) {
     // check(url, String);
     // check(title, String);
 
+
+
     return Records.insert({
-      url,
-      title,
-      createdAt: new Date(),
+      farmerId: this.userId,
+      marketingYear,
+      location,
+      crop,
+      sort,
+      reproduction,
+      area,
+      cropCapacity,
+      status,
+
+      updatedAt: Date.now(),
     });
   },
 });

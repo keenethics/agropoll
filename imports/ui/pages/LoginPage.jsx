@@ -12,51 +12,54 @@ export default class LoginPage extends Component {
   }
 
   componentWillMount() {
-    var token = this.props.routeParams.token || Storage.get('auth-hash');
+    var token = this.props.routeParams.token ;
+    console.log('efwdfwed');
+    if (token){
+      localStorage.setItem('auth-hash', token )
+    } else {
+      token = localStorage.getItem('auth-hash')
+    }
+
     if (token){
       Meteor.call('Login', token, (err, res) => {
         if (err)
-          Storage.remove('auth-hash');
-        Meteor.loginWithToken(response[1], (err) => {
+          localStorage.removeItem('auth-hash');
+        Meteor.loginWithToken(res[1], (err) => {
           if(err){
             console.error('ERROR');
           } else {
             browserHistory.push('/')
           }
         })
-      };
+      });
     }
   }
 
   handleSubmit(e){
     e.preventDefault();
-    var email = document.getElementById('#login-email').value.trim();
+    var email = document.getElementById('login-email').value.trim();
     var password = 132;
-    var sessionHash = Storage.get('auth-hash');
+    var sessionHash = localStorage.getItem('auth-hash');
 
     Meteor.call('LoginProcedure', email, (err, res) => {
       if(err){
-        if (err.error === 400)
-          Storage.remove('auth-hash');
-      } else if (response[0] === 200) {
-        Meteor.loginWithToken(response[1], (err) => {
-          if(err){
-            console.error('ERROR');
-          } else {
-            browserHistory.push('/')
-          }
-        })
-        Storage.set('auth-hash', response[1])
+          console.error(err);
+      } else if (res[0] === 200) {
+        browserHistory.push('/redirect')
+        console.log('reddirecting!');
+      }
     })
   }
 
   render() {
+    return(
     <div>
-      <h1>Login</h1>
-      <form id="loginForm" onSubmit={this.handleSubmit}>
-        <input type="email" id="login-email"/>
-        <input type="submit" id="login-button"/>
-      </form>
-    </div>
+        <h1>Login</h1>
+        <form id="loginForm" onSubmit={this.handleSubmit}>
+          <input type="email" name="login-email" id="login-email"/>
+          <input type="submit"  id="login-button"/>
+        </form>
+      </div>
+    )
   }
 }

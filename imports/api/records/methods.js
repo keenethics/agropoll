@@ -18,7 +18,7 @@ Meteor.methods({
       crop,
       sort,
       reproduction,
-      area,
+      square,
       cropCapacity,
       status,
 

@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import { createContainer } from 'meteor/react-meteor-data'
 
 
-export default class LoginPage extends Component {
+export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
   }

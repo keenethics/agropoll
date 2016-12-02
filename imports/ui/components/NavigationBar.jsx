@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { browserHistory, Link } from 'react-router'
 
 
-export default class NavigationBar extends Component {
+export default class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
   }

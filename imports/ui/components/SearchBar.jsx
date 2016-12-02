@@ -28,7 +28,7 @@ export default class SearchBar extends Component {
       this.initGoogleAutocomplete(
         this.inputCountry,
         {
-          types: ['(cities)'],
+          types: ['(regions)'],
           componentRestrictions: {country: "ua"}
         }
       )
@@ -48,7 +48,8 @@ export default class SearchBar extends Component {
   }
 
   submitPlace() {
-    Meteor.call('localities.addPlace', this.state.selectPlace);
+    console.log(this.state.selectedPlace);
+    Meteor.call('localities.addPlace', this.state.selectedPlace);
   }
 
   getGoogleData() {

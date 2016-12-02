@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
-import HelloWorld from './components/HelloWorld.jsx';
-import HomePage from './pages/HomePage.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import HelloWorld from '/imports/ui/components/HelloWorld.jsx';
+import HomePage from '/imports/ui/pages/HomePage.jsx';
+import SearchBar from '/imports/ui/components/SearchBar.jsx';
+import NavigationBar from '/imports/ui/components/NavigationBar.jsx';
+import AppContainer from '/imports/ui/containers/AppContainer.jsx';
 
-
-
-export default class MainLayout extends React.Component {
+export default class MainLayout extends Component {
   constructor(props){
     super(props);
     console.log(this.props)
@@ -16,12 +16,10 @@ export default class MainLayout extends React.Component {
   render() {
     return (
       <div>
-        <HelloWorld />
-
-        <HomePage />
-
-        <SearchBar />
-        {this.props.children}
+        <NavigationBar />
+        <AppContainer>
+          {this.props.children}
+        </AppContainer>
       </div>
     );
   }

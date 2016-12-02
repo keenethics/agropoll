@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
 
-export default class AppContainer extends Component {
+import SearchBar from '/imports/ui/components/SearchBar.jsx';
+
+export default class InsertPage extends Component {
   constructor(props){
     super(props);
   }
@@ -9,8 +11,9 @@ export default class AppContainer extends Component {
   render() {
     return (
       <div>
-        <h3>Container</h3>
-        {this.props.children}
+        <h3>Insert Page</h3>
+
+        <SearchBar />
       </div>
     )
   }

@@ -13,7 +13,6 @@ export default class LoginPage extends Component {
 
   componentWillMount() {
     var token = this.props.routeParams.token ;
-    console.log('efwdfwed');
     if (token){
       localStorage.setItem('auth-hash', token )
     } else {
@@ -26,7 +25,8 @@ export default class LoginPage extends Component {
           localStorage.removeItem('auth-hash');
         Meteor.loginWithToken(res[1], (err) => {
           if(err){
-            console.error('ERROR');
+            console.error('Bad Token');
+            localStorage.removeItem('auth-hash');
           } else {
             browserHistory.push('/')
           }

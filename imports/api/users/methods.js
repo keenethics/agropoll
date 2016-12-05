@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js'
 
 var generateLoginToken = () => {
@@ -25,6 +26,23 @@ var saveLoginToken = (userId, callback) => {
 }
 
 Meteor.methods({
+  'user.emailChange'( newEmail ) {
+    if(!Meteor.userId())
+      return new Meteor.Error ('No user');
+
+    const userId = Meteor.userId();
+
+    Meteor.users.update({_id:userId}, {$set: { 'emails.0.address': newEmail } });
+    return true;
+  },
+  'user.nameChange'(newName) {
+    if(!Meteor.userId())
+      return new Meteor.Error ('No user');
+
+    const userId = Meteor.userId();
+    Meteor.users.update({_id:userId}, {$set: { 'profile': { name: newName } } });
+    return true;
+  },
   'LoginProcedure': (email) => {
     var user = Meteor.users.findOne({
       'emails.address': email
@@ -74,4 +92,5 @@ Meteor.methods({
       return saveLoginToken(user._id, callback);
     })(session.email)
   }
-});
+
+})

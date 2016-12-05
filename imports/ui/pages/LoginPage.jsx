@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import { browserHistory, Link } from 'react-router'
 import { createContainer } from 'meteor/react-meteor-data'
 
-export default class LoginPage extends Component {
+export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ export default class LoginPage extends Component {
 
   componentWillMount() {
     var token = this.props.routeParams.token ;
-    if (token){
+    if (token) {
       localStorage.setItem('auth-hash', token )
     } else {
       token = localStorage.getItem('auth-hash')
@@ -42,8 +42,8 @@ export default class LoginPage extends Component {
     var sessionHash = localStorage.getItem('auth-hash');
 
     Meteor.call('LoginProcedure', email, (err, res) => {
-      if(err){
-          console.error(err);
+      if (err) {
+        console.error(err);
       } else if (res[0] === 200) {
         browserHistory.push('/redirect')
         console.log('reddirecting!');
@@ -53,11 +53,11 @@ export default class LoginPage extends Component {
 
   render() {
     return(
-    <div>
+      <div>
         <h1>Login</h1>
         <form id="loginForm" onSubmit={this.handleSubmit}>
-          <input type="email" name="login-email" id="login-email"/>
-          <input type="submit"  id="login-button"/>
+          <input type="email" name="login-email" id="login-email" />
+          <input type="submit"  id="login-button" />
         </form>
       </div>
     )

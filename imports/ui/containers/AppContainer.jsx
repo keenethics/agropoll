@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { browserHistory } from 'react-router'
 
-export default class AppContainer extends Component {
+export default class AppContainer extends React.Component {
   constructor(props){
     super(props);
   }

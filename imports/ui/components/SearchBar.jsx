@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class SearchBar extends Component {
+export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -3,3 +3,4 @@
 import { Mongo } from 'meteor/mongo';
 
 export const Crops = new Mongo.Collection('crops');
+export const Groups = new Mongo.Collection('groups');

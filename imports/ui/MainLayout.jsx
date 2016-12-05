@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 
 import HelloWorld from './components/HelloWorld.jsx';
 import HomePage from './pages/HomePage.jsx';
+import SearchBar from './components/SearchBar.jsx';
 
 
 
@@ -18,6 +19,8 @@ export default class MainLayout extends React.Component {
         <HelloWorld />
 
         <HomePage />
+
+        <SearchBar />
         {this.props.children}
       </div>
     );

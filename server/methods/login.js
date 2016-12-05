@@ -1,4 +1,4 @@
-import { LoginSessions } from '../../imports/api/records/records.js'
+import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js'
 
 var generateLoginToken = () => {
   var stampedToken = Accounts._generateStampedLoginToken();

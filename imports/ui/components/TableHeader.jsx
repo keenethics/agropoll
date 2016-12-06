@@ -15,6 +15,7 @@ export default class TableHeader extends React.Component{
           <th>Площа</th>
           <th>Урожай</th>
           <th>Стан</th>
+          <th></th>
         </tr>
       </thead>
     )

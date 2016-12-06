@@ -9,8 +9,37 @@ class TableInsert extends React.Component{
   constructor(props){
     super(props);
 
-    this.expandRows = this.expandRows.bind(this);
+    this.addCropElem = this.addCropElem.bind(this);
+    this.removeCropElem = this.removeCropElem.bind(this);
     this.renderTableRows = this.renderTableRows.bind(this);
+  }
+
+  componentDidMount(){
+    const tableBody = this.refs.insertTableBody;
+    tableBody.addEventListener('click', this.removeCropElem, false )
+  }
+
+  removeCropElem(e){
+    if(e.target.className.includes('cropElemRemove')){
+      const tableRow = e.target.parentElement;
+      const tableBody = this.refs.insertTableBody;
+      tableBody.removeChild(tableRow);
+    }
+
+  }
+
+  addCropElem(cropName, cropId) {
+    const cropParentElem = document.getElementById(cropId);
+    const tableBody = this.refs.insertTableBody;
+    const cropElem = document.createElement('tr');
+    cropElem.className = 'cropElem';
+    cropElem.innerHTML = `<td>_</td>
+    <td><input type="text" placeholder="сорт"/><input type="text" placeholder="репродукція"/></td>
+    <td><input type="number" value="0"/></td>
+    <td><input type="number" value="0"/></td>
+    <td><input type="number" value="0"/></td>
+    <td class="cropElemRemove">Remove</td>`;
+    tableBody.insertBefore(cropElem, cropParentElem.nextSibling);
   }
 
   renderTableRows() {
@@ -18,18 +47,20 @@ class TableInsert extends React.Component{
       const crops = Crops.find({group:group.id}).fetch();
       const rows = crops.map( (crop) => {
         return (
-          <tr key={crop._id} className={"group" + group.id +" collapse"}>
-            <td><span>add</span></td>
+          <tr id={crop.id} key={crop.id}>
+            <td><span onClick={() => this.addCropElem(crop.name, crop.id)}>add</span></td>
             <td>{crop.name}</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
         )
       })
-      rows.unshift(<tr key={group._id}>
+      rows.unshift(<tr key={group.id}>
         <td></td>
-        <td onClick={() => this.expandRows(group.id)}>{group.name}</td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -38,20 +69,11 @@ class TableInsert extends React.Component{
     })
   }
 
-  expandRows(classId) {
-    const elemsToExpand = document.getElementsByClassName('group' + classId);
-    if (elemsToExpand[0].className.includes('collapse')){
-      elemsToExpand.forEach( (elem) => {
-        elem.className = elem.className.substr(lem.className.lastIndexOf(' '));
-      })
-    }
-  }
-
   render() {
     return(
-      <table>
+      <table ref="insertTable">
         <TableHeader />
-        <tbody>
+        <tbody ref="insertTableBody">
           {this.renderTableRows()}
         </tbody>
       </table>

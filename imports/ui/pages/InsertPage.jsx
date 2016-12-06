@@ -7,6 +7,11 @@ import TableInsert from '/imports/ui/components/TableInsert.jsx';
 class InsertPage extends React.Component {
   constructor(props){
     super(props);
+    this.applyInsert = this.applyInsert.bind(this);
+  }
+
+  applyInsert(){
+
   }
 
   render() {
@@ -14,7 +19,7 @@ class InsertPage extends React.Component {
       <div>
         <h2>Insert Page</h2>
         <SearchBar />
-        <TableInsert />
+        <TableInsert insert={this.applyInsert}/>
       </div>
     )
   }

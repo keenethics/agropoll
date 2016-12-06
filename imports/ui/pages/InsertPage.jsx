@@ -1,9 +1,10 @@
 import React from 'react';
-import { browserHistory } from 'react-router'
+import { createContainer } from 'meteor/react-meteor-data'
 
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
+import TableInsert from '/imports/ui/components/TableInsert.jsx';
 
-export default class InsertPage extends React.Component {
+class InsertPage extends React.Component {
   constructor(props){
     super(props);
   }
@@ -11,10 +12,22 @@ export default class InsertPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>Insert Page</h3>
-
+        <h2>Insert Page</h2>
         <SearchBar />
+        <TableInsert />
       </div>
     )
   }
 }
+
+export default createContainer (( {params} ) => {
+  const user = Meteor.user();
+  const crops = Meteor.subscribe('crops.all');
+  const groups = Meteor.subscribe('groups.all');
+
+  return {
+    user,
+    crops,
+    groups
+  }
+}, InsertPage)

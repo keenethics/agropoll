@@ -2,13 +2,13 @@ import React from 'react'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class SearchBar extends React.Component {
+class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       autocomplete: {},
     }
-
+    this.setFullAddress = this.setFullAddress.bind(this);
     this.submitPlace = this.submitPlace.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
   }
@@ -37,8 +37,27 @@ export default class SearchBar extends React.Component {
   }
 
   submitPlace() {
-    console.log(this.state.selectedPlace);
     Meteor.call('localities.addPlace', this.state.selectedPlace);
+    this.setFullAddress();
+    console.log(this.state);
+  }
+
+  setFullAddress() {
+    const place  = this.state.selectedPlace;
+    var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
+
+    if (place.address_components.length === 4 &&
+      !place.address_components[1].long_name.includes('міськрада') &&
+      !place.address_components[1].long_name.includes('місто')){
+        let positionOfComa = fullAddress.indexOf(',');
+        fullAddress = [
+          fullAddress.slice(0, positionOfComa),
+          ", ",
+          place.address_components[1].long_name,
+          fullAddress.slice(positionOfComa)
+        ].join('');
+    }
+    this.setState({fullAddress})
   }
 
   render() {
@@ -50,7 +69,16 @@ export default class SearchBar extends React.Component {
           type="text"
           placeholder="Country..."/>
         <button onClick={this.submitPlace}>Select</button>
+        <span>{this.state.fullAddress}</span>
       </div>
     )
   }
 }
+
+export default createContainer (( {params} ) => {
+  const user = Meteor.user();
+
+  return {
+    user
+  }
+}, SearchBar)

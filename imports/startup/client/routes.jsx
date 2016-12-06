@@ -15,7 +15,7 @@ Meteor.startup ( () => {
       <Route path="/" component={MainLayout}>
         <IndexRoute component={HomePage} />
         <Route path="/login" component={LoginPage}/>
-        <Route path="/login/:token" component={LoginPage}/>
+        <Route path="/login/:hash" component={LoginPage}/>
         <Route path="redirect" component={RedirectPage}/>
         <Route path="statistic" component={StatisticPage}/>
         <Route path="insert" component={InsertPage}/>

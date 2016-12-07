@@ -12,9 +12,11 @@ class InsertPage extends React.Component {
     super(props);
 
     this.addCropElem = this.addCropElem.bind(this);
+    this.saveCropData = this.saveCropData.bind(this);
     this.removeCropRow = this.removeCropRow.bind(this);
     this.renderTableRows = this.renderTableRows.bind(this);
     this.renderCropsRows = this.renderCropsRows.bind(this);
+    this.getDataFromTableRow = this.getDataFromTableRow.bind(this);
     this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
@@ -26,11 +28,32 @@ class InsertPage extends React.Component {
     Meteor.call('record.insert', 2016, null, cropId, "", "", 0, 0, 'planned');
   }
 
+  getDataFromTableRow(tr){
+    const data = {}
+    data.sort = tr.children[1].children[0].value;
+    data.reproduction = tr.children[1].children[1].value;
+    data.square = tr.children[2].children[0].value;
+    data.cropCapacity = tr.children[3].children[0].value;
+    data.status = tr.children[4].children[0].value;
+    return data;
+  }
+
+  saveCropData(){
+    const cropElems = document.getElementsByClassName('cropData');
+
+    Array.prototype.forEach.call(cropElems, (elem) => {
+      const data = this.getDataFromTableRow(elem)
+      Meteor.call('record.update', {_id: elem.id}, data)
+    })
+    console.log(cropElems);
+    this.getDataFromTableRow(cropElems[0]);
+  }
+
   renderInsertedCropsRows(crop) {
     const cropData = Records.find({cropId:crop.id});
     return cropData.map( (crop) => {
       return (
-        <tr id={crop._id} key={crop._id}>
+        <tr id={crop._id} key={crop._id} className="cropData">
           <td>_</td>
           <td>
             <input type="text" defaultValue={crop.sort} placeholder="сорт"/>
@@ -83,13 +106,16 @@ class InsertPage extends React.Component {
       <div>
         <h2>Insert Page</h2>
         <SearchBar />
-
-        <table ref="insertTable">
-          <TableHeader />
-          <tbody ref="insertTableBody">
-            {this.renderTableRows()}
-          </tbody>
-        </table>
+        <form onSubmit={(e) => {e.preventDefault(); e.persist(); console.log(e.target.elements)}}>
+          <button onClick={this.saveCropData}>Save</button>
+          <input type="submit" />
+          <table ref="insertTable">
+            <TableHeader />
+            <tbody ref="insertTableBody">
+              {this.renderTableRows()}
+            </tbody>
+          </table>
+        </form>
       </div>
     )
   }

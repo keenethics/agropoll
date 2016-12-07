@@ -14,7 +14,7 @@ class NavigationBar extends React.Component {
       <div className="navContainer">
         <Link className="navLink mainLink" to="/">Main</Link>
         <div className="navCenter">
-          <Link className="navLink statLink" to="/statistic">Statistic</Link>
+          <Link className="navLink statLink" to="/statistics">Statistics</Link>
           <Link className="navLink insLink" to="/insert">Insert</Link>
         </div>
         <Link className="navLink logLink" to="/login">{this.props.user ? 'Profile' : 'Login'}</Link>

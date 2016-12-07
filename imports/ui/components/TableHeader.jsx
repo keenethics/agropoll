@@ -7,13 +7,13 @@ export default class TableHeader extends React.Component{
   }
 
   render() {
-    return(
+    return (
       <thead>
         <tr>
           <th>_</th>
           <th>Культура</th>
           <th>Площа</th>
-          <th>Урожай</th>
+          <th>Урожайність</th>
           <th>Стан</th>
           <th></th>
         </tr>

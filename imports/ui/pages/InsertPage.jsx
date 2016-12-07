@@ -1,8 +1,8 @@
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data'
+import { createContainer } from 'meteor/react-meteor-data';
 
-import { Crops, Groups } from '/imports/api/crops/crops.js'
-import { Records } from '/imports/api/records/records.js'
+import { Crops, Groups } from '/imports/api/crops/crops.js';
+import { Records } from '/imports/api/records/records.js';
 
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
 import TableHeader from '/imports/ui/components/TableHeader.jsx';

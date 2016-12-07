@@ -1,7 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
-import HelloWorld from '/imports/ui/components/HelloWorld.jsx';
 import HomePage from '/imports/ui/pages/HomePage.jsx';
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
 import NavigationBar from '/imports/ui/components/NavigationBar.jsx';

@@ -11,11 +11,44 @@ class StatisticsPage extends React.Component {
   }
 
   render() {
+    console.log('-->',this.props);
+
     return (
       <div>
         <h3>Statistics Page</h3>
 
         <SearchBar />
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Культура</th>
+              <th>Площа</th>
+              <th>Урожайність</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.groups.map(group => (
+              <tr key={group.id}>
+                <td></td>
+                <td colSpan="3">{group.name}</td>
+                <td></td>
+              </tr>
+
+            ))}
+            {/*this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
+              <tr key={crop.id}>
+                <td></td>
+                <td>{crop.name}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            ))*/}
+          </tbody>
+        </table>
 
 
       </div>

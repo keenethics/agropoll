@@ -5,11 +5,9 @@ import { Meteor } from 'meteor/meteor';
 import { Records } from './records.js';
 
 Meteor.methods({
-  'record.insert'(marketingYear, location, cropId, sort, reproduction, area, cropCapacity, status) {
+  'record.insert'(marketingYear, location, cropId, sort, reproduction, square, cropCapacity, status) {
     // check(url, String);
     // check(title, String);
-
-
 
     return Records.insert({
       farmerId: this.userId,
@@ -25,4 +23,7 @@ Meteor.methods({
       updatedAt: Date.now(),
     });
   },
+  'record.removeOne'(_id) {
+    return Records.remove({_id})
+  }
 });

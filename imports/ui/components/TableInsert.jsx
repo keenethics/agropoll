@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Crops, Groups } from '/imports/api/crops/crops.js'
 
 import TableHeader from './TableHeader.jsx';
-
+/*This Eleement doesn't use anywhere*/
 class TableInsert extends React.Component{
   constructor(props){
     super(props);

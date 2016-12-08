@@ -12,9 +12,11 @@ class InsertPage extends React.Component {
     super(props);
     this.state ={
       placeId: null,
-      placeType: null
+      placeType: null,
+      marketingYear: null
     }
 
+    this.selectYear = this.selectYear.bind(this);
     this.selectPlace = this.selectPlace.bind(this);
     this.addCropElem = this.addCropElem.bind(this);
     this.saveCropData = this.saveCropData.bind(this);
@@ -32,10 +34,11 @@ class InsertPage extends React.Component {
   addCropElem(cropId) {
     const placeId = this.state.placeId;//localStorage.getItem('placeId');
     const placeType = this.state.placeType;//localStorage.getItem('placeType');
+    const marketingYear = this.state.marketingYear;
     console.log(placeId + "   " + placeType);
-    if(placeId && placeType === 'locality'){
+    if(placeId && placeType === 'locality' && marketingYear){
       Meteor.call('record.insert',{
-        marketingYear: 2016,
+        marketingYear,
         reproduction: "",
         cropCapacity: 0,
         placeId,
@@ -79,8 +82,15 @@ class InsertPage extends React.Component {
   renderInsertedCropsRows(crop) {
     const placeId = this.state.placeId;//localStorage.getItem('placeId');
     const userId = this.props.user._id;
-    const cropData = Records.find({cropId:crop.id, placeId, userId});
-    return cropData.map( (crop) => {
+    const marketingYear = this.state.marketingYear;
+    const cropData = Records.find({cropId:crop.id, placeId, userId, marketingYear});
+    const totalSumOfOptions = {
+      cropCapacity: 0,
+      square: 0,
+    }
+    const cropDataRendered = cropData.map( (crop) => {
+      totalSumOfOptions.cropCapacity += +crop.cropCapacity;
+      totalSumOfOptions.square += +crop.square;
       return (
         <tr id={crop._id} key={crop._id} ref={'crop' + crop._id} className="cropData">
           <td>_</td>
@@ -95,17 +105,25 @@ class InsertPage extends React.Component {
         </tr>
       )
     })
+
+  return {totalSumOfOptions, cropDataRendered};
   }
 
   renderCropsRows(crops) {
+    const placeId = this.state.placeId;
+    const marketingYear = this.state.marketingYear;
+    const placeType = this.state.placeType;
+    const canAdd = placeId && placeType === 'locality' && marketingYear;
     return crops.map( (crop) => {
-      const rows = this.renderInsertedCropsRows(crop);
+      const data = this.renderInsertedCropsRows(crop);
+      const rows = data.cropDataRendered;
+      const {totalSumOfOptions} = data;
       rows.unshift (
         <tr id={crop.id} key={crop.id}>
-          <td><span onClick={() => this.addCropElem(crop.id)}>add</span></td>
+          <td>{canAdd && <span onClick={() => this.addCropElem(crop.id)}>add</span> || ""}</td>
           <td>{crop.name}</td>
-          <td></td>
-          <td></td>
+          <td>{totalSumOfOptions.square}</td>
+          <td>{totalSumOfOptions.cropCapacity}</td>
           <td></td>
           <td></td>
         </tr>
@@ -143,6 +161,10 @@ class InsertPage extends React.Component {
 
   }
 
+  selectYear(e){
+    this.setState({marketingYear: e.target.value});
+  }
+
   render() {
     if (Meteor.user())
     return (
@@ -150,6 +172,11 @@ class InsertPage extends React.Component {
         <h2>Insert Page</h2>
         <SearchBar selectPlace={this.selectPlace}/>
           <button onClick={this.saveCropData}>Save</button>
+          <select defaultValue="" onChange={this.selectYear}>
+            <option disabled value="">Select year</option>
+            <option>2016</option>
+            <option>2017</option>
+          </select>
           <table ref="insertTable">
             <TableHeader />
             <tbody ref="insertTableBody">

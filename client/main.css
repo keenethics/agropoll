@@ -27,3 +27,18 @@
 
 
 /*------------End Table Insert------------*/
+
+div.row {
+
+}
+
+div.head {
+  font-weight: bold;
+
+}
+
+div.cell {
+  display: inline-block;
+  width: 19%;
+  border: 1px solid green;
+}

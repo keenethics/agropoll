@@ -69,7 +69,7 @@ Meteor.startup(() => {
     crops.forEach(crop => Crops.insert({
       id: crop[0],
       name: crop[2],
-      group: crop[1],
+      groupId: crop[1],
       avgCapacity: crop[3],
     }));
 

@@ -10,6 +10,20 @@ class StatisticsPage extends React.Component {
     super(props);
   }
 
+  sumOfSquares(cropId) {
+    return this.props.records.
+      filter((item) => item.cropId === cropId).
+      reduce((sum, item) => sum + item.square, 0)
+  }
+
+  avgCropCapacity(cropId) {
+
+    return this.props.records.
+      filter((item) => item.cropId === cropId).
+      reduce((sum, item) => sum + item.square * item.cropCapacity, 0) / this.sumOfSquares(cropId);
+
+  }
+
   render() {
     console.log('-->',this.props);
 
@@ -19,36 +33,38 @@ class StatisticsPage extends React.Component {
 
         <SearchBar />
 
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Культура</th>
-              <th>Площа</th>
-              <th>Урожайність</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.groups.map(group => (
-              <tr key={group.id}>
-                <td></td>
-                <td colSpan="3">{group.name}</td>
-                <td></td>
-              </tr>
+        <div>
+          <div className="row">
+            <div className="cell"></div>
+            <div className="cell">Культура</div>
+            <div className="cell">Площа</div>
+            <div className="cell">Урожайність</div>
+            <div className="cell"></div>
+          </div>
+          {this.props.groups.map(group => (
+            <div key={group.id}>
 
-            ))}
-            {/*this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-              <tr key={crop.id}>
-                <td></td>
-                <td>{crop.name}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            ))*/}
-          </tbody>
-        </table>
+              <div className="row">
+                <div className="head">{group.name}</div>
+              </div>
+              {this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
+                <div className="row" key={crop.id}>
+                  <div className="cell"></div>
+                  <div className="cell">{crop.name}</div>
+                  <div className="cell">
+                    {this.sumOfSquares(crop.id)}
+                  </div>
+                  <div className="cell">
+                    {this.avgCropCapacity(crop.id)}
+                  </div>
+                  <div className="cell"></div>
+                </div>
+              ))}
+
+            </div>
+          ))}
+
+        </div>
 
 
       </div>

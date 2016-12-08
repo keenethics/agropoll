@@ -1,8 +1,8 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data'
 
-import { Crops, Groups } from '/imports/api/crops/crops.js'
 import { Records } from '/imports/api/records/records.js'
+import { Crops, Groups } from '/imports/api/crops/crops.js'
 
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
 import TableHeader from '/imports/ui/components/TableHeader.jsx';
@@ -10,13 +10,18 @@ import TableHeader from '/imports/ui/components/TableHeader.jsx';
 class InsertPage extends React.Component {
   constructor(props){
     super(props);
+    this.state ={
+      placeId: null,
+      placeType: null
+    }
 
+    this.selectPlace = this.selectPlace.bind(this);
     this.addCropElem = this.addCropElem.bind(this);
     this.saveCropData = this.saveCropData.bind(this);
     this.removeCropRow = this.removeCropRow.bind(this);
     this.renderTableRows = this.renderTableRows.bind(this);
     this.renderCropsRows = this.renderCropsRows.bind(this);
-    this.getDataFromTableRow = this.getDataFromTableRow.bind(this);
+    this.getDataFromTableById = this.getDataFromTableById.bind(this);
     this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
@@ -25,43 +30,67 @@ class InsertPage extends React.Component {
   }
 
   addCropElem(cropId) {
-    Meteor.call('record.insert', 2016, null, cropId, "", "", 0, 0, 'planned');
+    const placeId = this.state.placeId;//localStorage.getItem('placeId');
+    const placeType = this.state.placeType;//localStorage.getItem('placeType');
+    console.log(placeId + "   " + placeType);
+    if(placeId && placeType === 'locality'){
+      Meteor.call('record.insert',{
+        marketingYear: 2016,
+        reproduction: "",
+        cropCapacity: 0,
+        placeId,
+        cropId,
+        square: 0,
+        status: 'planned',
+        sort: "",
+      });
+    }
+    else
+      alert('no place selected')
   }
 
-  getDataFromTableRow(tr){
-    const data = {}
-    data.sort = tr.children[1].children[0].value;
-    data.reproduction = tr.children[1].children[1].value;
-    data.square = tr.children[2].children[0].value;
-    data.cropCapacity = tr.children[3].children[0].value;
-    data.status = tr.children[4].children[0].value;
+  getDataFromTableById(id){
+    const data = {};
+    const ref = 'crop' + id;
+
+    data.cropCapacity = this.refs['cropCapacity' + id].value;
+    data.reproduction = this.refs['reproduction' + id].value;
+    data.square = this.refs['square' + id].value;
+    data.status = this.refs['status' + id].value;
+    data.sort = this.refs['sort' + id].value;
     return data;
   }
 
   saveCropData(){
-    const cropElems = document.getElementsByClassName('cropData');
-
-    Array.prototype.forEach.call(cropElems, (elem) => {
-      const data = this.getDataFromTableRow(elem)
-      Meteor.call('record.update', {_id: elem.id}, data)
-    })
-    console.log(cropElems);
-    this.getDataFromTableRow(cropElems[0]);
+    const placeId = this.state.placeId;//localStorage.getItem('placeId');
+    const placeType = this.state.placeType;//localStorage.getItem('placeType');
+    if(placeId && placeType === 'locality'){
+      const cropsIds = Records.find({userId: this.props.user._id}, {_id: 1})
+      cropsIds.forEach( (crop) => {
+        const cropId = crop._id;
+        const data = this.getDataFromTableById(cropId);
+        Meteor.call('record.update', {_id:cropId}, data)
+      })
+    }
+    else
+      alert('no place selected')
   }
 
   renderInsertedCropsRows(crop) {
-    const cropData = Records.find({cropId:crop.id});
+    const placeId = this.state.placeId;//localStorage.getItem('placeId');
+    const userId = this.props.user._id;
+    const cropData = Records.find({cropId:crop.id, placeId, userId});
     return cropData.map( (crop) => {
       return (
-        <tr id={crop._id} key={crop._id} className="cropData">
+        <tr id={crop._id} key={crop._id} ref={'crop' + crop._id} className="cropData">
           <td>_</td>
           <td>
-            <input type="text" defaultValue={crop.sort} placeholder="сорт"/>
-            <input type="text" defaultValue={crop.reproduction} placeholder="репродукція"/>
+            <input type="text" ref={"sort"+crop._id} defaultValue={crop.sort} placeholder="сорт"/>
+            <input type="text" ref={"reproduction"+crop._id} defaultValue={crop.reproduction} placeholder="репродукція"/>
           </td>
-          <td><input type="number" defaultValue={crop.square}/></td>
-          <td><input type="number" defaultValue={crop.cropCapacity}/></td>
-          <td><input type="text" defaultValue={crop.status}/></td>
+          <td><input type="number" ref={"square"+crop._id} defaultValue={crop.square}/></td>
+          <td><input type="number" ref={"cropCapacity"+crop._id} defaultValue={crop.cropCapacity}/></td>
+          <td><input type="text"  ref={"status"+crop._id} defaultValue={crop.status}/></td>
           <td onClick={() => this.removeCropRow(crop._id)}>Remove</td>
         </tr>
       )
@@ -89,7 +118,7 @@ class InsertPage extends React.Component {
     return this.props.groups.map( (group) => {
       const crops = Crops.find({group:group.id}).fetch();
       const rows = this.renderCropsRows(crops);
-      rows.unshift(<tr key={group.id}>
+      rows.unshift(<tr key={group.id} >
         <td></td>
         <td>{group.name}</td>
         <td></td>
@@ -101,22 +130,36 @@ class InsertPage extends React.Component {
     })
   }
 
+  selectPlace(place) {
+    console.log(place);
+    console.log(place.place_id,);
+    console.log(place.types[0]);
+    this.setState( {
+      placeId: place.place_id,
+      placeType : place.types[0]
+    }, () => {
+      console.log(this.state);
+    })
+
+  }
+
   render() {
+    if (Meteor.user())
     return (
       <div>
         <h2>Insert Page</h2>
-        <SearchBar />
-        <form onSubmit={(e) => {e.preventDefault(); e.persist(); console.log(e.target.elements)}}>
+        <SearchBar selectPlace={this.selectPlace}/>
           <button onClick={this.saveCropData}>Save</button>
-          <input type="submit" />
           <table ref="insertTable">
             <TableHeader />
             <tbody ref="insertTableBody">
               {this.renderTableRows()}
             </tbody>
           </table>
-        </form>
       </div>
+    )
+    else return(
+      <h3>Please auth to insert</h3>
     )
   }
 }

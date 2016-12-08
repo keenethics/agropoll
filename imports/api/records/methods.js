@@ -5,20 +5,20 @@ import { Meteor } from 'meteor/meteor';
 import { Records } from './records.js';
 
 Meteor.methods({
-  'record.insert'(marketingYear, palceId, cropId, sort, reproduction, square, cropCapacity, status) {
+  'record.insert'({ marketingYear, placeId, cropId, sort, reproduction, square, cropCapacity, status }) {
     // check(url, String);
     // check(title, String);
 
     return Records.insert({
       userId: this.userId,
       marketingYear,
-      palceId,
-      cropId,
-      sort,
       reproduction,
-      square,
       cropCapacity,
+      placeId,
+      cropId,
+      square,
       status,
+      sort,
 
       updatedAt: Date.now(),
     });
@@ -26,7 +26,15 @@ Meteor.methods({
   'record.removeOne'(_id) {
     return Records.remove({_id})
   },
-  'record.update' (criteria, data) {
-    return Records.update(criteria, {$set: data} );
+  'record.update' (criteria, { sort, reproduction, square, cropCapacity, status }) {
+    return Records.update(criteria, {$set: {
+      reproduction,
+      cropCapacity,
+      square,
+      status,
+      sort,
+
+      updatedAt: Date.now(),
+    }} );
   }
 });

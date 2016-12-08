@@ -13,7 +13,7 @@ class InsertPage extends React.Component {
     this.state = {
       placeId: null,
       placeType: null,
-    },
+    };
 
     this.selectPlace = this.selectPlace.bind(this);
     this.addCropElem = this.addCropElem.bind(this);

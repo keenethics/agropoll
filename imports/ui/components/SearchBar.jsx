@@ -29,9 +29,9 @@ class SearchBar extends React.Component {
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       console.log(place);
-      this.setState({selectedPlace: place})
-      localStorage.setItem("placeId", place.place_id )
-      localStorage.setItem("placeType", place.types[0] )
+      this.setState({ selectedPlace: place })
+      localStorage.setItem("placeId", place.place_id)
+      localStorage.setItem("placeType", place.types[0])
     });
 
     this.setState({ autocomplete })
@@ -42,7 +42,7 @@ class SearchBar extends React.Component {
   }
 
   submitPlace() {
-    if(this.state.selectedPlace){
+    if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace);
       this.props.selectPlace(this.state.selectedPlace);
       this.setFullAddress();
@@ -51,13 +51,13 @@ class SearchBar extends React.Component {
   }
 
   setFullAddress() {
-    const place  = this.state.selectedPlace;
+    const place = this.state.selectedPlace;
     var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
 
     if (place.address_components.length === 4 &&
       !place.address_components[1].long_name.includes('міськрада') &&
-      !place.address_components[1].long_name.includes('місто')){
-        let positionOfComa = fullAddress.indexOf(',');
+      !place.address_components[1].long_name.includes('місто')) {
+        const positionOfComa = fullAddress.indexOf(',');
         fullAddress = [
           fullAddress.slice(0, positionOfComa),
           ", ",
@@ -65,7 +65,7 @@ class SearchBar extends React.Component {
           fullAddress.slice(positionOfComa)
         ].join('');
     }
-    this.setState({fullAddress})
+    this.setState({ fullAddress })
   }
 
   render() {
@@ -75,18 +75,18 @@ class SearchBar extends React.Component {
         <input className="input input-country"
           ref="inputCountry"
           type="text"
-          placeholder="Country..."/>
-        <button onClick={this.submitPlace}>Select</button>
-        <span>{this.state.fullAddress}</span>
+          placeholder="Country..." />
+        <button onClick={ this.submitPlace }>Select</button>
+        <span>{ this.state.fullAddress }</span>
       </div>
     )
   }
 }
 
-export default createContainer (( {params} ) => {
+export default createContainer(({ params }) => {
   const user = Meteor.user();
 
   return {
-    user
+    user,
   }
 }, SearchBar)

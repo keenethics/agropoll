@@ -13,7 +13,7 @@ class StatisticsPage extends React.Component {
   sumOfSquares(cropId) {
     return this.props.records.
       filter((item) => item.cropId === cropId).
-      reduce((sum, item) => sum + item.square, 0)
+      reduce((sum, item) => sum + +item.square, 0)
   }
 
   avgCropCapacity(cropId) {
@@ -72,7 +72,7 @@ class StatisticsPage extends React.Component {
   }
 }
 
-export default createContainer (( {params} ) => {
+export default createContainer (({ params }) => {
   const user = Meteor.user();
   const cropsHandler = Meteor.subscribe('crops.all');
   const groupsHandler = Meteor.subscribe('groups.all');

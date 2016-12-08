@@ -13,7 +13,7 @@ class StatisticsPage extends React.Component {
   sumOfSquares(cropId) {
     return this.props.records.
       filter((item) => item.cropId === cropId).
-      reduce((sum, item) => sum + +item.square, 0)
+      reduce((sum, item) => sum + +item.square, 0);
   }
 
   avgCropCapacity(cropId) {
@@ -24,9 +24,13 @@ class StatisticsPage extends React.Component {
 
   }
 
-  render() {
-    console.log('-->',this.props);
+  totalYield(cropId) {
+    return this.props.records.
+      filter((item) => item.cropId === cropId).
+      reduce((sum, item) => sum + item.square * item.cropCapacity, 0);
+  }
 
+  render() {
     return (
       <div>
         <h3>Statistics Page</h3>
@@ -38,7 +42,7 @@ class StatisticsPage extends React.Component {
             <div className="cell"></div>
             <div className="cell">Культура</div>
             <div className="cell">Площа</div>
-            <div className="cell">Урожайність</div>
+            <div className="cell">Валовий збір</div>
             <div className="cell"></div>
           </div>
           {this.props.groups.map(group => (
@@ -55,7 +59,7 @@ class StatisticsPage extends React.Component {
                     {this.sumOfSquares(crop.id)}
                   </div>
                   <div className="cell">
-                    {this.avgCropCapacity(crop.id)}
+                    {this.totalYield(crop.id)}
                   </div>
                   <div className="cell"></div>
                 </div>

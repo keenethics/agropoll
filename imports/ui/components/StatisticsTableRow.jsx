@@ -1,11 +1,6 @@
 import React from 'react';
-// import { createContainer } from 'meteor/react-meteor-data';
-// import { browserHistory } from 'react-router';
-// import { Crops, Groups } from '/imports/api/crops/crops.js';
-// import { Records } from '/imports/api/records/records.js';
-// import SearchBar from '/imports/ui/components/SearchBar.jsx';
 
-export default class StatisticsPageRow extends React.Component {
+export default class StatisticsTableRow extends React.Component {
   constructor(props) {
     super(props);
   }

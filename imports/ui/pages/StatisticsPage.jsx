@@ -4,12 +4,18 @@ import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
-import StatisticsPageRow from '/imports/ui/components/StatisticsPageRow.jsx';
-import StatisticsPageHeader from '/imports/ui/components/StatisticsPageHeader.jsx';
+import StatisticsTableRow from '/imports/ui/components/StatisticsTableRow.jsx';
+import StatisticsTableHeader from '/imports/ui/components/StatisticsTableHeader.jsx';
 
 class StatisticsPage extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  renderRows(group) {
+    return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
+      <StatisticsTableRow crop={crop} key={crop.id} records={this.props.records} />
+    ));
   }
 
   render() {
@@ -20,19 +26,17 @@ class StatisticsPage extends React.Component {
         <SearchBar />
 
         <div>
-          <StatisticsPageHeader />
+          <StatisticsTableHeader />
           {this.props.groups.map(group => (
             <div key={group.id}>
               <div className="row">
                 <div className="head">{group.name}</div>
               </div>
-              {this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-                <StatisticsPageRow crop={crop} key={crop.id} records={this.props.records} />
-              ))}
+              {this.renderRows(group)}
             </div>
           ))}
         </div>
-        
+
       </div>
     );
   }

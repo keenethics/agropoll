@@ -15,8 +15,10 @@ class SearchBar extends React.Component {
 
   componentDidMount() {
     this.inputCountry =  this.refs.inputCountry;
-    localStorage.setItem("placeId", null )
-    localStorage.setItem("placeType", null )
+    //localStorage.getItem("placeId")
+    //localStorage.getItem("placeType")
+    const fullAddress = localStorage.getItem("fullAddress");
+    this.setState({ fullAddress })
     const autocomplete =
       this.initGoogleAutocomplete(
         this.inputCountry,
@@ -24,7 +26,7 @@ class SearchBar extends React.Component {
           types: ['(regions)'],
           componentRestrictions: {country: "ua"}
         }
-      )
+      );
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
@@ -65,6 +67,7 @@ class SearchBar extends React.Component {
           fullAddress.slice(positionOfComa)
         ].join('');
     }
+    localStorage.setItem('fullAddress', fullAddress);
     this.setState({ fullAddress })
   }
 

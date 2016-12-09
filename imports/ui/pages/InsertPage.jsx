@@ -32,10 +32,28 @@ class InsertPage extends React.Component {
     Meteor.call('record.removeOne', id);
   }
 
+  componentWillMount() {
+    const placeId = localStorage.getItem('placeId');
+    const placeType = localStorage.getItem('placeType');
+    const marketingYear = localStorage.getItem('marketingYear');
+    this.setState({
+      placeId,
+      placeType,
+      marketingYear,
+    });
+  }
+
   getSquareValue(cropId) {
     return this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
         return a + +b.square
       }, 0)
+  }
+
+  getAvgCapacityValue(cropId, square) {
+    const capacity = this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
+        return a + (+b.square * +b.cropCapacity)
+      }, 0);
+    return capacity / square;
   }
 
   addCropElem(cropId) {
@@ -90,7 +108,12 @@ class InsertPage extends React.Component {
     const placeId = this.state.placeId;
     const userId = this.props.user._id;
     const marketingYear = this.state.marketingYear;
-    const cropsData = Records.find({ cropId:crop.id, placeId, userId, marketingYear });
+    const cropsData = Records.find({
+      cropId: crop.id,
+      'location.placeId': placeId,
+      userId,
+      marketingYear,
+    });
     return cropsData.map((cropData) => {
       return (
         <tr id={cropData._id} key={cropData._id} ref={'crop' + cropData._id} className="cropData">
@@ -113,15 +136,16 @@ class InsertPage extends React.Component {
     const marketingYear = this.state.marketingYear;
     const placeType = this.state.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
-    return crops.map( (crop) => {
+    return crops.map((crop) => {
       rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
+      const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
       rows.unshift(
         <tr id={crop.id} key={crop.id}>
           <td>{canAdd && <span onClick={() => this.addCropElem(crop.id)}>add</span> || ""}</td>
           <td>{crop.name}</td>
           <td>{rows.length && squareValue || ""}</td>
-          <td></td>
+          <td>{rows.length && avgCapacity || ""}</td>
           <td></td>
           <td></td>
         </tr>
@@ -150,16 +174,17 @@ class InsertPage extends React.Component {
     console.log(place);
     console.log(place.place_id);
     console.log(place.types[0]);
+    localStorage.setItem('placeId', place.place_id);
+    localStorage.setItem('placeType', place.types[0]);
     this.setState({
       placeId: place.place_id,
       placeType: place.types[0],
-    }, () => {
-      console.log(this.state);
     });
 
   }
 
   selectYear(e){
+    localStorage.setItem('marketingYear', e.target.value);
     this.setState({ marketingYear: e.target.value });
   }
 
@@ -170,7 +195,7 @@ class InsertPage extends React.Component {
         <h2>Insert Page</h2>
         <SearchBar selectPlace={this.selectPlace}/>
           <button onClick={this.saveCropData}>Save</button>
-          <select defaultValue="" onChange={this.selectYear}>
+          <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
             <option disabled value="">Select year</option>
             <option>2016</option>
             <option>2017</option>

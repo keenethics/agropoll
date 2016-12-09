@@ -32,6 +32,20 @@ class InsertPage extends React.Component {
     Meteor.call('record.removeOne', id);
   }
 
+  componentWillMount() {
+    const placeId = localStorage.getItem('placeId');
+    const placeType = localStorage.getItem('placeType');
+    const marketingYear = localStorage.getItem('marketingYear');
+    console.log(placeId + '\n' + placeType);
+    this.setState({
+      placeId,
+      placeType,
+      marketingYear,
+    }, () => {
+      console.log(this.state);
+    });
+  }
+
   getSquareValue(cropId) {
     return this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
         return a + +b.square
@@ -97,8 +111,8 @@ class InsertPage extends React.Component {
     const placeId = this.state.placeId;
     const userId = this.props.user._id;
     const marketingYear = this.state.marketingYear;
-    const cropsData = Records.find({ 
-      cropId:crop.id,
+    const cropsData = Records.find({
+      cropId: crop.id,
       'location.placeId': placeId,
       userId,
       marketingYear,
@@ -125,7 +139,8 @@ class InsertPage extends React.Component {
     const marketingYear = this.state.marketingYear;
     const placeType = this.state.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
-    return crops.map( (crop) => {
+    return crops.map((crop) => {
+      console.log(this.state);
       rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
@@ -163,6 +178,9 @@ class InsertPage extends React.Component {
     console.log(place);
     console.log(place.place_id);
     console.log(place.types[0]);
+    localStorage.setItem('placeId', place.place_id);
+    localStorage.setItem('placeType', place.types[0]);
+    console.log(this.state);
     this.setState({
       placeId: place.place_id,
       placeType: place.types[0],
@@ -173,6 +191,7 @@ class InsertPage extends React.Component {
   }
 
   selectYear(e){
+    localStorage.setItem('marketingYear', e.target.value);
     this.setState({ marketingYear: e.target.value });
   }
 
@@ -183,7 +202,7 @@ class InsertPage extends React.Component {
         <h2>Insert Page</h2>
         <SearchBar selectPlace={this.selectPlace}/>
           <button onClick={this.saveCropData}>Save</button>
-          <select defaultValue="" onChange={this.selectYear}>
+          <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
             <option disabled value="">Select year</option>
             <option>2016</option>
             <option>2017</option>

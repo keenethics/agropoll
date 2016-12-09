@@ -208,7 +208,7 @@ class InsertPage extends React.Component {
           </table>
       </div>
     )
-    else return(
+    else return (
       <h3>Please auth to insert</h3>
     )
   }

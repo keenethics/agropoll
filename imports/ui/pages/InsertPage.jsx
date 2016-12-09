@@ -36,13 +36,10 @@ class InsertPage extends React.Component {
     const placeId = localStorage.getItem('placeId');
     const placeType = localStorage.getItem('placeType');
     const marketingYear = localStorage.getItem('marketingYear');
-    console.log(placeId + '\n' + placeType);
     this.setState({
       placeId,
       placeType,
       marketingYear,
-    }, () => {
-      console.log(this.state);
     });
   }
 
@@ -140,7 +137,6 @@ class InsertPage extends React.Component {
     const placeType = this.state.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
     return crops.map((crop) => {
-      console.log(this.state);
       rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
@@ -180,12 +176,9 @@ class InsertPage extends React.Component {
     console.log(place.types[0]);
     localStorage.setItem('placeId', place.place_id);
     localStorage.setItem('placeType', place.types[0]);
-    console.log(this.state);
     this.setState({
       placeId: place.place_id,
       placeType: place.types[0],
-    }, () => {
-      console.log(this.state);
     });
 
   }

@@ -38,6 +38,13 @@ class InsertPage extends React.Component {
       }, 0)
   }
 
+  getAvgCapacityValue(cropId, square) {
+    const capacity = this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
+        return a + (+b.square * +b.cropCapacity)
+      }, 0);
+    return capacity / square;
+  }
+
   addCropElem(cropId) {
     const placeId = this.state.placeId;
     const placeType = this.state.placeType;
@@ -90,7 +97,12 @@ class InsertPage extends React.Component {
     const placeId = this.state.placeId;
     const userId = this.props.user._id;
     const marketingYear = this.state.marketingYear;
-    const cropsData = Records.find({ cropId:crop.id, placeId, userId, marketingYear });
+    const cropsData = Records.find({ 
+      cropId:crop.id,
+      'location.placeId': placeId,
+      userId,
+      marketingYear,
+    });
     return cropsData.map((cropData) => {
       return (
         <tr id={cropData._id} key={cropData._id} ref={'crop' + cropData._id} className="cropData">
@@ -116,12 +128,13 @@ class InsertPage extends React.Component {
     return crops.map( (crop) => {
       rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
+      const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
       rows.unshift(
         <tr id={crop.id} key={crop.id}>
           <td>{canAdd && <span onClick={() => this.addCropElem(crop.id)}>add</span> || ""}</td>
           <td>{crop.name}</td>
           <td>{rows.length && squareValue || ""}</td>
-          <td></td>
+          <td>{rows.length && avgCapacity || ""}</td>
           <td></td>
           <td></td>
         </tr>

@@ -22,7 +22,6 @@ const getParentLocations = (locationObj, parentId) => {
   if (parentLocation.parentId)
     locationObj = getParentLocations(locationObj, parentLocation.parentId);
 
-  return locationObj;
 }
 
 Meteor.methods({
@@ -30,7 +29,7 @@ Meteor.methods({
     // check(url, String);
     // check(title, String);
     const location = Localities.findOne({ placeId: placeId });
-    let locationObj = {
+    const locationObj = {
       placeId: location.placeId,
       administrative_area_level_1: null,
       administrative_area_level_2: null,
@@ -38,10 +37,8 @@ Meteor.methods({
     };
 
     if (location.parentId){
-      locationObj = getParentLocations(locationObj, location.parentId);
+      getParentLocations(locationObj, location.parentId);
     }
-
-    console.log(locationObj);
 
     return Records.insert({
       userId: this.userId,

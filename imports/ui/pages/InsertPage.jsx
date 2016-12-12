@@ -3,19 +3,25 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
+import { Localities } from '/imports/api/localities/localities.js';
 
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
+import LocationPin from '/imports/ui/components/LocationPin.jsx';
 import TableHeader from '/imports/ui/components/TableHeader.jsx';
 
 class InsertPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      placeId: null,
-      placeType: null,
-      marketingYear: null,
+      placeId: localStorage.getItem('placeId'),
+      placeType: localStorage.getItem('placeType'),
+      marketingYear: localStorage.getItem('marketingYear'),
+      fullAddress: localStorage.getItem('fullAddress'),
     };
 
+
+    this.goToPin = this.goToPin.bind(this);
+    this.renderPins = this.renderPins.bind(this);
     this.selectYear = this.selectYear.bind(this);
     this.selectPlace = this.selectPlace.bind(this);
     this.addCropElem = this.addCropElem.bind(this);
@@ -28,19 +34,13 @@ class InsertPage extends React.Component {
     this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
-  removeCropRow(id) {
-    Meteor.call('record.removeOne', id);
+  goToPin(locationId) {
+    const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
+    this.setState({ placeId: locationId, fullAddress })
   }
 
-  componentWillMount() {
-    const placeId = localStorage.getItem('placeId');
-    const placeType = localStorage.getItem('placeType');
-    const marketingYear = localStorage.getItem('marketingYear');
-    this.setState({
-      placeId,
-      placeType,
-      marketingYear,
-    });
+  removeCropRow(id) {
+    Meteor.call('record.removeOne', id);
   }
 
   getSquareValue(cropId) {
@@ -87,6 +87,15 @@ class InsertPage extends React.Component {
     data.status = this.refs['status' + id].value;
     data.sort = this.refs['sort' + id].value;
     return data;
+  }
+
+  renderPins() {
+    const placesId = this.props.user.profile.locations;
+    return placesId.map((placeId) => {
+      if (this.props.localities.length){
+      const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
+      return <div key={placeId} onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
+    });
   }
 
   saveCropData() {
@@ -170,15 +179,17 @@ class InsertPage extends React.Component {
     })
   }
 
-  selectPlace(place) {
+  selectPlace({ place, fullAddress }) {
     console.log(place);
     console.log(place.place_id);
     console.log(place.types[0]);
     localStorage.setItem('placeId', place.place_id);
     localStorage.setItem('placeType', place.types[0]);
+    localStorage.setItem('fullAddress', fullAddress);
     this.setState({
       placeId: place.place_id,
       placeType: place.types[0],
+      fullAddress,
     });
 
   }
@@ -193,13 +204,14 @@ class InsertPage extends React.Component {
     return (
       <div>
         <h2>Insert Page</h2>
-        <SearchBar selectPlace={this.selectPlace}/>
+        <SearchBar selectPlace={this.selectPlace}/> <span>{this.state.fullAddress}</span>
           <button onClick={this.saveCropData}>Save</button>
           <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
             <option disabled value="">Select year</option>
             <option>2016</option>
             <option>2017</option>
           </select>
+          {this.renderPins()}
           <table ref="insertTable">
             <TableHeader />
             <tbody ref="insertTableBody">
@@ -208,7 +220,7 @@ class InsertPage extends React.Component {
           </table>
       </div>
     )
-    else return (
+    else return(
       <h3>Please auth to insert</h3>
     )
   }
@@ -219,11 +231,13 @@ export default createContainer (({ params }) => {
   const cropsHandler = Meteor.subscribe('crops.all');
   const groupsHandler = Meteor.subscribe('groups.all');
   const recordsHandler = Meteor.subscribe('records.user', Meteor.userId());
+  const localitiesHandler = Meteor.subscribe('localities.all');
 
   return {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
     records: Records.find({}).fetch(),
+    localities: Localities.find({}).fetch(),
   };
 }, InsertPage)

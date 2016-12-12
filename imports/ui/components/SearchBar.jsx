@@ -17,8 +17,8 @@ class SearchBar extends React.Component {
     this.inputCountry =  this.refs.inputCountry;
     //localStorage.getItem("placeId")
     //localStorage.getItem("placeType")
-    const fullAddress = localStorage.getItem("fullAddress");
-    this.setState({ fullAddress })
+    // const fullAddress = localStorage.getItem("fullAddress");
+    // this.setState({ fullAddress })
     const autocomplete =
       this.initGoogleAutocomplete(
         this.inputCountry,
@@ -46,8 +46,8 @@ class SearchBar extends React.Component {
   submitPlace() {
     if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace);
-      this.props.selectPlace(this.state.selectedPlace);
-      this.setFullAddress();
+      const fullAddress = this.setFullAddress();
+      this.props.selectPlace({ place: this.state.selectedPlace, fullAddress });
       console.log(this.state);
     }
   }
@@ -67,8 +67,9 @@ class SearchBar extends React.Component {
           fullAddress.slice(positionOfComa)
         ].join('');
     }
-    localStorage.setItem('fullAddress', fullAddress);
-    this.setState({ fullAddress })
+    //localStorage.setItem('fullAddress', fullAddress);
+    //this.setState({ fullAddress });
+    return fullAddress;
   }
 
   render() {
@@ -80,7 +81,6 @@ class SearchBar extends React.Component {
           type="text"
           placeholder="Country..." />
         <button onClick={ this.submitPlace }>Select</button>
-        <span>{ this.state.fullAddress }</span>
       </div>
     )
   }

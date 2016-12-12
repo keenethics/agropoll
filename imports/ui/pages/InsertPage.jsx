@@ -41,7 +41,7 @@ class InsertPage extends React.Component {
 
   hasUserThisCrop(crop) {
     return this.props.records.find((elem) => {
-      return (elem.cropId === crop.id)
+      return (elem.cropId === crop.id && elem.location.placeId === this.state.placeId)
     })
   }
 

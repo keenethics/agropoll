@@ -18,8 +18,8 @@ class InsertPage extends React.Component {
       marketingYear: localStorage.getItem('marketingYear'),
       fullAddress: localStorage.getItem('fullAddress'),
     };
-
-
+    this.hasUserThisCrop = this.hasUserThisCrop.bind(this);
+    this.collapseCrops = this.collapseCrops.bind(this);
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
     this.selectYear = this.selectYear.bind(this);
@@ -39,18 +39,52 @@ class InsertPage extends React.Component {
     this.setState({ placeId: locationId, fullAddress })
   }
 
+  hasUserThisCrop(crop) {
+    return this.props.records.find((elem) => {
+      return (elem.cropId === crop.id)
+    })
+  }
+
+  collapseCrops(e){
+    const elementsToHide = e.target.parentElement.parentElement.children;
+    const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
+    arrElementsToHide.shift()
+    if (!arrElementsToHide[0].className.includes('hidden')) {
+      arrElementsToHide.forEach((elem) => {
+        if (!elem.className.includes('hidden'))
+          elem.className += ' hidden';
+      })
+    } else {
+      arrElementsToHide.forEach((elem) => {
+        elem.className = elem.className.replace(' hidden', "");
+      })
+    }
+  }
+
   removeCropRow(id) {
     Meteor.call('record.removeOne', id);
   }
 
   getSquareValue(cropId) {
-    return this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
+    const placeId = this.state.placeId;
+    const userId = this.props.user._id;
+    const marketingYear = this.state.marketingYear;
+    return this.props.records.filter((record) => {
+      return (record.cropId === cropId && record.location.placeId === placeId &&
+        record.userId === userId && record.marketingYear === marketingYear)
+    }).reduce((a, b) => {
         return a + +b.square
       }, 0)
   }
 
   getAvgCapacityValue(cropId, square) {
-    const capacity = this.props.records.filter((record) => record.cropId === cropId).reduce((a, b) => {
+    const placeId = this.state.placeId;
+    const userId = this.props.user._id;
+    const marketingYear = this.state.marketingYear;
+    const capacity = this.props.records.filter((record) => {
+      return (record.cropId === cropId && record.location.placeId === placeId &&
+        record.userId === userId && record.marketingYear === marketingYear)
+    }).reduce((a, b) => {
         return a + (+b.square * +b.cropCapacity)
       }, 0);
     return capacity / square;
@@ -80,7 +114,6 @@ class InsertPage extends React.Component {
   getDataFromTableById(id) {
     const data = {};
     const ref = 'crop' + id;
-
     data.cropCapacity = this.refs['cropCapacity' + id].value;
     data.reproduction = this.refs['reproduction' + id].value;
     data.square = this.refs['square' + id].value;
@@ -100,9 +133,15 @@ class InsertPage extends React.Component {
 
   saveCropData() {
     const placeId = this.state.placeId;
+    const userId = this.props.user._id;
     const placeType = this.state.placeType;
+    const marketingYear = this.state.marketingYear;
     if (placeId && placeType === 'locality') {
-      const cropsIds = Records.find({ userId: this.props.user._id }, { _id: 1 })
+      const cropsIds = Records.find({
+        'location.placeId': placeId,
+        userId,
+        marketingYear,
+      }, { _id: 1 })
       cropsIds.forEach((crop) => {
         const cropId = crop._id;
         const data = this.getDataFromTableById(cropId);
@@ -124,18 +163,23 @@ class InsertPage extends React.Component {
       marketingYear,
     });
     return cropsData.map((cropData) => {
-      return (
-        <tr id={cropData._id} key={cropData._id} ref={'crop' + cropData._id} className="cropData">
-          <td>_</td>
-          <td>
-            <input type="text" ref={"sort"+cropData._id} defaultValue={cropData.sort} placeholder="сорт"/>
-            <input type="text" ref={"reproduction"+cropData._id} defaultValue={cropData.reproduction} placeholder="репродукція"/>
-          </td>
-          <td><input type="number" ref={"square"+cropData._id} defaultValue={cropData.square}/></td>
-          <td><input type="number" ref={"cropCapacity"+cropData._id} defaultValue={cropData.cropCapacity}/></td>
-          <td><input type="text"  ref={"status"+cropData._id} defaultValue={cropData.status}/></td>
-          <td onClick={() => this.removeCropRow(cropData._id)}>Remove</td>
-        </tr>
+      return(
+        <div className={"trow"} key={cropData._id}>
+          <div className="tcoll0 "></div>
+          <div className="tcoll1 tcell">
+            <input className="input" type="text" ref={"sort"+cropData._id} defaultValue={cropData.sort} placeholder="сорт"/>
+            <input className="input" type="text" ref={"reproduction"+cropData._id} defaultValue={cropData.reproduction} placeholder="репродукція"/>
+          </div>
+          <div className="tcoll2 tcell">
+            <input className="input" type="number" ref={"square"+cropData._id} defaultValue={cropData.square}/>
+          </div>
+          <div className="tcoll3 tcell">
+            <input className="input" type="number" ref={"cropCapacity"+cropData._id} defaultValue={cropData.cropCapacity}/>
+          </div>
+          <div className="tcoll4 tcell">
+            <input className="input" type="text"  ref={"status"+cropData._id} defaultValue={cropData.status}/></div>
+          <div className="tcoll5 " onClick={() => this.removeCropRow(cropData._id)}>Remove</div>
+        </div>
       )
     })
   }
@@ -146,36 +190,41 @@ class InsertPage extends React.Component {
     const placeType = this.state.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
     return crops.map((crop) => {
-      rows = this.renderInsertedCropsRows(crop);
+      //rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
-      rows.unshift(
-        <tr id={crop.id} key={crop.id}>
-          <td>{canAdd && <span onClick={() => this.addCropElem(crop.id)}>add</span> || ""}</td>
-          <td>{crop.name}</td>
-          <td>{rows.length && squareValue || ""}</td>
-          <td>{rows.length && avgCapacity || ""}</td>
-          <td></td>
-          <td></td>
-        </tr>
+      const hiddenClass = this.hasUserThisCrop(crop) ? "" : " hidden";
+      return (
+        <div key={crop.id} className={hiddenClass}>
+          <div className="trow">
+            <div className="tcoll0">
+              { canAdd && <span onClick={() => this.addCropElem(crop.id)}>add</span> || "" }
+            </div>
+            <div className="tcoll1 tcell">{ crop.name }</div>
+            <div className="tcoll2 tcell">{ squareValue || "" }</div>
+            <div className="tcoll3 tcell">{ avgCapacity && avgCapacity.toFixed(4) || "" }</div>
+            <div className="tcoll4 tcell"></div>
+            <div className="tcoll5"></div>
+          </div>
+          { this.renderInsertedCropsRows(crop) }
+        </div>
       )
-      return rows;
     })
   }
 
   renderTableRows() {
     return this.props.groups.map((group) => {
       const crops = Crops.find({ groupId: group.id }).fetch();
-      const rows = this.renderCropsRows(crops);
-      rows.unshift(<tr key={group.id} >
-        <td></td>
-        <td>{group.name}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>)
-      return rows;
+      //const rows = this.renderCropsRows(crops);
+      return (
+        <div key={group.id}>
+          <div className="trow">
+            <div className="tcoll0" onClick={this.collapseCrops} >++++</div>
+            {group.name}
+          </div>
+          { this.renderCropsRows(crops) }
+        </div>
+      )
     })
   }
 
@@ -212,12 +261,11 @@ class InsertPage extends React.Component {
             <option>2017</option>
           </select>
           {this.renderPins()}
-          <table ref="insertTable">
+          <div className="table">
             <TableHeader />
-            <tbody ref="insertTableBody">
-              {this.renderTableRows()}
-            </tbody>
-          </table>
+            {this.renderTableRows()}
+          </div>
+
       </div>
     )
     else return(

@@ -19,6 +19,7 @@ Meteor.startup (() => {
         <Route path="redirect" component={RedirectPage} />
         <Route path="statistics" component={StatisticsPage} />
         <Route path="insert" component={InsertPage} />
+        <Route path="insert/:placeId" component={InsertPage} />
       </Route>
     </Router>,
     document.getElementById('react-root')

@@ -1,9 +1,10 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { browserHistory, Link } from 'react-router'
 
-import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
 import { Localities } from '/imports/api/localities/localities.js';
+import { Crops, Groups } from '/imports/api/crops/crops.js';
 
 import SearchBar from '/imports/ui/components/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/LocationPin.jsx';
@@ -190,7 +191,6 @@ class InsertPage extends React.Component {
     const placeType = this.state.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
     return crops.map((crop) => {
-      //rows = this.renderInsertedCropsRows(crop);
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
       const hiddenClass = this.hasUserThisCrop(crop) ? "" : " hidden";
@@ -215,7 +215,6 @@ class InsertPage extends React.Component {
   renderTableRows() {
     return this.props.groups.map((group) => {
       const crops = Crops.find({ groupId: group.id }).fetch();
-      //const rows = this.renderCropsRows(crops);
       return (
         <div key={group.id}>
           <div className="trow">
@@ -235,6 +234,7 @@ class InsertPage extends React.Component {
     localStorage.setItem('placeId', place.place_id);
     localStorage.setItem('placeType', place.types[0]);
     localStorage.setItem('fullAddress', fullAddress);
+    browserHistory.push(`/insert/${place.place_id}`)
     this.setState({
       placeId: place.place_id,
       placeType: place.types[0],
@@ -249,26 +249,40 @@ class InsertPage extends React.Component {
   }
 
   render() {
-    if (Meteor.user())
-    return (
-      <div>
-        <h2>Insert Page</h2>
-        <SearchBar selectPlace={this.selectPlace}/> <span>{this.state.fullAddress}</span>
-          <button onClick={this.saveCropData}>Save</button>
-          <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
-            <option disabled value="">Select year</option>
-            <option>2016</option>
-            <option>2017</option>
-          </select>
-          {this.renderPins()}
-          <div className="table">
-            <TableHeader />
-            {this.renderTableRows()}
-          </div>
+    if (Meteor.user()) {
+      const placeId = this.props.routeParams.placeId;
+      const place = Localities.findOne({ placeId });
+      if (placeId && (!place || place.type !== 'locality')) {
+        return (
+          <h3>Nothing found</h3>
+        )
+      }
+      // if (placeId)
+      //   this.setState({
+      //     fullAddress: place.fullAddress,
+      //     placeType: place.type,
+      //     placeId,
+      //   });
+      return (
+        <div>
+          <h2>Insert Page</h2>
+          <SearchBar selectPlace={this.selectPlace}/> <span>{this.state.fullAddress}</span>
+            <button onClick={this.saveCropData}>Save</button>
+            <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
+              <option disabled value="">Select year</option>
+              <option>2016</option>
+              <option>2017</option>
+            </select>
+            {this.renderPins()}
+            <div className="table">
+              <TableHeader />
+              {this.renderTableRows()}
+            </div>
 
-      </div>
-    )
-    else return(
+        </div>
+      )
+    }
+    else return (
       <h3>Please auth to insert</h3>
     )
   }

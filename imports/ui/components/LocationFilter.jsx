@@ -29,12 +29,14 @@ class LocationFilter extends React.Component {
   }
 
   selectAdmAreaLev2() {
-
-    // return ();
+    console.log('-->', this.refs.selectAdmAreaLev2.value);
+    this.setState({
+      administrative_area_level_2: this.refs.selectAdmAreaLev2.value // this.refs.selectAdmAreaLev1.value,
+    });
   }
 
   renderAdmAreaLev2() {
-    return (<select onChange={this.selectAdmAreaLev2.bind(this)}>
+    return (<select ref="selectAdmAreaLev2" onChange={this.selectAdmAreaLev2.bind(this)}>
       <option key='Whole region' value='Whole region'>Whole region</option>
       {this.props.localities.
         filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state.administrative_area_level_1).

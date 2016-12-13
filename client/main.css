@@ -21,11 +21,60 @@
 /*------------End Navigation Bar------------*/
 
 /*++++++++++++++Table Insert++++++++++++++*/
-.collapse{
-  height: 0px;
+div.tcoll0 {
+  width: 5.56%;
+  padding: 3px;
+  display: inline-block;
 }
 
+div.tcoll1 {
+  width: 33.2%;
+}
 
+div.tcoll2 {
+  width: 16.66%;
+}
+
+div.tcoll3 {
+  width: 16.66%;
+}
+
+div.tcoll4 {
+  width: 16.66%;
+}
+
+div.tcoll5 {
+  width: 11.11%;
+  padding: 3px;
+  display: inline-block;
+}
+
+div.trow {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+div.tcell {
+  padding: 3px;
+  display: inline-block;
+  border: 1px solid red;
+}
+
+.input {
+  width: 100px;
+  margin-left: 5px;
+}
+
+.table {
+  overflow: hidden;
+  width: 80%;
+}
+
+.hidden {
+  overflow: hidden;
+  height: 0px;
+}
 /*------------End Table Insert------------*/
 
 div.row {

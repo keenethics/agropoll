@@ -7,17 +7,16 @@ export default class TableHeader extends React.Component{
   }
 
   render() {
-    return (
-      <thead>
-        <tr>
-          <th>_</th>
-          <th>Культура</th>
-          <th>Площа</th>
-          <th>Урожайність</th>
-          <th>Стан</th>
-          <th></th>
-        </tr>
-      </thead>
+    return(
+      <div className="trow">
+        <div className="tcoll0"></div>
+        <div className="tcoll1 tcell">Культура</div>
+        <div className="tcoll2 tcell">Площа</div>
+        <div className="tcoll3 tcell">Урожайність</div>
+        <div className="tcoll4 tcell">Стан</div>
+        <div className="tcoll5"></div>
+      </div>
     )
+
   }
 }

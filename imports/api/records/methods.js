@@ -40,6 +40,8 @@ Meteor.methods({
       getParentLocations(locationObj, location.parentId);
     }
 
+    Meteor.users.update({ _id: Meteor.userId() }, { $addToSet: { 'profile.locations': placeId } });
+
     return Records.insert({
       userId: this.userId,
       marketingYear,
@@ -55,6 +57,14 @@ Meteor.methods({
     });
   },
   'record.removeOne'(_id) {
+    const user = Meteor.users.findOne({ _id: Meteor.userId() });
+    const record = Records.findOne({ _id });
+    const placeId = record.location.placeId;
+    const usersRecords = Records.find({ 'location.placeId': placeId, userId: user._id}).fetch();
+    if (usersRecords.length < 2){
+      Meteor.users.update({ _id: Meteor.userId() },
+      { $pull: { 'profile.locations': { $in: [placeId] } } })
+    }
     return Records.remove({_id})
   },
   'record.update' (criteria, { sort, reproduction, square, cropCapacity, status }) {

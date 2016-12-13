@@ -17,7 +17,7 @@ class InsertPage extends React.Component {
       placeId: localStorage.getItem('placeId'),
       placeType: localStorage.getItem('placeType'),
       marketingYear: localStorage.getItem('marketingYear'),
-      fullAddress: localStorage.getItem('fullAddress'),
+      fullAddress: localStorage.getItem('placeId') && localStorage.getItem('fullAddress'),
       hideCrops: true,
     };
     this.hasUserThisCrop = this.hasUserThisCrop.bind(this);
@@ -134,7 +134,14 @@ class InsertPage extends React.Component {
     const userId = this.props.user._id;
     const placeType = this.state.placeType;
     const marketingYear = this.state.marketingYear;
-    if (placeId && placeType === 'locality') {
+    const place = Localities.findOne({ placeId });
+    if (!place){
+      localStorage.removeItem('placeId');
+      this.setState({
+        placeId
+      });
+    }
+    if (place && placeId && placeType === 'locality') {
       const cropsIds = Records.find({
         'location.placeId': placeId,
         userId,
@@ -247,13 +254,19 @@ class InsertPage extends React.Component {
 
   render() {
     if (Meteor.user()) {
-    //   const placeId = this.props.routeParams.placeId;
-    //   const place = Localities.findOne({ placeId });
-    //   if (placeId && (!place || place.type !== 'locality')) {
-    //     return (
-    //       <h3>Nothing found</h3>
-    //     )
-    //   }
+      const placeId = this.state.placeId;
+      const place = Localities.findOne({ placeId });
+      console.log(place);
+      if (!placeId || !place || !place.type === 'locality') {
+        localStorage.removeItem('placeId');
+        localStorage.removeItem('fullAddress');
+         return (
+           <div>
+             <h3>Select Place</h3>
+             <SearchBar selectPlace={this.selectPlace}/>
+           </div>
+         )
+      }
       // if (placeId)
       //   this.setState({
       //     fullAddress: place.fullAddress,

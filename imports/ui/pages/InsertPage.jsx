@@ -18,6 +18,7 @@ class InsertPage extends React.Component {
       placeType: localStorage.getItem('placeType'),
       marketingYear: localStorage.getItem('marketingYear'),
       fullAddress: localStorage.getItem('fullAddress'),
+      hideCrops: true,
     };
     this.hasUserThisCrop = this.hasUserThisCrop.bind(this);
     this.collapseCrops = this.collapseCrops.bind(this);
@@ -37,7 +38,7 @@ class InsertPage extends React.Component {
 
   goToPin(locationId) {
     const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
-    this.setState({ placeId: locationId, fullAddress })
+    this.setState({ placeId: locationId, fullAddress, hideCrops:true, })
   }
 
   hasUserThisCrop(crop) {
@@ -49,6 +50,9 @@ class InsertPage extends React.Component {
   collapseCrops(e){
     const elementsToHide = e.target.parentElement.parentElement.children;
     const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
+    this.setState({
+      hideCrops: false,
+    })
     arrElementsToHide.shift()
     arrElementsToHide.forEach((elem) => {
       elem.className = elem.className.replace(' hidden', "");
@@ -158,7 +162,7 @@ class InsertPage extends React.Component {
     });
     return cropsData.map((cropData) => {
       return(
-        <div className={"trow"} key={cropData._id}>
+        <div className="trow" key={cropData._id}>
           <div className="tcoll0 "></div>
           <div className="tcoll1 tcell">
             <input className="input" type="text" ref={"sort"+cropData._id} defaultValue={cropData.sort} placeholder="сорт"/>
@@ -186,7 +190,7 @@ class InsertPage extends React.Component {
     return crops.map((crop) => {
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
-      const hiddenClass = this.hasUserThisCrop(crop) ? "" : " hidden";
+      const hiddenClass = (!this.hasUserThisCrop(crop) && this.state.hideCrops )? " hidden" : "";
       return (
         <div key={crop.id} className={hiddenClass}>
           <div className="trow">

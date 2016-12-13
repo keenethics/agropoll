@@ -124,7 +124,7 @@ class InsertPage extends React.Component {
 
   renderPins() {
     const placesId = this.props.user.profile.locations;
-    return placesId.map((placeId) => {
+    return placesId && placesId.map((placeId) => {
       if (this.props.localities.length){
       const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
       return <div key={placeId} onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
@@ -288,4 +288,4 @@ export default createContainer (({ params }) => {
     records: Records.find({}).fetch(),
     localities: Localities.find({}).fetch(),
   };
-}, InsertPage)
+}, InsertPage);

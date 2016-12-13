@@ -3,9 +3,9 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
-import SearchBar from '/imports/ui/components/SearchBar.jsx';
 import StatisticsTableRow from '/imports/ui/components/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsTableHeader.jsx';
+import LocationFilter from '/imports/ui/components/LocationFilter.jsx';
 
 class StatisticsPage extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class StatisticsPage extends React.Component {
       <div>
         <h3>Statistics Page</h3>
 
-        <SearchBar />
+        <LocationFilter />
 
         <div>
           <StatisticsTableHeader />

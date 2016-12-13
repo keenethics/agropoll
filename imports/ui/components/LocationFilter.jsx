@@ -14,6 +14,8 @@ class LocationFilter extends React.Component {
 
   selectAdmAreaLev1() {
     console.log('-->', this.refs.selectAdmAreaLev1.value);
+    localStorage.setItem('administrative_area_level_1', this.refs.selectAdmAreaLev1.value);
+
     this.setState({
       administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
     });
@@ -21,7 +23,7 @@ class LocationFilter extends React.Component {
 
   renderAdmAreaLev1() {
     return (<select ref="selectAdmAreaLev1" onChange={this.selectAdmAreaLev1.bind(this)}>
-      <option key='All Ukraine'>All Ukraine</option>
+      <option key='null'>All Ukraine</option>
       {this.props.localities.
         filter(item => item.type === 'administrative_area_level_1' /* && item.parentId === null */).
         map(item => (<option key={item.placeId} value={item.placeId}>{item.name}</option>))}
@@ -30,6 +32,8 @@ class LocationFilter extends React.Component {
 
   selectAdmAreaLev2() {
     console.log('-->', this.refs.selectAdmAreaLev2.value);
+    localStorage.setItem('administrative_area_level_2', this.refs.selectAdmAreaLev2.value);
+
     this.setState({
       administrative_area_level_2: this.refs.selectAdmAreaLev2.value // this.refs.selectAdmAreaLev1.value,
     });
@@ -37,7 +41,7 @@ class LocationFilter extends React.Component {
 
   renderAdmAreaLev2() {
     return (<select ref="selectAdmAreaLev2" onChange={this.selectAdmAreaLev2.bind(this)}>
-      <option key='Whole region' value='Whole region'>Whole region</option>
+      <option key='null' value='Whole region'>Whole region</option>
       {this.props.localities.
         filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state.administrative_area_level_1).
         map(item => (<option key={item.placeId} value={item.placeId}>{item.name}</option>))}

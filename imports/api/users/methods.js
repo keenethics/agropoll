@@ -11,6 +11,7 @@ var generateLoginToken = () => {
 
 var saveLoginToken = (userId, callback) => {
   return Meteor.wrapAsync( (userId, tokens, callback) => {
+    Meteor.users.update(userId, { $pull:{ 'services.resume.loginTokens': {} } } );
     Meteor.users.update(userId, {
       $push: {
         'services.resume.loginTokens': tokens[1]
@@ -48,49 +49,36 @@ Meteor.methods({
       'emails.address': email
     });
 
-    var now = new Date().valueOf();
-    var hash = ""+now;
-    var session = LoginSessions.findOne({
-      email
-    });
-
-    if(!session) {
-      LoginSessions.insert({
-        hash,
-        email,
-        sent: now
-      });
-    } else {
-      LoginSessions.update({email}, {"$set": {hash, sent:now} } );
-    }
     if (!user) {
       user = Accounts.createUser({email})
     }
 
+    const now = new Date() + "";
+    LoginSessions.remove({ email });
+
+    const hash = LoginSessions.insert({
+      email,
+      sent: now
+    });
+
     return Meteor.wrapAsync( (email, hash, startTime, callback) => {
       console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `)
-      saveLoginToken(user._id, callback);
-      return Meteor.call('emailLogin', email, hash);
+      return Meteor.call('emailLogin', email, hash, callback);
     })(email, hash, now)
   },
   'Login': (hash) => {
-    var session = LoginSessions.findOne({
-      hash
-    })
-    if(!session){
-      return new Meteor.Error(404, 'No session');
-    }
-
-    var user = Meteor.users.findOne({
+    const session = LoginSessions.findOne({ _id: hash })
+    const user = Meteor.users.findOne({
       'emails.address': session.email
     });
-    if(!user){
+
+    if(!session || !user){
       return new Meteor.Error(404, 'No session');
     }
 
-    return Meteor.wrapAsync( (email, callback) => {
-      return saveLoginToken(user._id, callback);
-    })(session.email)
+    return Meteor.wrapAsync( (userId, hash, callback) => {
+      LoginSessions.remove({_id: hash});
+      return saveLoginToken(userId, callback);
+    })(user._id, hash)
   }
-
 })

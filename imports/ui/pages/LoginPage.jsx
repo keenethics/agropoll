@@ -15,27 +15,31 @@ class LoginPage extends React.Component {
   }
 
   componentWillMount() {
-    var token = this.props.routeParams.token ;
-    if (token) {
-      localStorage.setItem('auth-hash', token )
-    } else {
-      token = localStorage.getItem('auth-hash')
-    }
-
-    if (token){
-      Meteor.call('Login', token, (err, res) => {
-        if (err)
-          localStorage.removeItem('auth-hash');
-        Meteor.loginWithToken(res[1], (err) => {
+    const hash = this.props.routeParams.hash;
+    const token = localStorage.getItem('auth-token');
+    if (hash) {
+      Meteor.call('Login', hash, (err, res) => {
+        if (err) {
+          console.error(err);
+          localStorage.removeItem('auth-token')
+        } else {
+          Meteor.loginWithToken(res[1], (err) => {
+            if (err) { console.error(err); }
+            else { localStorage.setItem('auth-token', res[1]) }
+          })
+        }
+      })
+    } else if (token){
+        Meteor.loginWithToken(token, (err) => {
           if(err){
             console.error('Bad Token');
+            localStorage.removeItem('auth-token')
             Meteor.logout();
-            localStorage.removeItem('auth-hash');
           }
         })
-      });
-    }
+      }
   }
+
 
   logout() {
     Meteor.call('LoginProcedure', this.props.user.emails[0].address);
@@ -67,13 +71,11 @@ class LoginPage extends React.Component {
   handleLoginSubmit(e){
     e.preventDefault();
     var email = document.getElementById('login-email').value.trim();
-    var password = 132;
-    var sessionHash = localStorage.getItem('auth-hash');
 
     Meteor.call('LoginProcedure', email, (err, res) => {
       if (err) {
         console.error(err);
-      } else if (res[0] === 200) {
+      } else {
         browserHistory.push('/redirect')
         console.log('reddirecting!');
       }

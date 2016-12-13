@@ -50,16 +50,9 @@ class InsertPage extends React.Component {
     const elementsToHide = e.target.parentElement.parentElement.children;
     const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
     arrElementsToHide.shift()
-    if (!arrElementsToHide[0].className.includes('hidden')) {
-      arrElementsToHide.forEach((elem) => {
-        if (!elem.className.includes('hidden'))
-          elem.className += ' hidden';
-      })
-    } else {
-      arrElementsToHide.forEach((elem) => {
-        elem.className = elem.className.replace(' hidden', "");
-      })
-    }
+    arrElementsToHide.forEach((elem) => {
+      elem.className = elem.className.replace(' hidden', "");
+    })
   }
 
   removeCropRow(id) {

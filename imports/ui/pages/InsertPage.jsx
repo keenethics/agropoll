@@ -124,8 +124,8 @@ class InsertPage extends React.Component {
   }
 
   renderPins() {
-    const placesId = this.props.user.profile.locations;
-    return placesId && placesId.map((placeId) => {
+    const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
+    return placeIds && placeIds.map((placeId) => {
       if (this.props.localities.length){
       const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
       return <div key={placeId} onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
@@ -250,13 +250,13 @@ class InsertPage extends React.Component {
 
   render() {
     if (Meteor.user()) {
-      const placeId = this.props.routeParams.placeId;
-      const place = Localities.findOne({ placeId });
-      if (placeId && (!place || place.type !== 'locality')) {
-        return (
-          <h3>Nothing found</h3>
-        )
-      }
+    //   const placeId = this.props.routeParams.placeId;
+    //   const place = Localities.findOne({ placeId });
+    //   if (placeId && (!place || place.type !== 'locality')) {
+    //     return (
+    //       <h3>Nothing found</h3>
+    //     )
+    //   }
       // if (placeId)
       //   this.setState({
       //     fullAddress: place.fullAddress,

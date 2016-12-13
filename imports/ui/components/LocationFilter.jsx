@@ -8,14 +8,14 @@ class LocationFilter extends React.Component {
     super(props);
 
     this.state = {
-      'statistics.administrative_area_level_1': null // this.refs.selectAdmAreaLev1.value,
+      administrative_area_level_1: null // this.refs.selectAdmAreaLev1.value,
     };
   }
 
   selectAdmAreaLev1() {
     console.log('-->', this.refs.selectAdmAreaLev1.value);
     this.setState({
-      'statistics.administrative_area_level_1': this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
+      administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
     });
   }
 
@@ -37,7 +37,7 @@ class LocationFilter extends React.Component {
     return (<select onChange={this.selectAdmAreaLev2.bind(this)}>
       <option key='Whole region' value='Whole region'>Whole region</option>
       {this.props.localities.
-        filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state['statistics.administrative_area_level_1']).
+        filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state.administrative_area_level_1).
         map(item => (<option key={item.placeId} value={item.placeId}>{item.name}</option>))}
     </select>);
   }

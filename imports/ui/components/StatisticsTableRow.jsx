@@ -8,6 +8,8 @@ export default class StatisticsTableRow extends React.Component {
   sumOfSquares(cropId) {
     return this.props.records.
       filter((item) => item.cropId === cropId).
+      // /* region filter?  */     filter((item) => item.cropId === localStorage.administrative_area_level_1 || localStorage.administrative_area_level_1 === null).
+      // спробувати або через event emitter або через БД
       reduce((sum, item) => sum + +item.square, 0);
   }
 

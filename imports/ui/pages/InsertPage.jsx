@@ -1,6 +1,7 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { browserHistory, Link } from 'react-router'
+import { connect } from 'react-redux-meteor';
 
 import { Records } from '/imports/api/records/records.js';
 import { Localities } from '/imports/api/localities/localities.js';
@@ -285,7 +286,11 @@ class InsertPage extends React.Component {
   }
 }
 
-export default createContainer (({ params }) => {
+const mapStateToProps = (state) => {
+  return { todos: state.todos }
+};
+
+const mapTrackerToProps = (state, props) => {
   const user = Meteor.user();
   const cropsHandler = Meteor.subscribe('crops.all');
   const groupsHandler = Meteor.subscribe('groups.all');
@@ -299,4 +304,23 @@ export default createContainer (({ params }) => {
     records: Records.find({}).fetch(),
     localities: Localities.find({}).fetch(),
   };
-}, InsertPage);
+};
+
+
+export default connect(mapTrackerToProps, mapStateToProps)(InsertPage);
+
+// export default createContainer (({ params }) => {
+//   const user = Meteor.user();
+//   const cropsHandler = Meteor.subscribe('crops.all');
+//   const groupsHandler = Meteor.subscribe('groups.all');
+//   const recordsHandler = Meteor.subscribe('records.user', Meteor.userId());
+//   const localitiesHandler = Meteor.subscribe('localities.all');
+//
+//   return {
+//     user,
+//     crops: Crops.find({}).fetch(),
+//     groups: Groups.find({}).fetch(),
+//     records: Records.find({}).fetch(),
+//     localities: Localities.find({}).fetch(),
+//   };
+// }, InsertPage);

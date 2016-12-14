@@ -1,6 +1,7 @@
 import {
   SELECT_PLACE,
   SELECT_YEAR,
+  GO_TO_PIN,
  } from '/imports/ui/actions/InsertPageActions.js';
 
 const initialState = {
@@ -27,6 +28,14 @@ export default function InsertPageReducer(state = initialState, action = {}) {
     case SELECT_YEAR: {
       const { marketingYear } = action;
       return Object.assign({}, state, { marketingYear });
+    };
+    case GO_TO_PIN: {
+      const { placeId, fullAddress, hideCrops } = action;
+      return Object.assign({}, state, {
+        placeId,
+        hideCrops,
+        fullAddress,
+      })
     }
     default: return state;
   }

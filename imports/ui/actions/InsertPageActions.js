@@ -1,5 +1,6 @@
-export const SELECT_PLACE = 'SELECT_PLACE'
+export const GO_TO_PIN = 'GO_TO_PIN';
 export const SELECT_YEAR = 'SELECT_YEAR';
+export const SELECT_PLACE = 'SELECT_PLACE';
 
 export function selectPlace(place, fullAddress){
   const action = {
@@ -7,7 +8,17 @@ export function selectPlace(place, fullAddress){
     placeId: place.place_id,
     placeType: place.types[0],
     fullAddress,
-  }
+  };
+  return action;
+}
+
+export function goToPin(placeId, fullAddress, hideCrops){
+  const action = {
+    type: GO_TO_PIN,
+    placeId,
+    hideCrops,
+    fullAddress,
+  };
   return action;
 }
 
@@ -15,6 +26,6 @@ export function selectYear(marketingYear){
   const action = {
     type: SELECT_YEAR,
     marketingYear,
-  }
+  };
   return action;
 }

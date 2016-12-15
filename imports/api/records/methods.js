@@ -68,7 +68,7 @@ Meteor.methods({
     return Records.remove({_id})
   },
   'record.update' (criteria, { sort, reproduction, square, cropCapacity, status }) {
-    return Records.update(criteria, {$set: {
+    return Records.update(criteria, { $set: {
       reproduction,
       cropCapacity,
       square,
@@ -77,5 +77,18 @@ Meteor.methods({
 
       updatedAt: Date.now(),
     }} );
-  }
+  },
+  'record.updateMulti' (dataObj) {
+    for (id in dataObj) {
+      Records.update({ _id: id }, { $set: {
+        sort: dataObj[id].sort,
+        reproduction: dataObj[id].reproduction,
+        square: dataObj[id].square,
+        cropCapacity: dataObj[id].cropCapacity,
+        status: dataObj[id].status,
+
+        updatedAt: Date.now(),
+      }})
+    }
+  },
 });

@@ -31,8 +31,12 @@ class TableInsert extends React.Component {
 
   hasUserThisCrop(crop) {
     return this.props.records.find((elem) => {
+<<<<<<< HEAD
       return (elem.cropId === crop.id && elem.location.placeId === this.props.insertPage.placeId &&
       elem.marketingYear === this.props.insertPage.marketingYear)
+=======
+      return (elem.cropId === crop.id && elem.location.placeId === this.props.insertPage.placeId)
+>>>>>>> 6053277e6ea42166aa66a77f68beed1895268d9a
     })
     return true;
   }

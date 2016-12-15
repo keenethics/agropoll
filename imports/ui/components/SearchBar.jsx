@@ -1,6 +1,10 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
+import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
+import { bindActionCreators } from 'redux';
+
+import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -8,17 +12,13 @@ class SearchBar extends React.Component {
     this.state = {
       autocomplete: {},
     }
-    this.setFullAddress = this.setFullAddress.bind(this);
     this.submitPlace = this.submitPlace.bind(this);
+    this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
   }
 
   componentDidMount() {
     this.inputCountry =  this.refs.inputCountry;
-    //localStorage.getItem("placeId")
-    //localStorage.getItem("placeType")
-    // const fullAddress = localStorage.getItem("fullAddress");
-    // this.setState({ fullAddress })
     const autocomplete =
       this.initGoogleAutocomplete(
         this.inputCountry,
@@ -32,8 +32,6 @@ class SearchBar extends React.Component {
       const place = autocomplete.getPlace();
       console.log(place);
       this.setState({ selectedPlace: place })
-      localStorage.setItem("placeId", place.place_id)
-      localStorage.setItem("placeType", place.types[0])
     });
 
     this.setState({ autocomplete })
@@ -46,13 +44,15 @@ class SearchBar extends React.Component {
   submitPlace() {
     if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace);
-      const fullAddress = this.setFullAddress();
-      this.props.selectPlace({ place: this.state.selectedPlace, fullAddress });
-      console.log(this.state);
+      const fullAddress = this.getFullAddress();
+      localStorage.setItem('placeId', this.state.selectedPlace.place_id);
+      localStorage.setItem('placeType', this.state.selectedPlace.types[0]);
+      localStorage.setItem('fullAddress', fullAddress);
+      this.props.actions.selectPlace(this.state.selectedPlace, fullAddress);
     }
   }
 
-  setFullAddress() {
+  getFullAddress() {
     const place = this.state.selectedPlace;
     var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
 
@@ -67,8 +67,6 @@ class SearchBar extends React.Component {
           fullAddress.slice(positionOfComa)
         ].join('');
     }
-    //localStorage.setItem('fullAddress', fullAddress);
-    //this.setState({ fullAddress });
     return fullAddress;
   }
 
@@ -86,10 +84,20 @@ class SearchBar extends React.Component {
   }
 }
 
-export default createContainer(({ params }) => {
+function mapDispatchToProps(dispatch) {
+   return {actions: bindActionCreators(actions, dispatch)};
+}
+
+const mapStateToProps = (state) => {
+  return { insertPage: state.insertPage }
+};
+
+const SearchBarConstainer = createContainer(({ params }) => {
   const user = Meteor.user();
 
   return {
     user,
   }
 }, SearchBar)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBarConstainer);

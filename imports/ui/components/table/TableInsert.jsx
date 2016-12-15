@@ -40,9 +40,10 @@ class TableInsert extends React.Component {
   collapseCrops(e){
     const elementsToHide = e.target.parentElement.parentElement.children;
     const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
-    this.setState({
-      hideCrops: false,
-    })
+    // this.setState({
+    //   hideCrops: false,
+    // })
+    this.props.insertPageActions.showCrops();
     arrElementsToHide.shift()
     arrElementsToHide.forEach((elem) => {
       elem.className = elem.className.replace(' hidden', "");
@@ -164,6 +165,7 @@ class TableInsert extends React.Component {
   }
 
   render() {
+    console.log(this.props.insertPage);
     return(
       <div className="table">
         <TableHeader />

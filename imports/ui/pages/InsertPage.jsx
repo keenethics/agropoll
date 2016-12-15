@@ -33,7 +33,7 @@ class InsertPage extends React.Component {
     this.selectYear = this.selectYear.bind(this);
     //this.selectPlace = this.selectPlace.bind(this);
     //this.addCropElem = this.addCropElem.bind(this);
-    //this.saveCropData = this.saveCropData.bind(this);
+    this.saveCropData = this.saveCropData.bind(this);
     //this.removeCropRow = this.removeCropRow.bind(this);
     //this.getSquareValue = this.getSquareValue.bind(this);
     //this.renderTableRows = this.renderTableRows.bind(this);
@@ -42,22 +42,15 @@ class InsertPage extends React.Component {
     //this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
+  saveCropData() {
+    this.props.actions.saveData();
+  }
+
   goToPin(locationId) {
     const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
     this.setState({ placeId: locationId, fullAddress, hideCrops:true, })
     this.props.actions.goToPin(locationId, fullAddress, true)
   }
-
-  // getDataFromTableById(id) {
-  //   const data = {};
-  //   const ref = 'crop' + id;
-  //   data.cropCapacity = this.refs['cropCapacity' + id].value;
-  //   data.reproduction = this.refs['reproduction' + id].value;
-  //   data.square = this.refs['square' + id].value;
-  //   data.status = this.refs['status' + id].value;
-  //   data.sort = this.refs['sort' + id].value;
-  //   return data;
-  // }
 
   renderPins() {
     const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
@@ -90,7 +83,7 @@ class InsertPage extends React.Component {
       //     placeId,
       //   });
 
-          console.log(this.props.insertPage.lc);
+          //console.log(this.props.insertPage.lc);
       return (
         <div>
           <h2>Insert Page</h2>
@@ -118,7 +111,7 @@ const mapStateToProps = (state) => {
 };
 
 function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators(actions, dispatch)};
+  return { actions: bindActionCreators(actions, dispatch) };
 };
 
 const InsertPageContainer = createContainer (({ params }) => {

@@ -8,7 +8,8 @@ import { Records } from '/imports/api/records/records.js';
 import { Localities } from '/imports/api/localities/localities.js';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 
-import * as actions from '/imports/ui/actions/InsertPageActions.js';
+import * as insertPageActions from '/imports/ui/actions/InsertPageActions.js';
+import * as insertTableActions from '/imports/ui/actions/insertTableActions.js';
 
 import RowForCrop from './RowForCrop.jsx';
 import RowForGroup from './RowForGroup.jsx';
@@ -108,6 +109,7 @@ class TableInsert extends React.Component {
       marketingYear,
     });
     return cropsData.map((cropData) => {
+      this.props.insertTableActions.addInputData(cropData);
       return(
         <div key={cropData._id}>
           <RowForInsertedData
@@ -171,11 +173,16 @@ class TableInsert extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { insertPage: state.insertPage }
+  return {
+    insertPage: state.insertPage,
+  }
 };
 
 function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators(actions, dispatch)};
+  return {
+    insertPageActions: bindActionCreators(insertPageActions, dispatch),
+    insertTableActions: bindActionCreators(insertTableActions, dispatch),
+  };
 }
 
 

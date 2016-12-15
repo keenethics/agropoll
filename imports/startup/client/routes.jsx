@@ -1,10 +1,11 @@
 import React from 'react';
+import thunk from 'redux-thunk';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux-meteor';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
-import RootReducer from '/imports/ui/reducers/RootReducer.js';
+import rootReducer from '/imports/ui/reducers/rootReducer.js';
 // route components
 import HomePage from '/imports/ui/pages/HomePage.jsx';
 import LoginPage from '/imports/ui/pages/LoginPage.jsx';
@@ -14,7 +15,10 @@ import RedirectPage from '/imports/ui/pages/RedirectPage.jsx';
 import StatisticsPage from '/imports/ui/pages/StatisticsPage.jsx';
 // import NotFoundPage from '/imports/ui/pages/NotFoundPage.jsx';
 
-let store = createStore(RootReducer)
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk),
+);
 
 Meteor.startup (() => {
   render (

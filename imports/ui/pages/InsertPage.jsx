@@ -40,14 +40,17 @@ class InsertPage extends React.Component {
     return placeIds && placeIds.map((placeId) => {
       if (this.props.localities.length){
       const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
-      return <div key={placeId} onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
+      return <div key={placeId} className="locationPin" onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
     });
   }
 
   selectYear(e){
-    const year = e.target.value;
-    localStorage.setItem('marketingYear', year);
-    this.props.actions.selectYear(year);
+    const year = e.target.value + '';
+    if (e.target.tagName === "LI"){
+      e.target.className += ' selected';
+      localStorage.setItem('marketingYear', year);
+      this.props.actions.selectYear(year);
+    }
   }
 
   render() {
@@ -61,11 +64,13 @@ class InsertPage extends React.Component {
             <h3>Select place and year</h3>
             <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
             <button onClick={this.saveCropData}>Save</button>
-            <select defaultValue={this.props.insertPage.marketingYear || ""} onChange={this.selectYear}>
-              <option disabled value="">Select year</option>
-              <option>2016</option>
-              <option>2017</option>
-            </select>
+            <div>
+              <ul className="years" onClick={this.selectYear}>
+                <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
+                <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
+                <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
+              </ul>
+            </div>
           </div>
         )
       }
@@ -74,11 +79,14 @@ class InsertPage extends React.Component {
           <h2>Insert Page</h2>
           <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
           <button onClick={this.saveCropData}>Save</button>
-          <select defaultValue={this.props.insertPage.marketingYear || ""} onChange={this.selectYear}>
-            <option disabled value="">Select year</option>
-            <option>2016</option>
-            <option>2017</option>
-          </select>
+          <p>Select Year</p>
+          <div>
+            <ul className="years" onClick={this.selectYear}>
+              <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
+              <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
+              <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
+            </ul>
+          </div>
           {this.renderPins()}
           <TableInsert />
 

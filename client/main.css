@@ -75,6 +75,28 @@ div.tcell {
   overflow: hidden;
   height: 0px;
 }
+
+.locationPin {
+  padding: 5px;
+  border: 1px solid green;
+  margin: 5px 0;
+}
+
+.years {
+  height: 30px;
+  list-style-type: none;
+}
+
+
+.years > li {
+  margin-right: 10px;
+  display: inline-block;
+  float: left;
+}
+
+.selected {
+  background: #a2a2a2;
+}
 /*------------End Table Insert------------*/
 
 div.row {

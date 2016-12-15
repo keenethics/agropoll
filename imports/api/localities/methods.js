@@ -61,7 +61,7 @@ function getPlace(address){
     console.log('Google maps request');
     return HTTP.call('GET', fullUrl, callback)
   })(fullUrl)
-  
+
   console.log('END of request');
   content = JSON.parse(response.content);
   return content.results[0];
@@ -84,6 +84,7 @@ function getParent(addressComponents, i) {
         type: parentPlace.types[0],
         name: parentPlace.address_components[0].long_name,
         placeId: parentPlace.place_id,
+        parentId: null,
         fullAddress,
       }
 

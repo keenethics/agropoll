@@ -1,5 +1,6 @@
 import React from 'react';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -15,9 +16,11 @@ import RedirectPage from '/imports/ui/pages/RedirectPage.jsx';
 import StatisticsPage from '/imports/ui/pages/StatisticsPage.jsx';
 // import NotFoundPage from '/imports/ui/pages/NotFoundPage.jsx';
 
+const logger = createLogger();
+
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, logger),
 );
 
 Meteor.startup (() => {

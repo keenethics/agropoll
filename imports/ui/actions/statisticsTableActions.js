@@ -1,10 +1,8 @@
-export const CHANGE_LOCATION_FILTER = 'CHANGE_LOCATION_FILTER';
+import * as types from './types';
 
-export const changeLocationFilter = (administrative_area_level_1, administrative_area_level_2, place_id) => {
+export const changeLocationFilter = obj => {
   return {
-    type: CHANGE_LOCATION_FILTER,
-    administrative_area_level_1,
-    administrative_area_level_2,
-    place_id,
+    type: types.CHANGE_LOCATION_FILTER,
+    obj
   };
 }

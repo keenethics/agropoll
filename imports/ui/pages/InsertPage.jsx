@@ -88,14 +88,14 @@ class InsertPage extends React.Component {
         <div>
           <h2>Insert Page</h2>
           <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
-            <button onClick={this.saveCropData}>Save</button>
-            <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
-              <option disabled value="">Select year</option>
-              <option>2016</option>
-              <option>2017</option>
-            </select>
-            {this.renderPins()}
-            <TableInsert />
+          <button onClick={this.saveCropData}>Save</button>
+          <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
+            <option disabled value="">Select year</option>
+            <option>2016</option>
+            <option>2017</option>
+          </select>
+          {this.renderPins()}
+          <TableInsert />
 
         </div>
       )

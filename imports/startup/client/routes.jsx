@@ -1,7 +1,7 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux-meteor';
+import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 

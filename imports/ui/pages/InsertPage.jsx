@@ -18,28 +18,11 @@ import TableInsert from '/imports/ui/components/table/TableInsert.jsx';
 class InsertPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      placeId: localStorage.getItem('placeId'),
-      placeType: localStorage.getItem('placeType'),
-      marketingYear: localStorage.getItem('marketingYear'),
-      fullAddress: localStorage.getItem('fullAddress'),
-      hideCrops: true,
-    };
 
-    //this.hasUserThisCrop = this.hasUserThisCrop.bind(this);
-  //  this.collapseCrops = this.collapseCrops.bind(this);
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
     this.selectYear = this.selectYear.bind(this);
-    //this.selectPlace = this.selectPlace.bind(this);
-    //this.addCropElem = this.addCropElem.bind(this);
     this.saveCropData = this.saveCropData.bind(this);
-    //this.removeCropRow = this.removeCropRow.bind(this);
-    //this.getSquareValue = this.getSquareValue.bind(this);
-    //this.renderTableRows = this.renderTableRows.bind(this);
-    //this.renderCropsRows = this.renderCropsRows.bind(this);
-    //this.getDataFromTableById = this.getDataFromTableById.bind(this);
-    //this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
   saveCropData() {
@@ -69,27 +52,30 @@ class InsertPage extends React.Component {
 
   render() {
     if (Meteor.user()) {
-    //   const placeId = this.props.routeParams.placeId;
-    //   const place = Localities.findOne({ placeId });
-    //   if (placeId && (!place || place.type !== 'locality')) {
-    //     return (
-    //       <h3>Nothing found</h3>
-    //     )
-    //   }
-      // if (placeId)
-      //   this.setState({
-      //     fullAddress: place.fullAddress,
-      //     placeType: place.type,
-      //     placeId,
-      //   });
+      const placeId = this.props.insertPage.placeId;
+      const place = Localities.findOne({ placeId });
+      const marketingYear = this.props.insertPage.marketingYear;
+      if (!placeId || !place || place.type !== 'locality' || !marketingYear) {
+        return (
+          <div>
+            <h3>Select place and year</h3>
+            <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
+            <button onClick={this.saveCropData}>Save</button>
+            <select defaultValue={this.props.insertPage.marketingYear || ""} onChange={this.selectYear}>
+              <option disabled value="">Select year</option>
+              <option>2016</option>
+              <option>2017</option>
+            </select>
+          </div>
+        )
+      }
 
-          //console.log(this.props.insertPage.lc);
       return (
         <div>
           <h2>Insert Page</h2>
           <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
           <button onClick={this.saveCropData}>Save</button>
-          <select defaultValue={this.state.marketingYear || ""} onChange={this.selectYear}>
+          <select defaultValue={this.props.insertPage.marketingYear || ""} onChange={this.selectYear}>
             <option disabled value="">Select year</option>
             <option>2016</option>
             <option>2017</option>

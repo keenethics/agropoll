@@ -8,7 +8,7 @@ const initialState = {
   fullAddress: localStorage.getItem('fullAddress'),
   placeId: localStorage.getItem('placeId'),
   placeType: localStorage.getItem('placeType'),
-  marketingYear: localStorage.getItem('marketingYear') || 2016,
+  marketingYear: localStorage.getItem('marketingYear'),
   hideCrops: true
 }
 

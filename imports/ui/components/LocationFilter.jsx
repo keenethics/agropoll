@@ -3,6 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Localities } from '/imports/api/localities/localities.js';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '/imports/ui/actions/statisticsTableActions.js';
+
+
 class LocationFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +19,8 @@ class LocationFilter extends React.Component {
 
   selectAdmAreaLev1() {
     console.log('-->', this.refs.selectAdmAreaLev1.value);
-    localStorage.setItem('administrative_area_level_1', this.refs.selectAdmAreaLev1.value);
+
+    this.props.actions.changeLocationFilter(this.refs.selectAdmAreaLev1.value, null, null);
 
     this.setState({
       administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
@@ -32,7 +38,6 @@ class LocationFilter extends React.Component {
 
   selectAdmAreaLev2() {
     console.log('-->', this.refs.selectAdmAreaLev2.value);
-    localStorage.setItem('administrative_area_level_2', this.refs.selectAdmAreaLev2.value);
 
     this.setState({
       administrative_area_level_2: this.refs.selectAdmAreaLev2.value // this.refs.selectAdmAreaLev1.value,
@@ -61,10 +66,20 @@ class LocationFilter extends React.Component {
   }
 }
 
-export default createContainer(({ params }) => {
+const container = createContainer(({ params }) => {
   const localities = Meteor.subscribe('localities.all');
 
   return {
     localities: Localities.find().fetch(),
   }
 }, LocationFilter);
+
+const mapStateToProps = (state) => {
+  return { }
+};
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actions, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(container);

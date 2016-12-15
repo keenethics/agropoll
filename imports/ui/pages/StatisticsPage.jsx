@@ -7,6 +7,8 @@ import StatisticsTableRow from '/imports/ui/components/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsTableHeader.jsx';
 import LocationFilter from '/imports/ui/components/LocationFilter.jsx';
 
+import { connect } from 'react-redux';
+
 class StatisticsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,7 @@ class StatisticsPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.statisticsTable);
     return (
       <div>
         <h3>Statistics Page</h3>
@@ -42,7 +45,7 @@ class StatisticsPage extends React.Component {
   }
 }
 
-export default createContainer (({ params }) => {
+const container = createContainer (({ params }) => {
   const user = Meteor.user();
   const cropsHandler = Meteor.subscribe('crops.all');
   const groupsHandler = Meteor.subscribe('groups.all');
@@ -55,3 +58,10 @@ export default createContainer (({ params }) => {
     records: Records.find({}).fetch()
   }
 }, StatisticsPage);
+
+const mapStateToProps = (state) => {
+  return { statisticsTable: state.statisticsTable };
+};
+
+
+export default connect(mapStateToProps)(container);

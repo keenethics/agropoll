@@ -31,7 +31,6 @@ class InsertPage extends React.Component {
 
   goToPin(locationId) {
     const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
-    this.setState({ placeId: locationId, fullAddress, hideCrops:true, })
     this.props.actions.goToPin(locationId, fullAddress, true)
   }
 

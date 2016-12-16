@@ -41,7 +41,7 @@ Meteor.methods({
       return new Meteor.Error ('No user');
 
     const userId = Meteor.userId();
-    Meteor.users.update({_id:userId}, {$set: { 'profile': { name: newName } } });
+    Meteor.users.update({_id:userId}, {$set: { 'profile.name': newName  } });
     return true;
   },
   'LoginProcedure': (email) => {

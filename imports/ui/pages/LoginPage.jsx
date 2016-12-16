@@ -1,6 +1,15 @@
-import React from 'react'
-import { browserHistory, Link } from 'react-router'
-import { createContainer } from 'meteor/react-meteor-data'
+import React from 'react';
+import { browserHistory, Link } from 'react-router';
+import { createContainer } from 'meteor/react-meteor-data';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
+import { Localities } from '/imports/api/localities/localities.js';
+
+import LocationPin from '/imports/ui/components/LocationPin.jsx';
+import * as actions from '/imports/ui/actions/InsertPageActions.js';
+
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -9,6 +18,8 @@ class LoginPage extends React.Component {
       error: ''
     }
     this.logout = this.logout.bind(this);
+    this.goToPin = this.goToPin.bind(this);
+    this.renderPins = this.renderPins.bind(this);
     this.onNameSubmit = this.onNameSubmit.bind(this);
     this.onEmailSubmit = this.onEmailSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
@@ -46,6 +57,12 @@ class LoginPage extends React.Component {
     Meteor.logout();
   }
 
+  goToPin(locationId) {
+    const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
+    this.props.actions.goToPin(locationId, fullAddress, true)
+    browserHistory.push('/insert');
+  }
+
   onEmailSubmit(e) {
     e.preventDefault();
     const email = this.refs.emailChange.value;
@@ -56,6 +73,15 @@ class LoginPage extends React.Component {
         console.log('email changed to ' + email)
         console.log(Meteor.user());
     })
+  }
+
+  renderPins() {
+    const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
+    return placeIds && placeIds.map((placeId) => {
+      if (this.props.localities.length){
+      const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
+      return <div key={placeId} className="locationPin" onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
+    });
   }
 
   onNameSubmit(e) {
@@ -99,26 +125,42 @@ class LoginPage extends React.Component {
         <div>
           <h1>Welcome { user.profile ? user.profile.name : user.emails[0].address}</h1>
           <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
-            <input type="text" ref="nameChange" placeholder="Enter new name"/>
+            <span>Enter your name: </span><input type="text" ref="nameChange" placeholder="Enter new name"/>
             <input type="submit" />
           </form>
 
           <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
-            <input type="email" ref="emailChange" placeholder="Enter new email" />
+            <p>{`Your current email: ${Meteor.user().emails[0].address}`}</p>
+            <span>Enter your email: </span><input type="email" ref="emailChange" placeholder="Enter new email" />
             <input type="submit" />
           </form>
+          <p>Your locations: </p>
+          {this.renderPins()}
 
-          <button onClick={this.logout}> Logout </button>
+          <span>Exit: </span><button onClick={this.logout}> Logout </button>
         </div>
       )
     }
   }
 }
 
-export default createContainer (( {params} ) => {
+const mapStateToProps = (state) => {
+  return {  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actions, dispatch) };
+};
+
+
+const container = createContainer (( {params} ) => {
   const user = Meteor.user();
+  const localitiesHandler = Meteor.subscribe('localities.all');
 
   return {
-    user
+    user,
+    localities: Localities.find({}).fetch(),
   }
 }, LoginPage)
+
+export default connect(mapStateToProps, mapDispatchToProps)(container);

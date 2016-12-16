@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   fullAddress: localStorage.getItem('fullAddress'),
-  placeId: localStorage.getItem('placeId'),
+  place_id: localStorage.getItem('place_id'),
   placeType: localStorage.getItem('placeType'),
   marketingYear: localStorage.getItem('marketingYear'),
   hideCrops: true,
@@ -18,11 +18,11 @@ const initialState = {
 export default function InsertPageReducer(state = initialState, action = {}) {
   switch (action.type){
     case SELECT_PLACE: {
-      const placeId = action.placeId;
+      const place_id = action.place_id;
       const placeType = action.placeType;
       const fullAddress = action.fullAddress;
       return Object.assign({}, state, {
-        placeId,
+        place_id,
         placeType,
         fullAddress,
       })
@@ -32,9 +32,9 @@ export default function InsertPageReducer(state = initialState, action = {}) {
       return Object.assign({}, state, { marketingYear });
     };
     case GO_TO_PIN: {
-      const { placeId, fullAddress, hideCrops } = action;
+      const { place_id, fullAddress, hideCrops } = action;
       return Object.assign({}, state, {
-        placeId,
+        place_id,
         hideCrops,
         fullAddress,
       })

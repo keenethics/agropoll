@@ -32,7 +32,7 @@ class LocationFilter extends React.Component {
       <option key='null'>All Ukraine</option>
       {this.props.localities.
         filter(item => item.type === 'administrative_area_level_1' /* && item.parentId === null */).
-        map(item => (<option key={item.placeId} value={item.placeId}>{item.name}</option>))}
+        map(item => (<option key={item.place_id} value={item.place_id}>{item.name}</option>))}
     </select>);
   }
 
@@ -49,7 +49,7 @@ class LocationFilter extends React.Component {
       <option key='null' value='Whole region'>Whole region</option>
       {this.props.localities.
         filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state.administrative_area_level_1).
-        map(item => (<option key={item.placeId} value={item.placeId}>{item.name}</option>))}
+        map(item => (<option key={item.place_id} value={item.place_id}>{item.name}</option>))}
     </select>);
   }
 

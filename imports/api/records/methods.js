@@ -6,16 +6,16 @@ import { Localities } from '/imports/api/localities/localities.js'
 import { Records } from './records.js';
 
 const getParentLocations = (locationObj, parentId) => {
-  const parentLocation = Localities.findOne({ placeId: parentId });
+  const parentLocation = Localities.findOne({ place_id: parentId });
   switch (parentLocation.type) {
     case 'administrative_area_level_1':
-      locationObj.administrative_area_level_1 = parentLocation.placeId;
+      locationObj.administrative_area_level_1 = parentLocation.place_id;
     break;
     case 'administrative_area_level_2':
-      locationObj.administrative_area_level_2 = parentLocation.placeId;
+      locationObj.administrative_area_level_2 = parentLocation.place_id;
     break;
     case 'administrative_area_level_3':
-      locationObj.administrative_area_level_3 = parentLocation.placeId;
+      locationObj.administrative_area_level_3 = parentLocation.place_id;
     break;
   }
 
@@ -25,13 +25,13 @@ const getParentLocations = (locationObj, parentId) => {
 }
 
 Meteor.methods({
-  'record.insert'({ marketingYear, placeId, cropId, sort, reproduction, square, cropCapacity, status }) {
+  'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropCapacity, status }) {
     // check(url, String);
     // check(title, String);
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
-    const location = Localities.findOne({ placeId: placeId });
+    const location = Localities.findOne({ place_id: place_id });
     const locationObj = {
-      placeId: location.placeId,
+      place_id: location.place_id,
       administrative_area_level_1: null,
       administrative_area_level_2: null,
       administrative_area_level_3: null,
@@ -41,7 +41,7 @@ Meteor.methods({
       getParentLocations(locationObj, location.parentId);
     }
 
-    Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': placeId } });
+    Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': place_id } });
 
     return Records.insert({
       userEmail: user.emails[0].address,
@@ -61,11 +61,12 @@ Meteor.methods({
   'record.removeOne'(_id) {
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const record = Records.findOne({ _id });
-    const placeId = record.location.placeId;
-    const usersRecords = Records.find({ 'location.placeId': placeId, userId: user._id}).fetch();
+    const place_id = record.location.place_id;
+    const usersRecords = Records.find({ 'location.place_id': place_id, userId: user._id}).fetch();
+
     if (usersRecords.length < 2){
       Meteor.users.update({ _id: Meteor.userId() },
-      { $pull: { 'profile.locations': { $in: [placeId] } } })
+      { $pull: { 'profile.locations': { $in: [place_id] } } })
     }
     return Records.remove({_id})
   },

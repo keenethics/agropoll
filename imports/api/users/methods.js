@@ -68,11 +68,16 @@ Meteor.methods({
   },
   'Login': (hash) => {
     const session = LoginSessions.findOne({ _id: hash })
+
+    if (!session) {
+      return new Meteor.Error(404, 'No session');
+    }
+
     const user = Meteor.users.findOne({
       'emails.address': session.email
     });
 
-    if(!session || !user){
+    if (!user) {
       return new Meteor.Error(404, 'No session');
     }
 

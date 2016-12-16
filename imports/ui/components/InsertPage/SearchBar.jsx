@@ -12,25 +12,23 @@ class SearchBar extends React.Component {
     this.state = {
       autocomplete: {},
     }
+
     this.submitPlace = this.submitPlace.bind(this);
     this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
   }
 
   componentDidMount() {
-    this.inputCountry =  this.refs.inputCountry;
-    const autocomplete =
-      this.initGoogleAutocomplete(
-        this.inputCountry,
-        {
-          types: ['(regions)'],
-          componentRestrictions: {country: "ua"}
-        }
-      );
+    this.inputCountry = this.refs.inputCountry;
+    const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
+        types: ['(regions)'],
+        componentRestrictions: {country: "ua"}
+    });
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       console.log(place);
+
       this.setState({ selectedPlace: place })
     });
 
@@ -45,9 +43,11 @@ class SearchBar extends React.Component {
     if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace);
       const fullAddress = this.getFullAddress();
+
       localStorage.setItem('placeId', this.state.selectedPlace.place_id);
       localStorage.setItem('placeType', this.state.selectedPlace.types[0]);
       localStorage.setItem('fullAddress', fullAddress);
+
       this.props.actions.selectPlace(this.state.selectedPlace, fullAddress);
     }
   }
@@ -85,7 +85,7 @@ class SearchBar extends React.Component {
 }
 
 function mapDispatchToProps(dispatch) {
-   return {actions: bindActionCreators(actions, dispatch)};
+   return { actions: bindActionCreators(actions, dispatch) };
 }
 
 const mapStateToProps = (state) => {

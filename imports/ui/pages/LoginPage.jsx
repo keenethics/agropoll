@@ -4,10 +4,9 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
 import { Localities } from '/imports/api/localities/localities.js';
 
-import LocationPin from '/imports/ui/components/LocationPin.jsx';
+import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
 import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
 

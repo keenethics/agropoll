@@ -10,10 +10,10 @@ import { Records } from '/imports/api/records/records.js';
 import { Localities } from '/imports/api/localities/localities.js';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 
-import SearchBar from '/imports/ui/components/SearchBar.jsx';
-import LocationPin from '/imports/ui/components/LocationPin.jsx';
-import TableHeader from '/imports/ui/components/table/TableHeader.jsx';
-import TableInsert from '/imports/ui/components/table/TableInsert.jsx';
+import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
+import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
+import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
+import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 
 class InsertPage extends React.Component {
   constructor(props) {

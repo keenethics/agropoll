@@ -5,7 +5,9 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
 import StatisticsTableRow from '/imports/ui/components/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsTableHeader.jsx';
+
 import LocationFilter from '/imports/ui/components/LocationFilter.jsx';
+import StatusFilter from '/imports/ui/components/StatusFilter.jsx';
 
 import { connect } from 'react-redux';
 
@@ -27,6 +29,7 @@ class StatisticsPage extends React.Component {
         <h3>Statistics Page</h3>
 
         <LocationFilter />
+        <StatusFilter />
 
         <div>
           <StatisticsTableHeader />

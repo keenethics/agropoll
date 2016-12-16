@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
 export const GO_TO_PIN = 'GO_TO_PIN';
+export const HIDE_CROPS = 'HIDE_CROPS';
+export const SHOW_CROPS = 'SHOW_CROPS';
 export const SELECT_YEAR = 'SELECT_YEAR';
 export const SELECT_PLACE = 'SELECT_PLACE';
 
@@ -35,7 +37,22 @@ export function selectYear(marketingYear) {
 export function saveData() {
   return (dispatch, getState) => {
     const insertTableState = getState().insertTable;
+    dispatch(hideCrops());
     Meteor.call('record.updateMulti', insertTableState.inputData);
 
   }
+}
+
+export function hideCrops() {
+  const action = {
+    type: HIDE_CROPS,
+  }
+  return action;
+}
+
+export function showCrops() {
+  const action = {
+    type: SHOW_CROPS,
+  }
+  return action;
 }

@@ -2,6 +2,8 @@ import {
   SELECT_PLACE,
   SELECT_YEAR,
   GO_TO_PIN,
+  HIDE_CROPS,
+  SHOW_CROPS,
  } from '/imports/ui/actions/InsertPageActions.js';
 
 const initialState = {
@@ -9,7 +11,7 @@ const initialState = {
   placeId: localStorage.getItem('placeId'),
   placeType: localStorage.getItem('placeType'),
   marketingYear: localStorage.getItem('marketingYear'),
-  hideCrops: true
+  hideCrops: true,
 }
 
 
@@ -36,7 +38,13 @@ export default function InsertPageReducer(state = initialState, action = {}) {
         hideCrops,
         fullAddress,
       })
-    }
+    };
+    case HIDE_CROPS: {
+      return Object.assign({}, state, { hideCrops: true });
+    };
+    case SHOW_CROPS: {
+      return Object.assign({}, state, { hideCrops: false });
+    };
     default: return state;
   }
 }

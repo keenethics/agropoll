@@ -31,7 +31,8 @@ class TableInsert extends React.Component {
 
   hasUserThisCrop(crop) {
     return this.props.records.find((elem) => {
-      return (elem.cropId === crop.id && elem.location.placeId === this.props.insertPage.placeId)
+      return (elem.cropId === crop.id && elem.location.placeId === this.props.insertPage.placeId &&
+      elem.marketingYear === this.props.insertPage.marketingYear)
     })
     return true;
   }
@@ -39,10 +40,9 @@ class TableInsert extends React.Component {
   collapseCrops(e){
     const elementsToHide = e.target.parentElement.parentElement.children;
     const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
-    this.setState({
-      hideCrops: false,
-    })
-    arrElementsToHide.shift()
+
+    this.props.insertPageActions.showCrops();
+    arrElementsToHide.shift() // remove the name of crop
     arrElementsToHide.forEach((elem) => {
       elem.className = elem.className.replace(' hidden', "");
     })
@@ -68,6 +68,7 @@ class TableInsert extends React.Component {
     const placeId = this.props.insertPage.placeId;
     const userId = this.props.user._id;
     const marketingYear = this.props.insertPage.marketingYear;
+
     const capacity = this.props.records.filter((record) => {
       return (record.cropId === cropId && record.location.placeId === placeId &&
         record.userId === userId && record.marketingYear === marketingYear)
@@ -101,7 +102,7 @@ class TableInsert extends React.Component {
   renderInsertedCropsRows(crop) {
     const placeId = this.props.insertPage.placeId;
     const userId = this.props.user._id;
-    const marketingYear = this.props.insertPage.marketingYear || 2016;
+    const marketingYear = this.props.insertPage.marketingYear;
     const cropsData = Records.find({
       cropId: crop.id,
       'location.placeId': placeId,
@@ -163,6 +164,7 @@ class TableInsert extends React.Component {
   }
 
   render() {
+    console.log(this.props.insertPage);
     return(
       <div className="table">
         <TableHeader />

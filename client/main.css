@@ -21,6 +21,15 @@
 /*------------End Navigation Bar------------*/
 
 /*++++++++++++++Table Insert++++++++++++++*/
+.searchBar-wrapper{
+  width: 300px;
+  display: inline-block;;
+}
+
+.input-country{
+  width: 230px;
+}
+
 div.tcoll0 {
   width: 5.56%;
   padding: 3px;
@@ -83,8 +92,9 @@ div.tcell {
 }
 
 .years {
-  height: 30px;
+  margin: 0;
   list-style-type: none;
+  display: inline-block;
 }
 
 

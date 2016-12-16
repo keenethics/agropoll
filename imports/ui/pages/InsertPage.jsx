@@ -37,9 +37,14 @@ class InsertPage extends React.Component {
   renderPins() {
     const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
     return placeIds && placeIds.map((placeId) => {
-      if (this.props.localities.length){
-      const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
-      return <div key={placeId} className="locationPin" onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
+      if (this.props.localities.length) {
+        const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
+        return (
+          <div key={placeId} className={this.props.insertPage.placeId === placeId ? "locationPin  selected" : "locationPin "} onClick={() => this.goToPin(placeId)}>
+            <LocationPin fullAddress={fullAddress} />
+          </div>
+        )
+      }
     });
   }
 
@@ -75,11 +80,10 @@ class InsertPage extends React.Component {
       }
       return (
         <div>
-          <h2>Insert Page</h2>
           <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
           <button onClick={this.saveCropData}>Save</button>
-          <p>Select Year</p>
           <div>
+            <span>Select Year</span>
             <ul className="years" onClick={this.selectYear}>
               <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
               <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>

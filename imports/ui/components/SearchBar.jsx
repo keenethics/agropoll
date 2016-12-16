@@ -72,9 +72,9 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="SearchBar-wrapper">
-        <h3>Country:</h3>
-        <input className="input input-country"
+      <div className="searchBar-wrapper">
+        <h3>Place:</h3>
+        <input className="input-country"
           ref="inputCountry"
           type="text"
           placeholder="Country..." />

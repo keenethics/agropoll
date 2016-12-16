@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js'
+import { Records } from '/imports/api/records/records.js';
+import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js';
 
 var generateLoginToken = () => {
   var stampedToken = Accounts._generateStampedLoginToken();
@@ -30,10 +31,12 @@ Meteor.methods({
   'user.emailChange'( newEmail ) {
     if(!Meteor.userId())
       return new Meteor.Error ('No user');
+    const user = Meteor.users.findOne({ _id: Meteor.userId() })
+    const userId = user._id;
 
-    const userId = Meteor.userId();
+    Records.update({ userEmail: user.emails[0].address }, { $set: { userEmail: newEmail } }, { multi: true });
 
-    Meteor.users.update({_id:userId}, {$set: { 'emails.0.address': newEmail } });
+    Meteor.users.update({ _id: userId }, { $set: { 'emails.0.address': newEmail } });
     return true;
   },
   'user.nameChange'(newName) {

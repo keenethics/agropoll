@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { connect } from 'react-redux-meteor';
+import { connect } from 'react-redux';
 
 export default class RowForGroup extends React.Component {
   constructor(props) {

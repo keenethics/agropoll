@@ -44,7 +44,7 @@ class SearchBar extends React.Component {
       Meteor.call('localities.addPlace', this.state.selectedPlace);
       const fullAddress = this.getFullAddress();
 
-      localStorage.setItem('placeId', this.state.selectedPlace.place_id);
+      localStorage.setItem('place_id', this.state.selectedPlace.place_id);
       localStorage.setItem('placeType', this.state.selectedPlace.types[0]);
       localStorage.setItem('fullAddress', fullAddress);
 

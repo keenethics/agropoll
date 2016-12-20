@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js'
+import { Records } from '/imports/api/records/records.js';
+import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js';
 
 var generateLoginToken = () => {
   var stampedToken = Accounts._generateStampedLoginToken();
@@ -27,18 +28,19 @@ var saveLoginToken = (userId, callback) => {
 }
 
 Meteor.methods({
-  'user.emailChange'( newEmail ) {
-    if(!Meteor.userId())
-      return new Meteor.Error ('No user');
+  'user.emailChange'(newEmail) {
+    if (!Meteor.userId()) return new Meteor.Error ('No user');
+    const user = Meteor.users.findOne({ _id: Meteor.userId() })
+    const userId = user._id;
 
-    const userId = Meteor.userId();
+    // Records.update({ userEmail: user.emails[0].address }, { $set: { userEmail: newEmail } }, { multi: true });
 
-    Meteor.users.update({_id:userId}, {$set: { 'emails.0.address': newEmail } });
+    Meteor.users.update({ _id: userId }, { $set: { 'emails.0.address': newEmail } });
     return true;
   },
   'user.nameChange'(newName) {
     if(!Meteor.userId())
-      return new Meteor.Error ('No user');
+      return new Meteor.Error('No user');
 
     const userId = Meteor.userId();
     Meteor.users.update({_id:userId}, {$set: { 'profile.name': newName  } });
@@ -50,7 +52,7 @@ Meteor.methods({
     });
 
     if (!user) {
-      user = Accounts.createUser({email})
+      user = Accounts.createUser({ email })
     }
 
     const now = new Date() + "";
@@ -61,10 +63,10 @@ Meteor.methods({
       sent: now
     });
 
-    return Meteor.wrapAsync( (email, hash, startTime, callback) => {
-      console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `)
+    return Meteor.wrapAsync((email, hash, startTime, callback) => {
+      console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `);
       return Meteor.call('emailLogin', email, hash, callback);
-    })(email, hash, now)
+    })(email, hash, now);
   },
   'Login': (hash) => {
     const session = LoginSessions.findOne({ _id: hash })

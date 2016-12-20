@@ -8,7 +8,7 @@ Meteor.methods({
     // removing ', Україна'
     var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
     var locality = Localities.findOne({
-      placeId: place.place_id
+      place_id: place.place_id
     })
 
     if (place.address_components.length === 4 &&
@@ -33,7 +33,7 @@ Meteor.methods({
       locality = {
         type,
         name: place.name,
-        placeId: place.place_id,
+        place_id: place.place_id,
         fullAddress
       }
 
@@ -69,13 +69,13 @@ function getPlace(address){
 
 function getParent(addressComponents, i) {
   const name = addressComponents[i].long_name;
-  var placeId;
+  var place_id;
   var parentId;
   var locality;
 
-  if (!name.includes('міськрада') && !name.includes('місто')){
+  if (!name.includes('міськрада') && !name.includes('місто')) {
     const parentPlace = getPlace(name);
-    const dbParentPlace = Localities.findOne({placeId: parentPlace.place_id})
+    const dbParentPlace = Localities.findOne({ place_id: parentPlace.place_id })
 
     if (!dbParentPlace){
       const fullAddress = parentPlace.formatted_address.substr(0, parentPlace.formatted_address.lastIndexOf(','));
@@ -83,12 +83,12 @@ function getParent(addressComponents, i) {
       locality = {
         type: parentPlace.types[0],
         name: parentPlace.address_components[0].long_name,
-        placeId: parentPlace.place_id,
+        place_id: parentPlace.place_id,
         parentId: null,
         fullAddress,
       }
 
-      placeId = locality.placeId;
+      place_id = locality.place_id;
 
       if(addressComponents.length - 1 > i){
         parentId = getParent(addressComponents, ++i);
@@ -96,10 +96,10 @@ function getParent(addressComponents, i) {
       }
       Localities.insert(locality);
     } else {
-      placeId = dbParentPlace.placeId;
+      place_id = dbParentPlace.place_id;
     }
   } else if(addressComponents.length - 1 > i) {
-    placeId = getParent(addressComponents, ++i)
+    place_id = getParent(addressComponents, ++i)
   }
-  return placeId;
+  return place_id;
 }

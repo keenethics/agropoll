@@ -57,7 +57,7 @@ class LoginPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
+    const fullAddress = this.props.localities.find((locality) => { return locality.place_id === locationId }).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true)
     browserHistory.push('/insert');
   }
@@ -75,11 +75,11 @@ class LoginPage extends React.Component {
   }
 
   renderPins() {
-    const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
-    return placeIds && placeIds.map((placeId) => {
+    const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
+    return place_ids && place_ids.map((place_id) => {
       if (this.props.localities.length){
-      const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
-      return <div key={placeId} className="locationPin" onClick={() => this.goToPin(placeId)}><LocationPin fullAddress={fullAddress} /></div>}
+      const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id).fullAddress;
+      return <div key={place_id} className="locationPin" onClick={() => this.goToPin(place_id)}><LocationPin fullAddress={fullAddress} /></div>}
     });
   }
 

@@ -30,17 +30,17 @@ class InsertPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => { return locality.placeId === locationId }).fullAddress;
-    this.props.actions.goToPin(locationId, fullAddress, true)
+    const fullAddress = this.props.localities.find((locality) => { return locality.place_id === locationId }).fullAddress;
+    this.props.actions.goToPin(locationId, fullAddress, true);
   }
 
   renderPins() {
-    const placeIds = this.props.user.profile && this.props.user.profile.locations || [];
-    return placeIds && placeIds.map((placeId) => {
+    const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
+    return place_ids && place_ids.map((place_id) => {
       if (this.props.localities.length) {
-        const fullAddress = this.props.localities.find((locality) => locality.placeId === placeId).fullAddress;
+        const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id).fullAddress;
         return (
-          <div key={placeId} className={this.props.insertPage.placeId === placeId ? "locationPin  selected" : "locationPin "} onClick={() => this.goToPin(placeId)}>
+          <div key={place_id} className={this.props.insertPage.place_id === place_id ? "locationPin  selected" : "locationPin "} onClick={() => this.goToPin(place_id)}>
             <LocationPin fullAddress={fullAddress} />
           </div>
         )
@@ -59,10 +59,10 @@ class InsertPage extends React.Component {
 
   render() {
     if (Meteor.user()) {
-      const placeId = this.props.insertPage.placeId;
-      const place = Localities.findOne({ placeId });
+      const place_id = this.props.insertPage.place_id;
+      const place = Localities.findOne({ place_id });
       const marketingYear = this.props.insertPage.marketingYear;
-      if (!placeId || !place || place.type !== 'locality' || !marketingYear) {
+      if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
         return (
           <div>
             <h3>Select place and year</h3>

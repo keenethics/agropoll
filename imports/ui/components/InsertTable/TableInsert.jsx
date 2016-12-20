@@ -31,7 +31,7 @@ class TableInsert extends React.Component {
 
   hasUserThisCrop(crop) {
     return this.props.records.find((elem) => {
-      return (elem.cropId === crop.id && elem.location.placeId === this.props.insertPage.placeId &&
+      return (elem.cropId === crop.id && elem.location.place_id === this.props.insertPage.place_id &&
       elem.marketingYear === this.props.insertPage.marketingYear)
     })
     return true;
@@ -53,11 +53,11 @@ class TableInsert extends React.Component {
   }
 
   getSquareValue(cropId) {
-    const placeId = this.props.insertPage.placeId;
+    const place_id = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.insertPage.marketingYear;
     return this.props.records.filter((record) => {
-      return (record.cropId === cropId && record.location.placeId === placeId &&
+      return (record.cropId === cropId && record.location.place_id === place_id &&
         record.userId === userId && record.marketingYear === marketingYear)
     }).reduce((a, b) => {
         return a + +b.square
@@ -65,12 +65,12 @@ class TableInsert extends React.Component {
   }
 
   getAvgCapacityValue(cropId, square) {
-    const placeId = this.props.insertPage.placeId;
+    const place_id = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.insertPage.marketingYear;
 
     const capacity = this.props.records.filter((record) => {
-      return (record.cropId === cropId && record.location.placeId === placeId &&
+      return (record.cropId === cropId && record.location.place_id === place_id &&
         record.userId === userId && record.marketingYear === marketingYear)
     }).reduce((a, b) => {
         return a + (+b.square * +b.cropCapacity)
@@ -79,16 +79,16 @@ class TableInsert extends React.Component {
   }
 
   addCropElem(cropId) {
-    const placeId = this.props.insertPage.placeId;
+    const place_id = this.props.insertPage.place_id;
     const placeType = this.props.insertPage.placeType;
     const marketingYear = this.props.insertPage.marketingYear;
 
-    if (placeId && placeType === 'locality' && marketingYear) {
+    if (place_id && placeType === 'locality' && marketingYear) {
       Meteor.call('record.insert', {
         marketingYear,
         reproduction: "",
         cropCapacity: 0,
-        placeId,
+        place_id,
         cropId,
         square: 0,
         status: 'planned',
@@ -100,12 +100,12 @@ class TableInsert extends React.Component {
   }
 
   renderInsertedCropsRows(crop) {
-    const placeId = this.props.insertPage.placeId;
+    const place_id = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.insertPage.marketingYear;
     const cropsData = Records.find({
       cropId: crop.id,
-      'location.placeId': placeId,
+      'location.place_id': place_id,
       userId,
       marketingYear,
     });
@@ -128,10 +128,10 @@ class TableInsert extends React.Component {
   }
 
   renderCropsRows(crops) {
-    const placeId = this.props.insertPage.placeId;
+    const place_id = this.props.insertPage.place_id;
     const marketingYear = this.props.insertPage.marketingYear;
     const placeType = this.props.insertPage.placeType;
-    const canAdd = placeId && placeType === 'locality' && marketingYear;
+    const canAdd = place_id && placeType === 'locality' && marketingYear;
     return crops.map((crop) => {
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);

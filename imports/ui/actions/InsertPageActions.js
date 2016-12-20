@@ -9,17 +9,17 @@ export const SELECT_PLACE = 'SELECT_PLACE';
 export function selectPlace(place, fullAddress) {
   const action = {
     type: SELECT_PLACE,
-    placeId: place.place_id,
+    place_id: place.place_id,
     placeType: place.types[0],
     fullAddress,
   };
   return action;
 }
 
-export function goToPin(placeId, fullAddress, hideCrops) {
+export function goToPin(place_id, fullAddress, hideCrops) {
   const action = {
     type: GO_TO_PIN,
-    placeId,
+    place_id,
     hideCrops,
     fullAddress,
   };

@@ -1,9 +1,9 @@
 import * as types from '../actions/types';
-console.log(types)
+
 const initialState = {
   admLevel1: null,
   admLevel2: null,
-  place_id: null,
+  place: null,
 };
 
 export default function statisticsTableReducer (state = initialState, action = {}) {

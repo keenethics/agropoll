@@ -60,6 +60,7 @@ const container = createContainer (({ params }) => {
 }, StatisticsPage);
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return { statisticsTable: state.statisticsTable };
 };
 

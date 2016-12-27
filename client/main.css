@@ -77,7 +77,6 @@ div.tcell {
 
 .table {
   overflow: hidden;
-  width: 80%;
 }
 
 .hidden {
@@ -110,16 +109,44 @@ div.tcell {
 /*------------End Table Insert------------*/
 
 div.row {
-
+  border: 1px solid green;
+  text-align: center;
 }
 
 div.head {
   font-weight: bold;
-
 }
 
 div.cell {
   display: inline-block;
-  width: 19%;
-  border: 1px solid green;
+  width: 33%;
 }
+
+.row.table-header {
+  background: #a0cc72;
+  text-align: center;
+  font-weight: bold;
+}
+
+.head {
+  background: #e6ffcc;
+  text-align: center;
+}
+
+div.group > div:nth-of-type(odd) {
+  background: #e8f5e8;
+}
+
+.cell.coll-1 {
+  text-align: left;
+}
+
+.table-header .cell.coll-1 {
+  text-align: center;
+}
+
+.table-container {
+  width: 70%;
+  margin: 0 auto;
+}
+

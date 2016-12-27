@@ -31,10 +31,10 @@ class StatisticsPage extends React.Component {
         <LocationFilter />
         <StatusFilter />
 
-        <div>
+        <div className="table-container">
           <StatisticsTableHeader />
           {this.props.groups.map(group => (
-            <div key={group.id}>
+            <div key={group.id} className="group">
               <div className="row">
                 <div className="head">{group.name}</div>
               </div>

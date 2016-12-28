@@ -6,7 +6,7 @@ const initialState = {
   place_id: null,
 
   planned: true,
-  planed: true,
+  planted: true,
   harvested: false,
 };
 

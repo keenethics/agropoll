@@ -9,7 +9,9 @@ export default class RowForGroup extends React.Component {
   render() {
     return (
       <div className="trow">
-        <div className="tcoll0" onClick={this.props.collapseCrops} >++++</div>
+        <div className="tcoll0" onClick={this.props.collapseCrops} >
+          <button>Expand</button>
+        </div>
         {this.props.groupName}
       </div>
     )

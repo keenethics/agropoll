@@ -10,7 +10,7 @@ export default class RowForCrop extends React.Component {
     return (
       <div className="trow">
         <div className="tcoll0">
-          { this.props.canAdd && <span onClick={() => this.props.addCropElem(this.props.cropId)}>add</span> || "" }
+          { this.props.canAdd && <button onClick={() => this.props.addCropElem(this.props.cropId)}>+</button> || "" }
         </div>
         <div className="tcoll1 tcell">
           { this.props.cropName }

@@ -90,7 +90,7 @@ class RowForGroup extends React.Component {
             onChange={this.changeStatus}
           />
         </div>
-        <div className="tcoll5 " onClick={this.props.removeRow}>Remove</div>
+        <div className="tcoll5 " onClick={this.props.removeRow}><button>-</button></div>
       </div>
     )
   }

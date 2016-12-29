@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-
+import { NavigatinButton } from './NavigationButton.jsx';
 import { browserHistory, Link } from 'react-router'
 
 
@@ -12,12 +12,16 @@ class NavigationBar extends React.Component {
   render() {
     return(
       <div className="navContainer">
-        <Link className="navLink mainLink" to="/">Main</Link>
-        <div className="navCenter">
-          <Link className="navLink statLink" to="/statistics">Statistics</Link>
-          <Link className="navLink insLink" to="/insert">Insert</Link>
+      	<div className="float-left text-left">
+          <NavigationButton toLink="/" text="Main" />
+	      </div>
+        <div className="float-left text-center">
+          <NavigationButton toLink="/statistics" text="Statistics" />
+          <NavigationButton toLink="/insert" text="Insert" />
         </div>
-        <Link className="navLink logLink" to="/login">{this.props.user ? 'Profile' : 'Login'}</Link>
+        <div className="float-left text-right">
+          <NavigationButton toLink="/login" text="{this.props.user ? 'Profile' : 'Login'}" />
+        </div>
       </div>
     )
   }

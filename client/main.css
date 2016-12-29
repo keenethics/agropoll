@@ -1,24 +1,14 @@
 /*@import "{}/imports/ui/stylesheets/not-found.less";*/
 
-
-/*++++++++++++++Navigation Bar++++++++++++++*/
-.navContainer{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid grey;
+body {
+    margin: 0 auto;
 }
 
-.navLink{
-  margin-left: 5px;
-  padding: 3px;
+.main-layout {
+  position: relative;
+  top: 40px;
+  background-color: rgba(145, 200, 9, 0.1);
 }
-
-.navCenter{
-  padding: 3px;
-}
-
-/*------------End Navigation Bar------------*/
 
 /*++++++++++++++Table Insert++++++++++++++*/
 .searchBar-wrapper{
@@ -149,4 +139,3 @@ div.group > div:nth-of-type(odd) {
   width: 70%;
   margin: 0 auto;
 }
-

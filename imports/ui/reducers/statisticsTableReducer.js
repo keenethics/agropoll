@@ -17,8 +17,8 @@ export default function statisticsTableReducer (state = initialState, action = {
       return { ...state, ...action.obj };
     };
     case types.CHANGE_STATUS_FILTER: {
-      const { planned, planted, harvested } = action;
-      return Object.assign({}, state, { planned, planted, harvested });
+      const planned/*, planted, harvested }*/ = action.planned;
+      return Object.assign({}, state, { planned });
     };
     default: return state;
   }

@@ -26,13 +26,10 @@ export function goToPin(place_id, fullAddress, hideCrops) {
   return action;
 }
 
-export function selectYear(marketingYear) {
-  const action = {
-    type: SELECT_YEAR,
-    marketingYear,
-  };
-  return action;
-}
+export const selectYear = (marketingYear) => ({
+  type: SELECT_YEAR,
+  marketingYear,
+});
 
 export function saveData() {
   return (dispatch, getState) => {

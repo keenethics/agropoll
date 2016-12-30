@@ -8,8 +8,7 @@ export default class AppContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Container</h3>
+      <div className="main-layout">
         {this.props.children}
       </div>
     )

@@ -1,0 +1,20 @@
+.homePage {
+  width: 85%;
+  margin: 0 auto;
+}
+.title-page {
+  text-align: center;
+  font-size: 1.7em;
+  padding: 10px 0 10px 0;
+  letter-spacing: 1px;
+}
+
+.title-article {
+  padding: 0 0 0 20px;
+  font-size: 1.3em;
+}
+
+.div-images {
+  text-align: right;
+  margin: 0 auto;
+}

@@ -17,12 +17,16 @@ class StatusFilter extends React.Component {
     };
   }
 
-  changeStatusFilter() {
-    this.props.actions.changeLocationFilter(this.refs.selectAdmAreaLev1.value, null, null);
+  changeStatusFilter(e) {
+    console.log(e.target.checked);
 
-    this.setState({
-      administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
-    });
+    // this.props.actions.changeStatusFilter(this.refs.planned.value, null, null);
+    //
+    // this.setState({
+    //   administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
+    // });
+
+    this.props.actions.changeStatusFilter(e.target.name, e.target.checked);
   }
 
   render() {
@@ -30,9 +34,9 @@ class StatusFilter extends React.Component {
     return (
       <div className="StatusFilter-wrapper">
         <h3>Filter by status:</h3>
-        <input type="checkbox" ref="planned" /> planned 
-        <input type="checkbox" ref="planted" /> planted 
-        <input type="checkbox" ref="harvested" /> harvested 
+        <input type="checkbox" checked={this.props.state.planned} onChange={this.changeStatusFilter.bind(this)} ref="planned" /> planned
+        <input type="checkbox" defaultChecked="true" ref="planted" /> planted
+        <input type="checkbox" ref="harvested" /> harvested
       </div>
     )
   }
@@ -47,8 +51,10 @@ class StatusFilter extends React.Component {
 // }, LocationFilter);
 
 const mapStateToProps = (state) => {
-  return { }
-};
+  return {
+    state: state.statisticsTable
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };

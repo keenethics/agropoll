@@ -11,71 +11,66 @@ import * as actions from '/imports/ui/actions/statisticsTableActions.js';
 class LocationFilter extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      administrative_area_level_1: null // this.refs.selectAdmAreaLev1.value,
-    };
+    this.selectAdmLevel = this.selectAdmLevel.bind(this);
   }
 
-  selectAdmAreaLev1() {
-    console.log('-->', this.refs.selectAdmAreaLev1.value);
-
-    this.props.actions.changeLocationFilter(this.refs.selectAdmAreaLev1.value, null, null);
-
-    this.setState({
-      administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
-    });
+  selectAdmLevel({ target: {name, value} }) {
+    this.props.actions.changeLocationFilter(
+      Object.assign(
+        { [name]: value },
+        name === 'administrative_area_level_1' ? { administrative_area_level_2: null, place_id: null  } : null,
+        name === 'administrative_area_level_2' ? { place_id: null } : null
+      )
+    );
   }
 
-  renderAdmAreaLev1() {
-    return (<select ref="selectAdmAreaLev1" onChange={this.selectAdmAreaLev1.bind(this)}>
-      <option key='null'>All Ukraine</option>
-      {this.props.localities.
-        filter(item => item.type === 'administrative_area_level_1' /* && item.parentId === null */).
-        map(item => (<option key={item.place_id} value={item.place_id}>{item.name}</option>))}
-    </select>);
-  }
-
-  selectAdmAreaLev2() {
-    console.log('-->', this.refs.selectAdmAreaLev2.value);
-
-    this.setState({
-      administrative_area_level_2: this.refs.selectAdmAreaLev2.value // this.refs.selectAdmAreaLev1.value,
-    });
-  }
-
-  renderAdmAreaLev2() {
-    return (<select ref="selectAdmAreaLev2" onChange={this.selectAdmAreaLev2.bind(this)}>
-      <option key='null' value='Whole region'>Whole region</option>
-      {this.props.localities.
-        filter(item => item.type === 'administrative_area_level_2' && item.parentId === this.state.administrative_area_level_1).
-        map(item => (<option key={item.place_id} value={item.place_id}>{item.name}</option>))}
-    </select>);
+  renderSelect(name, title, items) {
+    return (
+      <select name={name} onChange={this.selectAdmLevel}>
+        <option  value="">{title}</option>
+        {this.props[items].map(item => (
+          <option key={item.place_id} value={item.place_id}>{item.name}</option>
+        ))}
+      </select>
+    );
   }
 
   render() {
-    console.log(this.props.localities);
     return (
       <div className="LocationFilter-wrapper">
         <h3>Select area:</h3>
-        {this.renderAdmAreaLev1()}
-
-        {this.renderAdmAreaLev2()}
+        {this.renderSelect("administrative_area_level_1", "All Ukraine", "admLevel1Items")}
+        {this.props.administrative_area_level_1 ? this.renderSelect("administrative_area_level_2", "Whole region", "admLevel2Items") : ''}
+        {this.props.administrative_area_level_2 ? this.renderSelect("place_id", "Whole region", "places") : ''}
       </div>
-    )
+    );
   }
 }
 
-const container = createContainer(({ params }) => {
-  const localities = Meteor.subscribe('localities.all');
-
-  return {
-    localities: Localities.find().fetch(),
-  }
+const container = createContainer(({ administrative_area_level_1, administrative_area_level_2 }) => {
+  Meteor.subscribe('localities', { administrative_area_level_1, administrative_area_level_2 });
+  let admLevel1Items = [], admLevel2Items = [], places = [];
+  Localities.find().map((item) => {
+    switch (item.type) {
+      case 'administrative_area_level_1': {
+        admLevel1Items.push(item);
+        break;
+      }
+      case 'administrative_area_level_2': {
+        admLevel2Items.push(item);
+        break;
+      }
+      case 'locality': {
+        places.push(item);
+        break;
+      }
+    }
+  });
+  return { admLevel1Items, admLevel2Items, places };
 }, LocationFilter);
 
-const mapStateToProps = (state) => {
-  return { }
+const mapStateToProps = ({ statisticsTable }) => {
+  return { ...statisticsTable };
 };
 
 function mapDispatchToProps(dispatch) {

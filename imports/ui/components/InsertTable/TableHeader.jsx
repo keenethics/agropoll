@@ -8,7 +8,7 @@ export default class TableHeader extends React.Component{
 
   render() {
     return(
-      <div className="trow">
+      <div className="trow table-header">
         <div className="tcoll0"></div>
         <div className="tcoll1 tcell">Культура</div>
         <div className="tcoll2 tcell">Площа</div>

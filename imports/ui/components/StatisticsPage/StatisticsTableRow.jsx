@@ -28,15 +28,13 @@ export default class StatisticsTableRow extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="cell"></div>
-        <div className="cell">{this.props.crop.name}</div>
-        <div className="cell">
+        <div className="cell coll-1">{this.props.crop.name}</div>
+        <div className="cell coll-2">
           {this.sumOfSquares(this.props.crop.id)}
         </div>
-        <div className="cell">
+        <div className="cell coll-3">
           {this.totalYield(this.props.crop.id)}
         </div>
-        <div className="cell"></div>
       </div>
     );
   }

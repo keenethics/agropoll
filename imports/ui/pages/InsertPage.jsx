@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { browserHistory, Link } from 'react-router'
@@ -48,9 +49,9 @@ class InsertPage extends React.Component {
     });
   }
 
-  selectYear(e){
+  selectYear(e) { // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const year = e.target.value + '';
-    if (e.target.tagName === "LI"){
+    if (e.target.tagName === "LI") {
       e.target.className += ' selected';
       localStorage.setItem('marketingYear', year);
       this.props.actions.selectYear(year);
@@ -110,12 +111,12 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
 };
 
-const InsertPageContainer = createContainer (({ params }) => {
+const InsertPageContainer = createContainer(({ params }) => {
   const user = Meteor.user();
-  const cropsHandler = Meteor.subscribe('crops.all');
-  const groupsHandler = Meteor.subscribe('groups.all');
-  const recordsHandler = Meteor.subscribe('records.user', Meteor.userId());
-  const localitiesHandler = Meteor.subscribe('localities.all');
+  Meteor.subscribe('crops.all');
+  Meteor.subscribe('groups.all');
+  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('localities.all');
 
   return {
     user,

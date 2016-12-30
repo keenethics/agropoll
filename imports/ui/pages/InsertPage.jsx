@@ -64,9 +64,9 @@ class InsertPage extends React.Component {
       const marketingYear = this.props.insertPage.marketingYear;
       if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
         return (
-          <div>
+          <div className="control-bar-container">
             <h3>Select place and year</h3>
-            <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
+            <SearchBar selectPlace={this.selectPlace}/>
             <button onClick={this.saveCropData}>Save</button>
             <div>
               <ul className="years" onClick={this.selectYear}>
@@ -79,20 +79,22 @@ class InsertPage extends React.Component {
         )
       }
       return (
-        <div>
-          <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
-          <button onClick={this.saveCropData}>Save</button>
-          <div>
-            <span>Select Year</span>
+        <div className="control-bar-container">
+         <div className="control-bar">
+          <SearchBar selectPlace={this.selectPlace}/>
+          <div className="years-container">
             <ul className="years" onClick={this.selectYear}>
               <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
               <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
               <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
             </ul>
           </div>
-          {this.renderPins()}
-          <TableInsert />
-
+          <div className="pin-locations">
+            {this.renderPins()}
+          </div>
+          <div onClick={this.saveCropData} className="save-btn">Save</div>
+         </div>
+         <TableInsert />
         </div>
       )
     }

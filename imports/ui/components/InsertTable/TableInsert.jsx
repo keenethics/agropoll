@@ -167,6 +167,7 @@ class TableInsert extends React.Component {
     console.log(this.props.insertPage);
     return(
       <div className="table">
+      <div className="table-title">{this.props.insertPage.fullAddress}</div>
         <TableHeader />
         {this.renderTableRows()}
       </div>

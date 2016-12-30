@@ -82,7 +82,7 @@ input.input:focus {
 
 .searchBar-wrapper{
   width: 300px;
-  display: inline-block;;
+  display: flex;
 }
 
 .input-country{
@@ -141,6 +141,12 @@ div.tcell:hover {
   transform: translate(1px,1px);
 }
 
+.table-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 6px 0px;
+}
+
 .table {
   margin: 0px auto;
   overflow: hidden;
@@ -153,25 +159,72 @@ div.tcell:hover {
   height: 0px;
 }
 
+.pin-locations {
+  display: flex;
+}
+
 .locationPin {
   padding: 5px;
   border: 1px solid #a3dea3;
   margin: 5px 0;
+  max-width: 20%;
+  line-height: 1.1em;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.locationPin:hover {
+  background-color: #ddd;
+}
+
+.control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn {
+  margin-left: 10px;
+  text-align: center;
+  cursor: pointer;
+  height: 100%;
+  background-color: #4285f4;
+  padding: 5px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+.years-container {
+  display: flex;
 }
 
 .years {
   margin: 0;
+  padding: 0;
   list-style-type: none;
   display: inline-block;
 }
-
 
 .years > li {
   margin-right: 10px;
   display: inline-block;
   float: left;
+  cursor: pointer;
+}
+
+.years > li:hover {
+  background-color: #ddd;
 }
 
 .selected {
   background: #a2a2a2;
 }
+
+@media screen and (max-width: 300px) {
+  .control-bar {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+

@@ -13,7 +13,7 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 
 import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
-import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
+// import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 
 class InsertPage extends React.Component {
@@ -51,7 +51,7 @@ class InsertPage extends React.Component {
 
   selectYear(e) { // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const year = e.target.value + '';
-    if (e.target.tagName === "LI") {
+    if (e.target.tagName === 'LI') {
       e.target.className += ' selected';
       localStorage.setItem('marketingYear', year);
       this.props.actions.selectYear(year);
@@ -67,13 +67,14 @@ class InsertPage extends React.Component {
         return (
           <div>
             <h3>Select place and year</h3>
-            <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
+            <SearchBar selectPlace={this.selectPlace}/>
+            <span>{this.props.insertPage.fullAddress}</span>
             <button onClick={this.saveCropData}>Save</button>
             <div>
               <ul className="years" onClick={this.selectYear}>
-                <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
-                <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
-                <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
+                <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+                <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+                <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
               </ul>
             </div>
           </div>
@@ -86,30 +87,28 @@ class InsertPage extends React.Component {
           <div>
             <span>Select Year</span>
             <ul className="years" onClick={this.selectYear}>
-              <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
-              <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
-              <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
+              <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+              <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+              <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
             </ul>
           </div>
           {this.renderPins()}
           <TableInsert />
 
         </div>
-      )
+      );
     }
     else return (
       <h3>Please auth to insert</h3>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { insertPage: state.insertPage }
-};
+const mapStateToProps = (state) => ({ insertPage: state.insertPage });
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
-};
+}
 
 const InsertPageContainer = createContainer(({ params }) => {
   const user = Meteor.user();

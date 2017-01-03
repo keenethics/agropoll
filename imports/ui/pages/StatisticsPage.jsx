@@ -63,9 +63,6 @@ const container = createContainer(({ params }) => {
   };
 }, StatisticsPage);
 
-const mapStateToProps = (state) => {
-  // console.log(state)
-  return { statisticsTable: state.statisticsTable };
-};
+const mapStateToProps = (state) => ({ statisticsTable: state.statisticsTable });
 
 export default connect(mapStateToProps)(container);

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { browserHistory, Link } from 'react-router'
+// import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -31,7 +31,7 @@ class InsertPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => { return locality.place_id === locationId }).fullAddress;
+    const fullAddress = this.props.localities.find((locality) => locality.place_id === locationId).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true);
   }
 
@@ -41,10 +41,10 @@ class InsertPage extends React.Component {
       if (this.props.localities.length) {
         const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id).fullAddress;
         return (
-          <div key={place_id} className={this.props.insertPage.place_id === place_id ? "locationPin  selected" : "locationPin "} onClick={() => this.goToPin(place_id)}>
+          <div key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
             <LocationPin fullAddress={fullAddress} />
           </div>
-        )
+        );
       }
     });
   }
@@ -67,7 +67,7 @@ class InsertPage extends React.Component {
         return (
           <div>
             <h3>Select place and year</h3>
-            <SearchBar selectPlace={this.selectPlace}/>
+            <SearchBar selectPlace={this.selectPlace} />
             <span>{this.props.insertPage.fullAddress}</span>
             <button onClick={this.saveCropData}>Save</button>
             <div>
@@ -78,11 +78,13 @@ class InsertPage extends React.Component {
               </ul>
             </div>
           </div>
-        )
+        );
       }
+
       return (
         <div>
-          <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
+          <SearchBar selectPlace={this.selectPlace} />
+          <span>{this.props.insertPage.fullAddress}</span>
           <button onClick={this.saveCropData}>Save</button>
           <div>
             <span>Select Year</span>
@@ -97,10 +99,11 @@ class InsertPage extends React.Component {
 
         </div>
       );
+    } else {
+      return (
+        <h3>Please auth to insert</h3>
+      );
     }
-    else return (
-      <h3>Please auth to insert</h3>
-    );
   }
 }
 

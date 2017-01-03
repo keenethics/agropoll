@@ -38,7 +38,7 @@ class InsertPage extends React.Component {
   }
 
 
-  selectYear(e) { // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  selectYear(e) { // !!!!!!!!!!!!!!!
     const year = e.target.value + '';
     if (e.target.tagName === 'LI') {
       e.target.className += ' selected';

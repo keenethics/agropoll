@@ -8,4 +8,4 @@ export default combineReducers({
   insertPage,
   insertTable,
   statisticsTable,
-})
+});

@@ -79,8 +79,8 @@ class LoginPage extends React.Component {
   }
 
   renderPins() {
-    const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
-    return place_ids && place_ids.map((place_id) => {
+    const places_id = this.props.user.profile && this.props.user.profile.locations || [];
+    return places_id && places_id.map((place_id) => {
       if (this.props.localities.length) {
         // console.log(place_id,'-->',this.props.localities);
         const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id) ?

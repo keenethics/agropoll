@@ -46,6 +46,9 @@
     "settings": {
       "import/resolver": "meteor"
     },
+    "env": {
+      "browser": true
+    },
     "rules": {
       "no-underscore-dangle": 0,
       "new-cap": 0,

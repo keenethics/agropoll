@@ -31,23 +31,12 @@ class InsertPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => locality.place_id === locationId).fullAddress;
+    const fullAddress = this.props.localities.find(
+      (locality) => locality.place_id === locationId
+    ).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true);
   }
 
-  renderPins() {
-    const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
-    return place_ids && place_ids.map((place_id) => {
-      if (this.props.localities.length) {
-        const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id).fullAddress;
-        return (
-          <div key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
-            <LocationPin fullAddress={fullAddress} />
-          </div>
-        );
-      }
-    });
-  }
 
   selectYear(e) { // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const year = e.target.value + '';
@@ -56,6 +45,24 @@ class InsertPage extends React.Component {
       localStorage.setItem('marketingYear', year);
       this.props.actions.selectYear(year);
     }
+  }
+
+  renderPins() {
+    const places_id = this.props.user.profile && this.props.user.profile.locations || [];
+    return places_id && places_id.map((place_id) => {
+      if (this.props.localities.length) {
+        const fullAddress = this.props.localities.find(
+          (locality) => locality.place_id === place_id
+        ) && this.props.localities.find(
+          (locality) => locality.place_id === place_id
+        ).fullAddress;
+        return (
+          <div key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
+            <LocationPin fullAddress={fullAddress} />
+          </div>
+        );
+      }
+    });
   }
 
   render() {
@@ -67,7 +74,7 @@ class InsertPage extends React.Component {
         return (
           <div className="control-bar-container">
             <h3>Select place and year</h3>
-            <SearchBar selectPlace={this.selectPlace}/>
+            <SearchBar selectPlace={this.selectPlace} />
             <button onClick={this.saveCropData}>Save</button>
             <div>
               <ul className="years" onClick={this.selectYear}>
@@ -82,21 +89,21 @@ class InsertPage extends React.Component {
 
       return (
         <div className="control-bar-container">
-         <div className="control-bar">
-          <SearchBar selectPlace={this.selectPlace}/>
-          <div className="years-container">
-            <ul className="years" onClick={this.selectYear}>
-              <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
-              <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
-              <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
-            </ul>
+          <div className="control-bar">
+            <SearchBar selectPlace={this.selectPlace} />
+            <div className="years-container">
+              <ul className="years" onClick={this.selectYear}>
+                <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+                <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+                <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
+              </ul>
+            </div>
+            <div className="pin-locations">
+              {this.renderPins()}
+            </div>
+            <div onClick={this.saveCropData} className="save-btn">Save</div>
           </div>
-          <div className="pin-locations">
-            {this.renderPins()}
-          </div>
-          <div onClick={this.saveCropData} className="save-btn">Save</div>
-         </div>
-         <TableInsert />
+          <TableInsert />
         </div>
       );
     } else {

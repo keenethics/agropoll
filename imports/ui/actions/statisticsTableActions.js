@@ -5,11 +5,9 @@ export const changeLocationFilter = obj => ({
   obj
 });
 
-export const changeStatusFilter = (name, status) => {
-  return {
-    type: types.CHANGE_STATUS_FILTER,
-    planned: status,
-    // planted,
-    // harvested,
-  };
-}
+export const changeStatusFilter = (name, status) => ({
+  type: types.CHANGE_STATUS_FILTER,
+  planned: status,
+  // planted,
+  // harvested,
+});

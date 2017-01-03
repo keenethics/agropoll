@@ -1,5 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,8 +15,8 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: ''
-    }
+      error: '',
+    };
     this.logout = this.logout.bind(this);
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
@@ -31,25 +32,27 @@ class LoginPage extends React.Component {
       Meteor.call('Login', hash, (err, res) => {
         if (err) {
           console.error(err);
-          localStorage.removeItem('auth-token')
+          localStorage.removeItem('auth-token');
         } else {
           Meteor.loginWithToken(res[1], (err) => {
-            if (err) { console.error(err); }
-            else { localStorage.setItem('auth-token', res[1]) }
-          })
+            if (err) {
+              console.error(err);
+            } else {
+              localStorage.setItem('auth-token', res[1]);
+            }
+          });
         }
-      })
+      });
     } else if (token){
-        Meteor.loginWithToken(token, (err) => {
-          if(err){
-            console.error('Bad Token');
-            localStorage.removeItem('auth-token')
-            Meteor.logout();
-          }
-        })
-      }
+      Meteor.loginWithToken(token, (err) => {
+        if (err) {
+          console.error('Bad Token');
+          localStorage.removeItem('auth-token');
+          Meteor.logout();
+        }
+      });
+    }
   }
-
 
   logout() {
     Meteor.call('LoginProcedure', this.props.user.emails[0].address);
@@ -57,8 +60,8 @@ class LoginPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => { return locality.place_id === locationId }).fullAddress;
-    this.props.actions.goToPin(locationId, fullAddress, true)
+    const fullAddress = this.props.localities.find((locality) => locality.place_id === locationId).fullAddress;
+    this.props.actions.goToPin(locationId, fullAddress, true);
     browserHistory.push('/insert');
   }
 
@@ -66,20 +69,23 @@ class LoginPage extends React.Component {
     e.preventDefault();
     const email = this.refs.emailChange.value;
     Meteor.call('user.emailChange', email, (err, res) => {
-      if(err)
+      if (err) {
         console.error(err);
-      else
-        console.log('email changed to ' + email)
-        console.log(Meteor.user());
-    })
+      } else { // ??????????????????????????????????????????????????
+        console.log('email changed to ' + email);
+      }
+      console.log(Meteor.user());
+    });
   }
 
   renderPins() {
     const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
     return place_ids && place_ids.map((place_id) => {
       if (this.props.localities.length) {
-        console.log(place_id,'-->',this.props.localities);
-        const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id) ? this.props.localities.find((locality) => locality.place_id === place_id).fullAddress : "";
+        // console.log(place_id,'-->',this.props.localities);
+        const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id) ?
+          this.props.localities.find((locality) => locality.place_id === place_id).fullAddress :
+          '';
         return (
           <div key={place_id} className="locationPin" onClick={() => this.goToPin(place_id)}>
             <LocationPin fullAddress={fullAddress} />
@@ -90,13 +96,13 @@ class LoginPage extends React.Component {
   }
 
   onNameSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const name = this.refs.nameChange.value;
     Meteor.call('user.nameChange', name, (err, res) => {
-      if(res)
-        console.log('name changed to ' + name)
+      if (res)
+        console.log('name changed to ' + name);
         console.log(Meteor.user());
-    })
+    });
   }
 
   handleLoginSubmit(e){
@@ -107,10 +113,10 @@ class LoginPage extends React.Component {
       if (err) {
         console.error(err);
       } else {
-        browserHistory.push('/redirect')
+        browserHistory.push('/redirect');
         console.log('reddirecting!');
       }
-    })
+    });
   }
 
   render() {

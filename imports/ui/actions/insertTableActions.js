@@ -7,60 +7,42 @@ export const CHANGE_CAPACITY = 'CHANGE_CAPACITY';
 export const CHANGE_REPRODUCTION = 'CHANGE_REPRODUCTION';
 
 
-export function addInputData ({ _id, sort, reproduction, square, cropCapacity, status }) {
-  const action = {
-    type: ADD_INPUT_DATA,
-    _id,
-    sort,
-    square,
-    status,
-    reproduction,
-    cropCapacity,
-  }
-  return action;
-}
+export const addInputData = ({ _id, sort, reproduction, square, cropCapacity, status }) => ({
+  type: ADD_INPUT_DATA,
+  _id,
+  sort,
+  square,
+  status,
+  reproduction,
+  cropCapacity,
+});
 
-export function changeSort (id, sort) {
-  const action = {
-    type: CHANGE_SORT,
-    id,
-    sort,
-  }
-  return action;
-}
+export const changeSort = (id, sort) => ({
+  type: CHANGE_SORT,
+  id,
+  sort,
+});
 
-export function changeSquare (id, square) {
-  const action = {
-    type: CHANGE_SQUARE,
-    id,
-    square,
-  }
-  return action;
-}
+export const changeSquare = (id, square) => ({
+  type: CHANGE_SQUARE,
+  id,
+  square,
+});
 
-export function changeCapacity (id, capacity) {
-  const action = {
-    type: CHANGE_CAPACITY,
-    id,
-    capacity,
-  }
-  return action;
-}
+export const changeCapacity = (id, capacity) => ({
+  type: CHANGE_CAPACITY,
+  id,
+  capacity,
+});
 
-export function changeStatus (id, status) {
-  const action = {
-    type: CHANGE_STATUS,
-    id,
-    status,
-  }
-  return action;
-}
+export const changeStatus = (id, status) => ({
+  type: CHANGE_STATUS,
+  id,
+  status,
+});
 
-export function changeReproduction (id, reproduction) {
-  const action = {
-    type: CHANGE_REPRODUCTION,
-    id,
-    reproduction,
-  }
-  return action;
-}
+export const changeReproduction = (id, reproduction) => ({
+  type: CHANGE_REPRODUCTION,
+  id,
+  reproduction,
+});

@@ -1,22 +1,3 @@
-/*++++++++++++++Navigation Bar++++++++++++++*/
-.navContainer{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid grey;
-}
-
-.navLink{
-  margin-left: 5px;
-  padding: 3px;
-}
-
-.navCenter{
-  padding: 3px;
-}
-
-/*------------End Navigation Bar------------*/
-
 div.row {
   border: 1px solid green;
   text-align: center;

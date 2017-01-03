@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .float-left {
     float: left;
 }
@@ -26,3 +30,6 @@
     padding-top: 10px;
 }
 
+.main-layout {
+  margin-top: 40px;
+}

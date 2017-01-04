@@ -1,7 +1,7 @@
-import React from 'react'
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Localities } from '/imports/api/localities/localities.js';
+import React from 'react';
+// import { Meteor } from 'meteor/meteor';
+// import { createContainer } from 'meteor/react-meteor-data';
+// import { Localities } from '/imports/api/localities/localities.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,7 +38,7 @@ class StatusFilter extends React.Component {
         <input type="checkbox" defaultChecked="true" ref="planted" /> planted
         <input type="checkbox" ref="harvested" /> harvested
       </div>
-    )
+    );
   }
 }
 

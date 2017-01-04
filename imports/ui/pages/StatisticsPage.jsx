@@ -59,7 +59,7 @@ const container = createContainer(({ params }) => {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
-    records: Records.find({}).fetch()
+    records: Records.find({}).fetch(),
   };
 }, StatisticsPage);
 

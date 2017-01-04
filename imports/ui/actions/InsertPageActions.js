@@ -18,15 +18,12 @@ export function selectPlace(place, fullAddress) {
   return action;
 }
 
-export function goToPin(place_id, fullAddress, hideCrops) {
-  const action = {
-    type: GO_TO_PIN,
-    place_id,
-    hideCrops,
-    fullAddress,
-  };
-  return action;
-}
+export const goToPin = (place_id, fullAddress, hideCrops) => ({
+  type: GO_TO_PIN,
+  place_id,
+  hideCrops,
+  fullAddress,
+});
 
 export function startSpinner() {
   const action = {
@@ -47,25 +44,18 @@ export const selectYear = (marketingYear) => ({
   marketingYear,
 });
 
-export function saveData() {
+export const saveData = () => {
   return (dispatch, getState) => {
     const insertTableState = getState().insertTable;
     dispatch(hideCrops());
     Meteor.call('record.updateMulti', insertTableState.inputData);
-
   }
 }
 
-export function hideCrops() {
-  const action = {
-    type: HIDE_CROPS,
-  }
-  return action;
-}
+export const hideCrops = () => ({
+  type: HIDE_CROPS,
+});
 
-export function showCrops() {
-  const action = {
-    type: SHOW_CROPS,
-  }
-  return action;
-}
+export const showCrops = () => ({
+  type: SHOW_CROPS,
+});

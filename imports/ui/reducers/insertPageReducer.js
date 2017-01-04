@@ -6,7 +6,8 @@ import {
   SHOW_CROPS,
   SHOW_SPINNER,
   HIDE_SPINNER,
- } from '/imports/ui/actions/InsertPageActions.js';
+} from '/imports/ui/actions/InsertPageActions.js';
+
 
 const initialState = {
   fullAddress: localStorage.getItem('fullAddress'),

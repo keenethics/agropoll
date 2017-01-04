@@ -121,6 +121,7 @@ class LoginPage extends React.Component {
           </div>
         );
       }
+      return undefined;
     });
   }
 

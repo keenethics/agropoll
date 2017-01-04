@@ -1,5 +1,5 @@
+// import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -51,57 +51,58 @@ class RowForGroup extends React.Component {
       <div className="trow">
         <div className="tcoll0 "></div>
         <div className="tcoll1 tcell">
-          <input className="input"
+          <input
+            className="input"
             type="text"
-            ref={"sort"+this.props.dataId}
+            ref={`sort${this.props.dataId}`}
             defaultValue={this.props.defaultSort}
             placeholder="сорт"
             onChange={this.changeSort}
           />
-          <input className="input"
+          <input
+            className="input"
             type="text"
-            ref={"reproduction"+this.props.dataId}
+            ref={`reproduction${this.props.dataId}`}
             defaultValue={this.props.defaultReproduction}
             placeholder="репродукція"
             onChange={this.changeReproduction}
           />
         </div>
         <div className="tcoll2 tcell">
-          <input className="input"
+          <input
+            className="input"
             type="number"
-            ref={"square"+this.props.dataId}
+            ref={`square${this.props.dataId}`}
             defaultValue={this.props.defaultSquare}
             onChange={this.changeSquare}
           />
         </div>
         <div className="tcoll3 tcell">
-          <input className="input"
+          <input
+            className="input"
             type="number"
-            ref={"cropCapacity"+this.props.dataId}
+            ref={`cropCapacity${this.props.dataId}`}
             defaultValue={this.props.defaultCapacity}
             onChange={this.changeCapacity}
           />
         </div>
         <div className="tcoll4 tcell">
-          <input className="input"
+          <input
+            className="input"
             type="text"
-            ref={"status"+this.props.dataId}
+            ref={`status${this.props.dataId}`}
             defaultValue={this.props.defaultStatus}
             onChange={this.changeStatus}
           />
         </div>
         <div className="tcoll5 " onClick={this.props.removeRow}><div className="insert-list action remove">-</div></div>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { }
-};
+const mapStateToProps = (state) => ({ });
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(actions, dispatch) };
-}
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RowForGroup);

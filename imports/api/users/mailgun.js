@@ -1,5 +1,7 @@
-Meteor.methods ({
-  emailLogin: (email, body = "hello") => {
+import { Meteor } from 'meteor/meteor';
+
+Meteor.methods({
+  emailLogin: (email, body = 'hello') => {
 
     //this.unblock();
 

@@ -44,17 +44,15 @@ export const selectYear = (marketingYear) => ({
   marketingYear,
 });
 
-export const saveData = () => {
-  return (dispatch, getState) => {
-    const insertTableState = getState().insertTable;
-    dispatch(hideCrops());
-    Meteor.call('record.updateMulti', insertTableState.inputData);
-  }
-}
-
 export const hideCrops = () => ({
   type: HIDE_CROPS,
 });
+
+export const saveData = () => (dispatch, getState) => {
+  const insertTableState = getState().insertTable;
+  dispatch(hideCrops());
+  Meteor.call('record.updateMulti', insertTableState.inputData);
+}
 
 export const showCrops = () => ({
   type: SHOW_CROPS,

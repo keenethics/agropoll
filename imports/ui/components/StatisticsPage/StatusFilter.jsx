@@ -50,11 +50,9 @@ class StatusFilter extends React.Component {
 //   }
 // }, LocationFilter);
 
-const mapStateToProps = (state) => {
-  return {
-    state: state.statisticsTable
-  };
-}
+const mapStateToProps = (state) => ({
+  state: state.statisticsTable,
+});
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };

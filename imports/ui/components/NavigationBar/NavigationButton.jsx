@@ -13,10 +13,12 @@ export default class NavigationButton extends React.Component {
   render() {
     return (
       <Link
-	      className={this.props.class}
-	      to={ this.props.toLink }
-	      onClick={this.changeClass.bind(this)}
-	    >{ this.props.text }</Link>
+        className={this.props.class}
+        to={this.props.toLink}
+        onClick={this.changeClass.bind(this)}
+      >
+        {this.props.text}
+      </Link>
     );
   }
 }

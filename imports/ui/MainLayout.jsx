@@ -6,9 +6,9 @@ import NavigationBar from '/imports/ui/components/NavigationBar/NavigationBar.js
 import AppContainer from '/imports/ui/containers/AppContainer.jsx';
 
 export default class MainLayout extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (

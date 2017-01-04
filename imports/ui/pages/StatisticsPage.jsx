@@ -13,9 +13,9 @@ import StatusFilter from '/imports/ui/components/StatisticsPage/StatusFilter.jsx
 import { connect } from 'react-redux';
 
 class StatisticsPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   renderRows(group) {
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (

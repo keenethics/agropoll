@@ -1,13 +1,12 @@
-import React from 'react'
-import { Meteor } from 'meteor/meteor';
+import React from 'react';
 
 export default class TableHeader extends React.Component{
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   render() {
-    return(
+    return (
       <div className="trow table-header">
         <div className="tcoll0"></div>
         <div className="tcoll1 tcell">Культура</div>
@@ -16,7 +15,6 @@ export default class TableHeader extends React.Component{
         <div className="tcoll4 tcell">Стан</div>
         <div className="tcoll5"></div>
       </div>
-    )
-
+    );
   }
 }

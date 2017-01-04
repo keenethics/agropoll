@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { bindActionCreators } from 'redux';
-import Spinner from 'react-spinkit';
 
 import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
@@ -75,7 +74,6 @@ class SearchBar extends React.Component {
       this.props.actions.selectPlace(this.state.selectedPlace, fullAddress);
     }
   }
-
 
   initGoogleAutocomplete(input, options) {
     return new google.maps.places.Autocomplete(input, options);

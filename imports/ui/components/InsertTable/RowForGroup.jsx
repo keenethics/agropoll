@@ -2,9 +2,9 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 export default class RowForGroup extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
@@ -14,6 +14,6 @@ export default class RowForGroup extends React.Component {
         </div>
         <div className="trow group-name">{this.props.groupName}</div>
       </div>
-    )
+    );
   }
 }

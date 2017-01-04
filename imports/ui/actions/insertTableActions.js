@@ -1,11 +1,9 @@
-
 export const CHANGE_SORT = 'CHANGE_SORT';
 export const CHANGE_SQUARE = 'CHANGE_SQUARE';
 export const CHANGE_STATUS = 'CHANGE_STATUS';
 export const ADD_INPUT_DATA = 'ADD_INPUT_DATA';
 export const CHANGE_CAPACITY = 'CHANGE_CAPACITY';
 export const CHANGE_REPRODUCTION = 'CHANGE_REPRODUCTION';
-
 
 export const addInputData = ({ _id, sort, reproduction, square, cropCapacity, status }) => ({
   type: ADD_INPUT_DATA,

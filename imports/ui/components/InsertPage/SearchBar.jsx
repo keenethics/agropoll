@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       autocomplete: {},
-      seekingLocation: false
+      seekingLocation: false,
     };
 
     this.submitPlace = this.submitPlace.bind(this);

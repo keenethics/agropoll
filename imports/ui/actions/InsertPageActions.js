@@ -8,15 +8,12 @@ export const SELECT_PLACE = 'SELECT_PLACE';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
 
-export function selectPlace(place, fullAddress) {
-  const action = {
-    type: SELECT_PLACE,
-    place_id: place.place_id,
-    placeType: place.types[0],
-    fullAddress,
-  };
-  return action;
-}
+export const selectPlace = (place, fullAddress) => ({
+  type: SELECT_PLACE,
+  place_id: place.place_id,
+  placeType: place.types[0],
+  fullAddress,
+});
 
 export const goToPin = (place_id, fullAddress, hideCrops) => ({
   type: GO_TO_PIN,
@@ -25,19 +22,13 @@ export const goToPin = (place_id, fullAddress, hideCrops) => ({
   fullAddress,
 });
 
-export function startSpinner() {
-  const action = {
-    type: SHOW_SPINNER,
-  };
-  return action;
-}
+export const startSpinner = () => ({
+  type: SHOW_SPINNER,
+});
 
-export function hideSpinner() {
-  const action = {
-    type: HIDE_SPINNER,
-  };
-  return action;
-}
+export const hideSpinner = () => ({
+  type: HIDE_SPINNER,
+});
 
 export const selectYear = (marketingYear) => ({
   type: SELECT_YEAR,

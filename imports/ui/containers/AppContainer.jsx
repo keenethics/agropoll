@@ -26,15 +26,10 @@ class AppContainer extends React.Component {
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(actions, dispatch) };
-}
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) });
 
 const mapStateToProps = (state) => ({ insertPage: state.insertPage });
 
-const containter = createContainer(({ params }) => {
-  return {};
-}, AppContainer);
+const containter = createContainer(({ params }) => ({}), AppContainer);
 
 export default connect(mapStateToProps, mapDispatchToProps)(containter);

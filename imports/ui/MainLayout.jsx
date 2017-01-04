@@ -1,7 +1,7 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 
-import HomePage from '/imports/ui/pages/HomePage.jsx';
+// import HomePage from '/imports/ui/pages/HomePage.jsx';
 import NavigationBar from '/imports/ui/components/NavigationBar/NavigationBar.jsx';
 import AppContainer from '/imports/ui/containers/AppContainer.jsx';
 

@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
 import { bindActionCreators } from 'redux';
+import Spinner from 'react-spinkit';
 
 import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
@@ -11,6 +12,7 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       autocomplete: {},
+      seekingLocation: false
     }
 
     this.submitPlace = this.submitPlace.bind(this);
@@ -40,8 +42,15 @@ class SearchBar extends React.Component {
   }
 
   submitPlace() {
+    this.props.actions.startSpinner();
     if (this.state.selectedPlace) {
-      Meteor.call('localities.addPlace', this.state.selectedPlace);
+      Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
+        if (!err) {
+          this.props.actions.hideSpinner();
+        } else {
+           console.log(err.reason);
+        }
+      });
       const fullAddress = this.getFullAddress();
 
       localStorage.setItem('place_id', this.state.selectedPlace.place_id);
@@ -91,7 +100,7 @@ const mapStateToProps = (state) => {
   return { insertPage: state.insertPage }
 };
 
-const SearchBarConstainer = createContainer(({ params }) => {
+const containter = createContainer(({ params }) => {
   const user = Meteor.user();
 
   return {
@@ -99,4 +108,4 @@ const SearchBarConstainer = createContainer(({ params }) => {
   }
 }, SearchBar)
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBarConstainer);
+export default connect(mapStateToProps, mapDispatchToProps)(containter);

@@ -17,4 +17,7 @@
 .div-images {
   text-align: right;
   margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(20%, -50%);
 }

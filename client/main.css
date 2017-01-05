@@ -2,12 +2,12 @@
 
 body {
     margin: 0 auto;
+    background-color: rgba(145, 200, 9, 0.1);
 }
 
 .main-layout {
   position: relative;
   top: 40px;
-  background-color: rgba(145, 200, 9, 0.1);
 }
 
 /*++++++++++++++Table Insert++++++++++++++*/

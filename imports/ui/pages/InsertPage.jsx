@@ -1,6 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { browserHistory, Link } from 'react-router'
+// import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -12,7 +13,7 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 
 import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
-import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
+// import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 
 class InsertPage extends React.Component {
@@ -30,31 +31,38 @@ class InsertPage extends React.Component {
   }
 
   goToPin(locationId) {
-    const fullAddress = this.props.localities.find((locality) => { return locality.place_id === locationId }).fullAddress;
+    const fullAddress = this.props.localities.find(
+      (locality) => locality.place_id === locationId
+    ).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true);
   }
 
-  renderPins() {
-    const place_ids = this.props.user.profile && this.props.user.profile.locations || [];
-    return place_ids && place_ids.map((place_id) => {
-      if (this.props.localities.length) {
-        const fullAddress = this.props.localities.find((locality) => locality.place_id === place_id).fullAddress;
-        return (
-          <div key={place_id} className={this.props.insertPage.place_id === place_id ? "locationPin  selected" : "locationPin "} onClick={() => this.goToPin(place_id)}>
-            <LocationPin fullAddress={fullAddress} />
-          </div>
-        )
-      }
-    });
-  }
 
-  selectYear(e){
+  selectYear(e) { // !!!!!!!!!!!!!!!
     const year = e.target.value + '';
-    if (e.target.tagName === "LI"){
+    if (e.target.tagName === 'LI') {
       e.target.className += ' selected';
       localStorage.setItem('marketingYear', year);
       this.props.actions.selectYear(year);
     }
+  }
+
+  renderPins() {
+    const places_id = this.props.user.profile && this.props.user.profile.locations || [];
+    return places_id && places_id.map((place_id) => {
+      if (this.props.localities.length) {
+        const fullAddress = this.props.localities.find(
+          (locality) => locality.place_id === place_id
+        ) && this.props.localities.find(
+          (locality) => locality.place_id === place_id
+        ).fullAddress;
+        return (
+          <div key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
+            <LocationPin fullAddress={fullAddress} />
+          </div>
+        );
+      }
+    });
   }
 
   render() {
@@ -64,58 +72,61 @@ class InsertPage extends React.Component {
       const marketingYear = this.props.insertPage.marketingYear;
       if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
         return (
-          <div>
-            <h3>Select place and year</h3>
-            <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
-            <button onClick={this.saveCropData}>Save</button>
-            <div>
-              <ul className="years" onClick={this.selectYear}>
-                <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
-                <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
-                <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
-              </ul>
+          <div className="control-bar-container">
+            <div className="control-bar">
+              <SearchBar selectPlace={this.selectPlace} />
+              <button onClick={this.saveCropData}>Save</button>
+              <div>
+                <ul className="years" onClick={this.selectYear}>
+                  <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+                  <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+                  <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
+                </ul>
+              </div>
             </div>
           </div>
-        )
+        );
       }
-      return (
-        <div>
-          <SearchBar selectPlace={this.selectPlace}/> <span>{this.props.insertPage.fullAddress}</span>
-          <button onClick={this.saveCropData}>Save</button>
-          <div>
-            <span>Select Year</span>
-            <ul className="years" onClick={this.selectYear}>
-              <li className={this.props.insertPage.marketingYear === "2016" ? "selected" : ""} value="2016">2016</li>
-              <li className={this.props.insertPage.marketingYear === "2017" ? "selected" : ""} value="2017">2017</li>
-              <li className={this.props.insertPage.marketingYear === "2018" ? "selected" : ""} value="2018">2018</li>
-            </ul>
-          </div>
-          {this.renderPins()}
-          <TableInsert />
 
+      return (
+        <div className="control-bar-container">
+          <div className="control-bar">
+            <SearchBar selectPlace={this.selectPlace} />
+            <div className="years-container">
+              <ul className="years" onClick={this.selectYear}>
+                <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+                <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+                <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
+              </ul>
+            </div>
+            <div className="pin-locations">
+              {this.renderPins()}
+            </div>
+            <div onClick={this.saveCropData} className="save-btn">Save</div>
+          </div>
+          <TableInsert />
         </div>
-      )
+      );
+    } else {
+      return (
+        <h3>Please auth to insert</h3>
+      );
     }
-    else return (
-      <h3>Please auth to insert</h3>
-    )
   }
 }
 
-const mapStateToProps = (state) => {
-  return { insertPage: state.insertPage }
-};
+const mapStateToProps = (state) => ({ insertPage: state.insertPage });
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
-};
+}
 
-const InsertPageContainer = createContainer (({ params }) => {
+const InsertPageContainer = createContainer(({ params }) => {
   const user = Meteor.user();
-  const cropsHandler = Meteor.subscribe('crops.all');
-  const groupsHandler = Meteor.subscribe('groups.all');
-  const recordsHandler = Meteor.subscribe('records.user', Meteor.userId());
-  const localitiesHandler = Meteor.subscribe('localities.all');
+  Meteor.subscribe('crops.all');
+  Meteor.subscribe('groups.all');
+  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('localities.all');
 
   return {
     user,

@@ -1,7 +1,4 @@
-import {
-  CHANGE_LOCATION_FILTER,
-  CHANGE_STATUS_FILTER
-} from '/imports/ui/actions/statisticsTableActions.js';
+import * as types from '/imports/ui/actions/types';
 
 const initialState = {
   administrative_area_level_1: null,
@@ -9,20 +6,20 @@ const initialState = {
   place_id: null,
 
   planned: true,
-  planed: true,
+  planted: true,
   harvested: false,
 };
 
-export default function statisticsTableReducer (state = initialState, action = {}) {
+export default function statisticsTableReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case CHANGE_LOCATION_FILTER: {
-      const { administrative_area_level_1, administrative_area_level_2, place_id } = action;
-      return Object.assign({}, state, { administrative_area_level_1, administrative_area_level_2, place_id });
-    };
-    case CHANGE_STATUS_FILTER: {
-      const { planned, planted, harvested } = action;
-      return Object.assign({}, state, { planned, planted, harvested });
-    };
+    case types.CHANGE_LOCATION_FILTER: {
+      console.log(action);
+      return { ...state, ...action.obj };
+    }
+    case types.CHANGE_STATUS_FILTER: {
+      const planned /* , planted, harvested }*/ = action.planned;
+      return Object.assign({}, state, { planned });
+    }
     default: return state;
   }
 }

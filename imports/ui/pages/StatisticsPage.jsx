@@ -1,6 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
 
@@ -12,9 +13,9 @@ import StatusFilter from '/imports/ui/components/StatisticsPage/StatusFilter.jsx
 import { connect } from 'react-redux';
 
 class StatisticsPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   renderRows(group) {
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
@@ -23,11 +24,9 @@ class StatisticsPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.statisticsTable);
+    // console.log(this.props.statisticsTable);
     return (
       <div>
-        <h3>Statistics Page</h3>
-
         <LocationFilter />
         <StatusFilter />
 
@@ -48,23 +47,20 @@ class StatisticsPage extends React.Component {
   }
 }
 
-const container = createContainer (({ params }) => {
+const container = createContainer(({ params }) => {
   const user = Meteor.user();
-  const cropsHandler = Meteor.subscribe('crops.all');
-  const groupsHandler = Meteor.subscribe('groups.all');
-  const recordsHandler = Meteor.subscribe('records.all');
+  Meteor.subscribe('crops.all');
+  Meteor.subscribe('groups.all');
+  Meteor.subscribe('records.all');
 
   return {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
-    records: Records.find({}).fetch()
-  }
+    records: Records.find({}).fetch(),
+  };
 }, StatisticsPage);
 
-const mapStateToProps = (state) => {
-  return { statisticsTable: state.statisticsTable };
-};
-
+const mapStateToProps = (state) => ({ statisticsTable: state.statisticsTable });
 
 export default connect(mapStateToProps)(container);

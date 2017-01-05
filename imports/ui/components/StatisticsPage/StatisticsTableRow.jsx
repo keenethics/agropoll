@@ -1,28 +1,30 @@
 import React from 'react';
 
 export default class StatisticsTableRow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   sumOfSquares(cropId) {
-    return this.props.records.
-      filter((item) => item.cropId === cropId).
-      // /* region filter?  */     filter((item) => item.cropId === localStorage.administrative_area_level_1 || localStorage.administrative_area_level_1 === null).
-      // спробувати або через event emitter або через БД
-      reduce((sum, item) => sum + +item.square, 0);
+    return this.props.records.filter((item) =>
+      item.cropId === cropId
+    ).reduce((sum, item) =>
+      sum + +item.square, 0
+    );
+    // /* region filter?  */     filter((item) => item.cropId === localStorage.administrative_area_level_1 || localStorage.administrative_area_level_1 === null).
+    // спробувати або через event emitter або через БД
   }
 
   avgCropCapacity(cropId) {
-
     return this.totalYield(cropId) / this.sumOfSquares(cropId);
-
   }
 
   totalYield(cropId) {
-    return this.props.records.
-      filter((item) => item.cropId === cropId).
-      reduce((sum, item) => sum + item.square * item.cropCapacity, 0);
+    return this.props.records.filter((item) =>
+      item.cropId === cropId
+    ).reduce((sum, item) =>
+      sum + item.square * item.cropCapacity, 0
+    );
   }
 
   render() {

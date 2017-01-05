@@ -4,7 +4,10 @@ import {
   GO_TO_PIN,
   HIDE_CROPS,
   SHOW_CROPS,
- } from '/imports/ui/actions/InsertPageActions.js';
+  SHOW_SPINNER,
+  HIDE_SPINNER,
+} from '/imports/ui/actions/InsertPageActions.js';
+
 
 const initialState = {
   fullAddress: localStorage.getItem('fullAddress'),
@@ -12,11 +15,12 @@ const initialState = {
   placeType: localStorage.getItem('placeType'),
   marketingYear: localStorage.getItem('marketingYear'),
   hideCrops: true,
-}
+  seekingLocation: false,
+};
 
 
 export default function InsertPageReducer(state = initialState, action = {}) {
-  switch (action.type){
+  switch (action.type) {
     case SELECT_PLACE: {
       const place_id = action.place_id;
       const placeType = action.placeType;
@@ -25,26 +29,32 @@ export default function InsertPageReducer(state = initialState, action = {}) {
         place_id,
         placeType,
         fullAddress,
-      })
-    };
+      });
+    }
     case SELECT_YEAR: {
       const { marketingYear } = action;
       return Object.assign({}, state, { marketingYear });
-    };
+    }
     case GO_TO_PIN: {
       const { place_id, fullAddress, hideCrops } = action;
       return Object.assign({}, state, {
         place_id,
         hideCrops,
         fullAddress,
-      })
-    };
+      });
+    }
     case HIDE_CROPS: {
       return Object.assign({}, state, { hideCrops: true });
-    };
+    }
     case SHOW_CROPS: {
       return Object.assign({}, state, { hideCrops: false });
-    };
+    }
+    case SHOW_SPINNER: {
+      return Object.assign({}, state, { seekingLocation: true });
+    }
+    case HIDE_SPINNER: {
+      return Object.assign({}, state, { seekingLocation: false });
+    }
     default: return state;
   }
 }

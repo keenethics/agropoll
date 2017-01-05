@@ -1,0 +1,33 @@
+.filter-select-container {
+  padding: 11px 0 11px 0;
+  background-color: transparent;
+}
+
+.select-filter {
+  font-size: 1.3em;
+  text-align: center;
+  padding: 3px 10px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.select-filter-option {
+  font-size: 0.9em;
+  background: rgba(145, 200, 9, 0.1);
+}
+
+.statistic-param {
+  padding: 15px 0 30px 10px;
+  font-size: 1.1em;
+}
+
+.checkbox-span {
+  margin-right: 20px;
+  vertical-align: top;
+}
+
+.statistic-input {
+  width: 20px;
+  height: 20px;
+}

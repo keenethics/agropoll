@@ -10,8 +10,10 @@ export default class NavigationButton extends React.Component {
         onlyActiveOnIndex
         className="navLink"
         activeClassName="active"
-	      to={ this.props.toLink }
-	    >{ this.props.text }</Link>
+        to={this.props.toLink}
+      >
+        {this.props.text}
+      </Link>
     );
   }
 }

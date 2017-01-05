@@ -10,12 +10,16 @@
 }
 
 .navLink {
-    display: inline-block;
-    padding: 0 15px 0 15px;
-    cursor: pointer;
-    text-decoration: none;
-    color: rgb(0, 75, 230);
-    letter-spacing: 2px;
+  display: inline-block;
+  padding: 0 15px;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(0, 75, 230);
+  letter-spacing: 2px;
+}
+
+.navCenter{
+  padding: 3px;
 }
 
 .navLink:hover:after {

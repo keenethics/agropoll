@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -11,7 +11,8 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       autocomplete: {},
-    }
+      seekingLocation: false,
+    };
 
     this.submitPlace = this.submitPlace.bind(this);
     this.getFullAddress = this.getFullAddress.bind(this);
@@ -21,27 +22,49 @@ class SearchBar extends React.Component {
   componentDidMount() {
     this.inputCountry = this.refs.inputCountry;
     const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
-        types: ['(regions)'],
-        componentRestrictions: {country: "ua"}
+      types: ['(regions)'],
+      componentRestrictions: { country: 'ua' }
     });
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       console.log(place);
 
-      this.setState({ selectedPlace: place })
+      this.setState({ selectedPlace: place });
     });
 
-    this.setState({ autocomplete })
+    this.setState({ autocomplete });
   }
 
-  initGoogleAutocomplete(input, options) {
-    return new google.maps.places.Autocomplete(input, options);
+  getFullAddress() {
+    const place = this.state.selectedPlace;
+    let fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
+
+    if (place.address_components.length === 4 &&
+      !place.address_components[1].long_name.includes('міськрада') &&
+      !place.address_components[1].long_name.includes('місто')
+    ) {
+      const positionOfComa = fullAddress.indexOf(',');
+      fullAddress = [
+        fullAddress.slice(0, positionOfComa),
+        ', ',
+        place.address_components[1].long_name,
+        fullAddress.slice(positionOfComa)
+      ].join('');
+    }
+    return fullAddress;
   }
 
   submitPlace() {
+    this.props.actions.startSpinner();
     if (this.state.selectedPlace) {
-      Meteor.call('localities.addPlace', this.state.selectedPlace);
+      Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
+        if (!err) {
+          this.props.actions.hideSpinner();
+        } else {
+           console.log(err.reason);
+        }
+      });
       const fullAddress = this.getFullAddress();
 
       localStorage.setItem('place_id', this.state.selectedPlace.place_id);
@@ -52,52 +75,35 @@ class SearchBar extends React.Component {
     }
   }
 
-  getFullAddress() {
-    const place = this.state.selectedPlace;
-    var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
-
-    if (place.address_components.length === 4 &&
-      !place.address_components[1].long_name.includes('міськрада') &&
-      !place.address_components[1].long_name.includes('місто')) {
-        const positionOfComa = fullAddress.indexOf(',');
-        fullAddress = [
-          fullAddress.slice(0, positionOfComa),
-          ", ",
-          place.address_components[1].long_name,
-          fullAddress.slice(positionOfComa)
-        ].join('');
-    }
-    return fullAddress;
+  initGoogleAutocomplete(input, options) {
+    return new google.maps.places.Autocomplete(input, options);
   }
 
   render() {
     return (
       <div className="searchBar-wrapper">
-        <h3>Place:</h3>
-        <input className="input-country"
+        <input
+          className="input-country"
           ref="inputCountry"
           type="text"
-          placeholder="Country..." />
-        <button onClick={ this.submitPlace }>Select</button>
+          placeholder="Country..."
+        />
+        <button onClick={this.submitPlace}>Select</button>
       </div>
-    )
+    );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-   return { actions: bindActionCreators(actions, dispatch) };
-}
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) });
 
-const mapStateToProps = (state) => {
-  return { insertPage: state.insertPage }
-};
+const mapStateToProps = (state) => ({ insertPage: state.insertPage });
 
-const SearchBarConstainer = createContainer(({ params }) => {
+const containter = createContainer(({ params }) => {
   const user = Meteor.user();
 
   return {
     user,
-  }
-}, SearchBar)
+  };
+}, SearchBar);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBarConstainer);
+export default connect(mapStateToProps, mapDispatchToProps)(containter);

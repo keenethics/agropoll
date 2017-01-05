@@ -1,7 +1,7 @@
-import React from 'react'
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Localities } from '/imports/api/localities/localities.js';
+import React from 'react';
+// import { Meteor } from 'meteor/meteor';
+// import { createContainer } from 'meteor/react-meteor-data';
+// import { Localities } from '/imports/api/localities/localities.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,24 +17,39 @@ class StatusFilter extends React.Component {
     };
   }
 
-  changeStatusFilter() {
-    this.props.actions.changeLocationFilter(this.refs.selectAdmAreaLev1.value, null, null);
+  changeStatusFilter(e) {
+    console.log(e.target.checked);
 
-    this.setState({
-      administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
-    });
+    // this.props.actions.changeStatusFilter(this.refs.planned.value, null, null);
+    //
+    // this.setState({
+    //   administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
+    // });
+
+    this.props.actions.changeStatusFilter(e.target.name, e.target.checked);
   }
 
   render() {
     console.log(this.props.localities);
     return (
-      <div className="StatusFilter-wrapper">
-        <h3>Filter by status:</h3>
-        <input type="checkbox" ref="planned" /> planned 
-        <input type="checkbox" ref="planted" /> planted 
-        <input type="checkbox" ref="harvested" /> harvested 
+      <div className="StatusFilter-wrapper percent-100 float-left">
+        <div className="title-page float-left">Filter by status:</div>
+        <div className="float-left statistic-param">
+          <div className="float-left">
+            <input className="statistic-input" type="checkbox" checked={this.props.state.planned} onChange={this.changeStatusFilter.bind(this)} ref="planned" />
+            <span className="checkbox-span"> planned </span>
+          </div>
+          <div className="float-left">
+            <input className="statistic-input" type="checkbox" defaultChecked="true" ref="planted" />
+            <span className="checkbox-span"> planted </span>
+          </div>
+          <div className="float-left">
+            <input className="statistic-input" type="checkbox" ref="harvested" />
+            <span className="checkbox-span"> harvested </span>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 
@@ -46,9 +61,9 @@ class StatusFilter extends React.Component {
 //   }
 // }, LocationFilter);
 
-const mapStateToProps = (state) => {
-  return { }
-};
+const mapStateToProps = (state) => ({
+  state: state.statisticsTable,
+});
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };

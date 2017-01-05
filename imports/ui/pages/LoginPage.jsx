@@ -39,6 +39,7 @@ class LoginPage extends React.Component {
               console.error(err);
             } else {
               localStorage.setItem('auth-token', res[1]);
+              history.pushState("", "", '/login');
             }
           });
         }

@@ -30,7 +30,6 @@ class StatusFilter extends React.Component {
   }
 
   render() {
-    console.log(this.props.localities);
     return (
       <div className="StatusFilter-wrapper">
         <h3>Filter by status:</h3>

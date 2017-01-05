@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 export const GO_TO_PIN = 'GO_TO_PIN';
 export const HIDE_CROPS = 'HIDE_CROPS';
 export const SHOW_CROPS = 'SHOW_CROPS';
-export const SELECT_YEAR = 'SELECT_YEAR';
 export const SELECT_PLACE = 'SELECT_PLACE';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
@@ -28,11 +27,6 @@ export const startSpinner = () => ({
 
 export const hideSpinner = () => ({
   type: HIDE_SPINNER,
-});
-
-export const selectYear = (marketingYear) => ({
-  type: SELECT_YEAR,
-  marketingYear,
 });
 
 export const hideCrops = () => ({

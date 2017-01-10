@@ -125,6 +125,10 @@ class LoginPage extends React.Component {
     });
   }
 
+  getProfileName(email) {
+    return email.substring(0, email.indexOf("@"));
+  }
+
   render() {
     const user = this.props.user;
     if (!user) {
@@ -138,9 +142,12 @@ class LoginPage extends React.Component {
         </div>
       );
     } else {
+      if (!user.profile || !user.profile.name) {
+        Meteor.call('user.nameChange', this.getProfileName(user.emails[0].address));
+      }
       return (
         <div>
-          <h1>Welcome { user.profile ? user.profile.name : user.emails[0].address}</h1>
+          <h1>Welcome {user.profile.name}</h1>
           <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
             <span>Enter your name: </span>
             <input type="text" ref="nameChange" placeholder="Enter new name" />

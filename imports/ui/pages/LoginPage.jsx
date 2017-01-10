@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
       error: '',
     };
     this.logout = this.logout.bind(this);
+    this.logoutFromDevice = this.logoutFromDevice.bind(this);
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
     this.onNameSubmit = this.onNameSubmit.bind(this);
@@ -89,7 +90,12 @@ class LoginPage extends React.Component {
 
   logout() {
     Meteor.call('LoginProcedure', this.props.user.emails[0].address);
+    Meteor.call('Logout');
     Meteor.logout();
+  }
+
+  logoutFromDevice() {
+    localStorage.clear();
   }
 
   handleLoginSubmit(e) {
@@ -164,8 +170,14 @@ class LoginPage extends React.Component {
           <p>Your locations: </p>
           {this.renderPins()}
 
-          <span>Exit: </span>
-          <button onClick={this.logout}> Logout </button>
+          <p>
+            <span>Exit from device: </span>
+            <button onClick={this.logoutFromDevice}> Exit </button>
+          </p>
+          <p>
+            <span>Full exit: </span>
+            <button onClick={this.logout}> Logout </button>
+          </p>
         </div>
       );
     }

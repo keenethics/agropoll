@@ -12,7 +12,6 @@ var generateLoginToken = () => {
 
 var saveLoginToken = (userId, callback) => {
   return Meteor.wrapAsync( (userId, tokens, callback) => {
-    Meteor.users.update(userId, { $pull:{ 'services.resume.loginTokens': {} } } );
     Meteor.users.update(userId, {
       $push: {
         'services.resume.loginTokens': tokens[1]
@@ -87,5 +86,8 @@ Meteor.methods({
       LoginSessions.remove({_id: hash});
       return saveLoginToken(userId, callback);
     })(user._id, hash)
+  },
+  'Logout': () => {
+    Meteor.users.update(Meteor.userId(), { $pull: { 'services.resume.loginTokens': {} } });
   }
 })

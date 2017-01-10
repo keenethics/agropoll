@@ -2,7 +2,7 @@ import * as types from './types';
 
 export const changeLocationFilter = obj => ({
   type: types.CHANGE_LOCATION_FILTER,
-  obj
+  obj,
 });
 
 export const changeStatusFilter = (name, status) => ({

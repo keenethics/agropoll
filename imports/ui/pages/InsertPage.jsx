@@ -15,6 +15,7 @@ import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
 // import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
+import YearSelector from '/imports/ui/components/YearSelector.jsx';
 
 class InsertPage extends React.Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class InsertPage extends React.Component {
 
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
-    this.selectYear = this.selectYear.bind(this);
     this.saveCropData = this.saveCropData.bind(this);
   }
 
@@ -35,16 +35,6 @@ class InsertPage extends React.Component {
       (locality) => locality.place_id === locationId
     ).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true);
-  }
-
-
-  selectYear(e) { // !!!!!!!!!!!!!!!
-    const year = e.target.value + '';
-    if (e.target.tagName === 'LI') {
-      e.target.className += ' selected';
-      localStorage.setItem('marketingYear', year);
-      this.props.actions.selectYear(year);
-    }
   }
 
   renderPins() {
@@ -69,19 +59,14 @@ class InsertPage extends React.Component {
     if (Meteor.user()) {
       const place_id = this.props.insertPage.place_id;
       const place = Localities.findOne({ place_id });
-      const marketingYear = this.props.insertPage.marketingYear;
+      const marketingYear = this.props.all.marketingYear;
       if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
         return (
           <div className="control-bar-container">
             <div className="control-bar">
               <SearchBar selectPlace={this.selectPlace} />
-              <button onClick={this.saveCropData}>Save</button>
-              <div>
-                <ul className="years" onClick={this.selectYear}>
-                  <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
-                  <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
-                  <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
-                </ul>
+              <div className="years-container">
+                <YearSelector />
               </div>
             </div>
           </div>
@@ -93,11 +78,7 @@ class InsertPage extends React.Component {
           <div className="control-bar">
             <SearchBar selectPlace={this.selectPlace} />
             <div className="years-container">
-              <ul className="years" onClick={this.selectYear}>
-                <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
-                <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
-                <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
-              </ul>
+              <YearSelector />
             </div>
             <div className="pin-locations">
               {this.renderPins()}
@@ -115,13 +96,13 @@ class InsertPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ insertPage: state.insertPage });
+const mapStateToProps = (state) => ({ insertPage: state.insertPage, all: state.all });
 
 function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
 }
 
-const InsertPageContainer = createContainer(({ params }) => {
+const container = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
@@ -137,4 +118,4 @@ const InsertPageContainer = createContainer(({ params }) => {
   };
 }, InsertPage);
 
-export default connect(mapStateToProps, mapDispatchToProps)(InsertPageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(container);

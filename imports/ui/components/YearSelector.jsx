@@ -1,0 +1,38 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '/imports/ui/actions/allActions.js';
+
+class YearSelector extends React.Component {
+  constructor(props) {
+    super(props);
+    this.selectYear = this.selectYear.bind(this);
+  }
+
+  selectYear(e) { // !!!!!!!!!!!!!!!
+    const year = e.target.value + '';
+    if (e.target.tagName === 'LI') {
+      e.target.className += ' selected';
+      localStorage.setItem('marketingYear', year);
+      this.props.actions.selectYear(year);
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <ul className="years" onClick={this.selectYear}>
+          <li className={this.props.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
+          <li className={this.props.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
+          <li className={this.props.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
+        </ul>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({ all }) => ({ ...all });
+
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(YearSelector);

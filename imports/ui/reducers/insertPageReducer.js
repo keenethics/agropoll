@@ -1,6 +1,5 @@
 import {
   SELECT_PLACE,
-  SELECT_YEAR,
   GO_TO_PIN,
   HIDE_CROPS,
   SHOW_CROPS,
@@ -13,7 +12,6 @@ const initialState = {
   fullAddress: localStorage.getItem('fullAddress'),
   place_id: localStorage.getItem('place_id'),
   placeType: localStorage.getItem('placeType'),
-  marketingYear: localStorage.getItem('marketingYear'),
   hideCrops: true,
   seekingLocation: false,
 };
@@ -30,10 +28,6 @@ export default function InsertPageReducer(state = initialState, action = {}) {
         placeType,
         fullAddress,
       });
-    }
-    case SELECT_YEAR: {
-      const { marketingYear } = action;
-      return Object.assign({}, state, { marketingYear });
     }
     case GO_TO_PIN: {
       const { place_id, fullAddress, hideCrops } = action;

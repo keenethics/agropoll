@@ -33,7 +33,7 @@ class StatusFilter extends React.Component {
     console.log(this.props.localities);
     return (
       <div className="StatusFilter-wrapper percent-100 float-left">
-        <div className="title-page float-left">Filter by status:</div>
+        <div className="filter-title-page float-left title-color">Filter by status:</div>
         <div className="float-left statistic-param">
           <div className="float-left">
             <input className="statistic-input" type="checkbox" checked={this.props.state.planned} onChange={this.changeStatusFilter.bind(this)} ref="planned" />

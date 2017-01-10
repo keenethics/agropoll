@@ -1,31 +1,51 @@
-div.row {
-  border: 1px solid green;
+.head-row {
+  float: left;
+  width: 100%;
+}
+.row {
   text-align: center;
-  display: flex;
+  float: left;
+  width: 100%;
   flex-direction: row;
   align-items: center;
 }
 
-div.head {
-  font-weight: bold;
-  background: #e6ffcc;
-  text-align: center;
-  width: 100%;
+.row:hover {
+  background-color: rgba(180, 130, 100, 0.09);
+  cursor: pointer;
 }
 
-div.cell {
+.head {
+  margin: 2px 5%;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.cell {
+  background-color: rgba(80, 230, 100, 0.09);
+  margin: 1px;
   display: inline-block;
+  padding: 1px 0px;
   width: 33%;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
+  -moz-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
+  box-shadow: 2px 2px 2px 0px rgba(130, 155, 200, 0.75);;
+}
+
+.cell span {
+  padding: 10px;
 }
 
 .row.table-header {
-  background: #a0cc72;
   text-align: center;
   font-weight: bold;
 }
 
-div.group > div:nth-of-type(odd) {
-  background: #e8f5e8;
+.table-header .cell {
+  background-color: #a0cc72;
+  padding: 2px 0px;
 }
 
 .cell.coll-1 {
@@ -50,14 +70,14 @@ div.group > div:nth-of-type(odd) {
 }
 
 @media screen and (max-width: 300px) {
-  div.row {
+  .row {
     flex-direction: column;
     align-items: flex-start;
   }
   .row.table-header {
     align-items: flex-start;
   }
-  div.cell {
+  .cell {
     display: flex;
     width: 100%;
     align-items: flex-end;

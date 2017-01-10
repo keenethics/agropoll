@@ -4,22 +4,22 @@
 }
 
 .select-filter {
-  font-size: 1.3em;
+  font-size: 1.1em;
   text-align: center;
-  padding: 3px 10px;
+  padding: 6px 10px;
   border: none;
   background-color: transparent;
   outline: none;
 }
 
 .select-filter-option {
-  font-size: 0.9em;
+  font-size: 0.7em;
   background: rgba(145, 200, 9, 0.1);
 }
 
 .statistic-param {
-  padding: 15px 0 30px 10px;
-  font-size: 1.1em;
+  padding: 11px 0 30px 10px;
+  font-size: 0.9em;
 }
 
 .checkbox-span {
@@ -28,6 +28,6 @@
 }
 
 .statistic-input {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }

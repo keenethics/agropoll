@@ -116,9 +116,9 @@ class LoginPage extends React.Component {
           (locality) => locality.place_id === place_id
         ).fullAddress : '';
         return (
-          <div key={place_id} className="locationPin" onClick={() => this.goToPin(place_id)}>
+          <span key={place_id} className="locationPin" onClick={() => this.goToPin(place_id)}>
             <LocationPin fullAddress={fullAddress} />
-          </div>
+          </span>
         );
       }
       return undefined;
@@ -139,25 +139,47 @@ class LoginPage extends React.Component {
       );
     } else {
       return (
-        <div>
-          <h1>Welcome { user.profile ? user.profile.name : user.emails[0].address}</h1>
-          <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
-            <span>Enter your name: </span>
-            <input type="text" ref="nameChange" placeholder="Enter new name" />
-            <input type="submit" />
-          </form>
-
-          <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
-            <p>{`Your current email: ${Meteor.user().emails[0].address}`}</p>
-            <span>Enter your email: </span>
-            <input type="email" ref="emailChange" placeholder="Enter new email" />
-            <input type="submit" />
-          </form>
-          <p>Your locations: </p>
-          {this.renderPins()}
-
-          <span>Exit: </span>
-          <button onClick={this.logout}> Logout </button>
+        <div className="login-page">
+          <div className="title-page title-color">Welcome { user.profile ? user.profile.name : user.emails[0].address}</div>
+          <div className="percent-100 float-left text-left margin-top-20">
+            <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
+              <div className="float-left percent-80">
+                <label className="label" htmlFor="nameChange">
+                  <span>Enter your name:</span>
+                  <input className="name-change" id="nameChange" type="text" ref="nameChange" placeholder="Enter new name" />
+                </label>
+              </div>
+              <div className="float-left percent-20 text-center">
+                <input className="login-submit" type="submit" />
+              </div>
+            </form>
+          </div>
+          <div className="percent-100 float-left text-left margin-top-20">
+            {`Your current email: ${Meteor.user().emails[0].address}`}
+          </div>
+          <div className="percent-100 float-left text-left margin-top-20">
+            <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
+              <div className="float-left percent-80">
+                <label className="label" htmlFor="emailChange">
+                  <span>Enter your email: </span>
+                  <input className="name-change" id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" />
+                </label>
+              </div>
+              <div className="float-left percent-20 text-center">
+                <input className="login-submit" type="submit" />
+              </div>
+            </form>
+          </div>
+          <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
+            Your locations:
+          </div>
+          <div className="percent-100 float-left text-left margin-top-5">
+            {this.renderPins()}
+          </div>
+          <div className="percent-100 float-left text-left">
+            <span>Exit: </span>
+            <button className="login-submit" onClick={this.logout}> Logout </button>
+          </div>
         </div>
       );
     }

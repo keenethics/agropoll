@@ -55,3 +55,20 @@ body {
 .main-layout {
   margin-top: 40px;
 }
+
+.title-color {
+  color: rgba(5, 85, 75, 1);
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+
+
+.margin-left-3 {
+  margin-left: 3px;
+}

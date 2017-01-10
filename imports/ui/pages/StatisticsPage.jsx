@@ -34,7 +34,7 @@ class StatisticsPage extends React.Component {
           <StatisticsTableHeader />
           {this.props.groups.map(group => (
             <div key={group.id} className="group">
-              <div className="row">
+              <div className="head-row">
                 <div className="head">{group.name}</div>
               </div>
               {this.renderRows(group)}

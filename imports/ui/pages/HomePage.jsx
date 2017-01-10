@@ -6,7 +6,7 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div className="homePage">
-        <div className="title-page">Welcome to Agromonitor</div>
+        <div className="title-page title-color">Welcome to Agromonitor</div>
         <article>
           <div className="title-article">Про проект</div>
           <p>«Агромонітор» — спеціалізований сервіс з надання інформаційних послуг аграріям, який покликаний допомогти їм підтримкою у прийнятті рішень.</p>

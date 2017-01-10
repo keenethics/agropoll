@@ -17,9 +17,11 @@ class SearchBar extends React.Component {
     this.submitPlace = this.submitPlace.bind(this);
     this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
+    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
+    this.change();
     this.inputCountry = this.refs.inputCountry;
     const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
       types: ['(regions)'],
@@ -28,7 +30,6 @@ class SearchBar extends React.Component {
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-      console.log(place);
 
       this.setState({ selectedPlace: place });
     });
@@ -79,6 +80,14 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
+  change() {
+    if (this.refs.inputCountry.value) {
+      this.refs.selectButton.removeAttribute('disabled');
+    } else {
+      this.refs.selectButton.setAttribute('disabled', 'disabled');
+    }
+  }
+
   render() {
     return (
       <div className="searchBar-wrapper">
@@ -87,8 +96,11 @@ class SearchBar extends React.Component {
           ref="inputCountry"
           type="text"
           placeholder="Country..."
+          onChange={this.change}
         />
-        <button onClick={this.submitPlace}>Select</button>
+        <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
+          Select
+        </button>
       </div>
     );
   }

@@ -57,9 +57,9 @@ class InsertPage extends React.Component {
           (locality) => locality.place_id === place_id
         ).fullAddress;
         return (
-          <div key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
+          <span key={place_id} className={this.props.insertPage.place_id === place_id ? 'locationPin  selected' : 'locationPin '} onClick={() => this.goToPin(place_id)}>
             <LocationPin fullAddress={fullAddress} />
-          </div>
+          </span>
         );
       }
     });
@@ -74,14 +74,16 @@ class InsertPage extends React.Component {
         return (
           <div className="control-bar-container">
             <div className="control-bar">
-              <SearchBar selectPlace={this.selectPlace} />
-              <button onClick={this.saveCropData}>Save</button>
-              <div>
+              <div className="search-param">
+                <SearchBar selectPlace={this.selectPlace} />
+              </div>
+              <div className="search-param">
                 <ul className="years" onClick={this.selectYear}>
-                  <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
-                  <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
-                  <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
+                  <li className={this.props.insertPage.marketingYear === '2016' ? 'li-class selected' : 'li-class '} value="2016">2016</li>
+                  <li className={this.props.insertPage.marketingYear === '2017' ? 'li-class selected' : 'li-class '} value="2017">2017</li>
+                  <li className={this.props.insertPage.marketingYear === '2018' ? 'li-class selected' : 'li-class '} value="2018">2018</li>
                 </ul>
+                <button className="save-btn" onClick={this.saveCropData}>Save</button>
               </div>
             </div>
           </div>
@@ -91,18 +93,24 @@ class InsertPage extends React.Component {
       return (
         <div className="control-bar-container">
           <div className="control-bar">
-            <SearchBar selectPlace={this.selectPlace} />
-            <div className="years-container">
-              <ul className="years" onClick={this.selectYear}>
-                <li className={this.props.insertPage.marketingYear === '2016' ? 'selected' : ''} value="2016">2016</li>
-                <li className={this.props.insertPage.marketingYear === '2017' ? 'selected' : ''} value="2017">2017</li>
-                <li className={this.props.insertPage.marketingYear === '2018' ? 'selected' : ''} value="2018">2018</li>
-              </ul>
+            <div className="search-param">
+              <SearchBar selectPlace={this.selectPlace} />
             </div>
-            <div className="pin-locations">
-              {this.renderPins()}
+            <div className="search-param">
+              <div className="years-container">
+                <ul className="years" onClick={this.selectYear}>
+                  <li className={this.props.insertPage.marketingYear === '2016' ? 'li-class selected' : 'li-class'} value="2016">2016</li>
+                  <li className={this.props.insertPage.marketingYear === '2017' ? 'li-class selected' : 'li-class'} value="2017">2017</li>
+                  <li className={this.props.insertPage.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018">2018</li>
+                </ul>
+              </div>
             </div>
-            <div onClick={this.saveCropData} className="save-btn">Save</div>
+            <div className="search-param">
+              <div className="pin-locations">
+                {this.renderPins()}
+                <button className="save-btn" onClick={this.saveCropData}>Save</button>
+              </div>
+            </div>
           </div>
           <TableInsert />
         </div>

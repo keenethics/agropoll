@@ -9,6 +9,13 @@
   letter-spacing: 1px;
 }
 
+.filter-title-page {
+  text-align: center;
+  font-size: 1.1em;
+  padding: 10px 0 10px 0;
+  letter-spacing: 1px;
+}
+
 .title-article {
   padding: 0 0 0 20px;
   font-size: 1.3em;

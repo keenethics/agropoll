@@ -19,13 +19,20 @@ class StatisticsPage extends React.Component {
   // }
 
   renderRows(group) {
+    const records = this.props && this.props.records.filter((item) =>
+      item.marketingYear === this.props.all.marketingYear
+    ).filter((item) =>
+      item.status === 'planned' && this.props.statisticsTable.planned ||
+      item.status === 'planted' && this.props.statisticsTable.planted ||
+      item.status === 'harvested' && this.props.statisticsTable.harvested
+    ) || [];
+
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-      <StatisticsTableRow crop={crop} key={crop.id} records={this.props.records} />
+      <StatisticsTableRow crop={crop} key={crop.id} records={records} />
     ));
   }
 
   render() {
-    // console.log(this.props.statisticsTable);
     return (
       <div>
         <h3>Statistics Page</h3>
@@ -53,6 +60,8 @@ class StatisticsPage extends React.Component {
 }
 
 const container = createContainer(({ params }) => {
+  console.log('this.props :-->', this.props);
+
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
@@ -66,6 +75,6 @@ const container = createContainer(({ params }) => {
   };
 }, StatisticsPage);
 
-const mapStateToProps = (state) => ({ statisticsTable: state.statisticsTable });
+const mapStateToProps = (state) => ({ statisticsTable: state.statisticsTable, all: state.all });
 
 export default connect(mapStateToProps)(container);

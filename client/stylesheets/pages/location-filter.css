@@ -1,25 +1,31 @@
 .filter-select-container {
-  padding: 11px 0 11px 0;
   background-color: transparent;
 }
 
 .select-filter {
-  font-size: 1.1em;
+  font-size: 0.9rem;
   text-align: center;
-  padding: 6px 10px;
+  padding: 8px 5px;
   border: none;
   background-color: transparent;
   outline: none;
 }
 
 .select-filter-option {
-  font-size: 0.7em;
+  font-size: 0.8em;
   background: rgba(145, 200, 9, 0.1);
 }
 
+.filter-title-page {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 5px 0 5px 5px;
+  letter-spacing: 1px;
+}
+
 .statistic-param {
-  padding: 11px 0 30px 10px;
-  font-size: 0.9em;
+  padding: 7px 0 5px 5px;
+  font-size: 0.7em;
 }
 
 .checkbox-span {
@@ -28,6 +34,6 @@
 }
 
 .statistic-input {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
 }

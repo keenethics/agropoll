@@ -23,7 +23,8 @@ export default class StatisticsTableRow extends React.Component {
     return this.props.records.filter((item) =>
       item.cropId === cropId
     ).reduce((sum, item) =>
-      sum + item.square * item.cropCapacity, 0
+      sum + item.square * item.cropCapacity,
+      0
     );
   }
 

@@ -30,9 +30,8 @@ class StatusFilter extends React.Component {
   }
 
   render() {
-    console.log(this.props.localities);
     return (
-      <div className="StatusFilter-wrapper percent-100 float-left">
+      <div className="StatusFilter-wrapper percent-85 float-left">
         <div className="filter-title-page float-left title-color">Filter by status:</div>
         <div className="float-left statistic-param">
           <div className="float-left">

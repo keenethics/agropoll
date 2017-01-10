@@ -69,6 +69,11 @@
   margin-left: 7.5%;
 }
 
+.filter-country {
+  font-size: 1.1rem;
+  margin: 5px;
+}
+
 @media screen and (max-width: 300px) {
   .row {
     flex-direction: column;

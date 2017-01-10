@@ -9,6 +9,7 @@ import StatisticsTableRow from '/imports/ui/components/StatisticsPage/Statistics
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
 import LocationFilter from '/imports/ui/components/StatisticsPage/LocationFilter.jsx';
 import StatusFilter from '/imports/ui/components/StatisticsPage/StatusFilter.jsx';
+import FilterFooter from '/imports/ui/components/FilterFooter/FilterFooter.jsx';
 
 import { connect } from 'react-redux';
 
@@ -27,9 +28,6 @@ class StatisticsPage extends React.Component {
     // console.log(this.props.statisticsTable);
     return (
       <div>
-        <LocationFilter />
-        <StatusFilter />
-
         <div className="table-container">
           <StatisticsTableHeader />
           {this.props.groups.map(group => (
@@ -41,7 +39,10 @@ class StatisticsPage extends React.Component {
             </div>
           ))}
         </div>
-
+        <FilterFooter>
+          <LocationFilter />
+          <StatusFilter />
+        </FilterFooter>
       </div>
     );
   }

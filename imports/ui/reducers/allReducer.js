@@ -5,8 +5,6 @@ const initialState = {
 };
 
 export default function yearSelectorReducer(state = initialState, action = {}) {
-  console.log('action in reducer-->', action);
-
   switch (action.type) {
     case types.SELECT_YEAR: {
       const { marketingYear } = action;

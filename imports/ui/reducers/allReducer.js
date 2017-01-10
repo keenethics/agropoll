@@ -1,7 +1,7 @@
 import * as types from '/imports/ui/actions/types';
 
 const initialState = {
-  marketingYear: localStorage.getItem('marketingYear'),
+  marketingYear: localStorage.getItem('marketingYear'), // <-- Put there actual marketing year
 };
 
 export default function yearSelectorReducer(state = initialState, action = {}) {
@@ -9,15 +9,9 @@ export default function yearSelectorReducer(state = initialState, action = {}) {
 
   switch (action.type) {
     case types.SELECT_YEAR: {
-      // return { ...state, ...action.marketingYear };
       const { marketingYear } = action;
-      return Object.assign({}, state, { marketingYear });
+      return { ...state, marketingYear }; // return Object.assign({}, state, { marketingYear });
     }
     default: return state;
   }
 }
-
-// case SELECT_YEAR: {
-//   const { marketingYear } = action;
-//   return Object.assign({}, state, { marketingYear });
-// }

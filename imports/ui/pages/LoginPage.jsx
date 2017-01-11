@@ -16,8 +16,17 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       error: '',
+      email: {
+        title: '',
+        edit: false
+      },
+      name: {
+        title: '',
+        edit: false
+      }
     };
     this.logout = this.logout.bind(this);
+    this.logoutFromDevice = this.logoutFromDevice.bind(this);
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
     this.onNameSubmit = this.onNameSubmit.bind(this);
@@ -89,7 +98,12 @@ class LoginPage extends React.Component {
 
   logout() {
     Meteor.call('LoginProcedure', this.props.user.emails[0].address);
+    Meteor.call('Logout');
     Meteor.logout();
+  }
+
+  logoutFromDevice() {
+    localStorage.clear();
   }
 
   handleLoginSubmit(e) {
@@ -126,6 +140,28 @@ class LoginPage extends React.Component {
     });
   }
 
+  getProfileName(email) {
+    return email.substring(0, email.indexOf("@"));
+  }
+
+  setProfileName() {
+    this.setState({
+      name: {
+        title: this.refs.nameChange.value,
+        edit: true
+      }
+    });
+  }
+
+  setUserEmail() {
+    this.setState({
+      email: {
+        title: this.refs.emailChange.value,
+        edit: true
+      }
+    });
+  }
+
   render() {
     const user = this.props.user;
     if (!user) {
@@ -133,12 +169,16 @@ class LoginPage extends React.Component {
         <div>
           <h1>Login</h1>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
+            <label>Email: </label>
             <input type="email" name="login-email" id="login-email" />
             <input type="submit" id="login-button" />
           </form>
         </div>
       );
     } else {
+      if (!user.profile || !user.profile.name) {
+        Meteor.call('user.nameChange', this.getProfileName(user.emails[0].address));
+      }
       return (
         <div className="login-page">
           <div className="title-page title-color">Welcome { user.profile ? user.profile.name : user.emails[0].address}</div>
@@ -147,7 +187,7 @@ class LoginPage extends React.Component {
               <div className="float-left percent-80">
                 <label className="label" htmlFor="nameChange">
                   <span>Enter your name:</span>
-                  <input className="name-change" id="nameChange" type="text" ref="nameChange" placeholder="Enter new name" />
+                  <input type="text" id="nameChange" ref="nameChange" placeholder="Enter new name" className="name-change" onChange={this.setProfileName.bind(this)} value={this.state.name.title || !this.state.name.edit && user.profile.name || ''} />
                 </label>
               </div>
               <div className="float-left percent-20 text-center">
@@ -163,7 +203,7 @@ class LoginPage extends React.Component {
               <div className="float-left percent-80">
                 <label className="label" htmlFor="emailChange">
                   <span>Enter your email: </span>
-                  <input className="name-change" id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" />
+                  <input id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" className="name-change" onChange={this.setUserEmail.bind(this)} value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''} />
                 </label>
               </div>
               <div className="float-left percent-20 text-center">
@@ -178,7 +218,11 @@ class LoginPage extends React.Component {
             {this.renderPins()}
           </div>
           <div className="percent-100 float-left text-left">
-            <span>Exit: </span>
+            <span>Exit from device: </span>
+            <button className="login-submit" onClick={this.logoutFromDevice}> Logout </button>
+          </div>
+          <div className="percent-100 float-left text-left">
+            <span>Full exit: </span>
             <button className="login-submit" onClick={this.logout}> Logout </button>
           </div>
         </div>

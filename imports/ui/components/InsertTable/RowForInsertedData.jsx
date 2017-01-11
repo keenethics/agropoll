@@ -16,6 +16,10 @@ class RowForGroup extends React.Component {
     this.changeStatus = this.changeStatus.bind(this);
   }
 
+  componentWillMount() {
+    this.props.addInputData(this.props.cropData);
+  }
+
   changeSort(e) {
     const id = this.props.dataId;
     const sort = e.target.value;
@@ -45,11 +49,10 @@ class RowForGroup extends React.Component {
     const status = e.target.value;
     this.props.actions.changeStatus(id, status);
   }
-
   render() {
     return (
       <div className="trow">
-        <div className="tcoll0 "></div>
+        <div className="tcoll0 ">&nbsp;</div>
         <div className="tcoll1 tcell">
           <input
             className="input"

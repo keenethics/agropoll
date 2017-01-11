@@ -34,7 +34,7 @@ class SearchBar extends React.Component {
       this.setState({ selectedPlace: place });
     });
 
-    this.setState({ autocomplete });
+  //  this.setState({ autocomplete });
   }
 
   getFullAddress() {

@@ -34,6 +34,11 @@ class InsertPage extends React.Component {
     const fullAddress = this.props.localities.find(
       (locality) => locality.place_id === locationId
     ).fullAddress;
+
+      localStorage.setItem('place_id', locationId);
+      localStorage.setItem('placeType', Localities.findOne({ place_id: locationId }).type);
+      localStorage.setItem('fullAddress', fullAddress);
+
     this.props.actions.goToPin(locationId, fullAddress, true);
   }
 

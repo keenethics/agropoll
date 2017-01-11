@@ -16,6 +16,14 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       error: '',
+      email: {
+        title: '',
+        edit: false
+      },
+      name: {
+        title: '',
+        edit: false
+      }
     };
     this.logout = this.logout.bind(this);
     this.logoutFromDevice = this.logoutFromDevice.bind(this);
@@ -136,6 +144,24 @@ class LoginPage extends React.Component {
     return email.substring(0, email.indexOf("@"));
   }
 
+  setProfileName() {
+    this.setState({
+      name: {
+        title: this.refs.nameChange.value,
+        edit: true
+      }
+    });
+  }
+
+  setUserEmail() {
+    this.setState({
+      email: {
+        title: this.refs.emailChange.value,
+        edit: true
+      }
+    });
+  }
+
   render() {
     const user = this.props.user;
     if (!user) {
@@ -158,13 +184,13 @@ class LoginPage extends React.Component {
           <h1>Welcome {user.profile.name}</h1>
           <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
             <span>Enter your name: </span>
-            <input type="text" ref="nameChange" placeholder="Enter new name" value={user.profile.name} />
+            <input type="text" ref="nameChange" placeholder="Enter new name" onChange={this.setProfileName.bind(this)} value={this.state.name.title || !this.state.name.edit && user.profile.name || ''} />
             <input type="submit" value="Change" />
           </form>
           <br />
           <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
             <span>Enter your email: </span>
-            <input type="email" ref="emailChange" placeholder="Enter new email" value={user.emails[0].address} />
+            <input type="email" ref="emailChange" placeholder="Enter new email" onChange={this.setUserEmail.bind(this)} value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''} />
             <input type="submit" value="Change" />
           </form>
           <p>Your locations: </p>

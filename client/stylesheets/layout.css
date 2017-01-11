@@ -80,3 +80,7 @@ body {
 .margin-left-3 {
   margin-left: 3px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

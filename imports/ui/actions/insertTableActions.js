@@ -33,12 +33,6 @@ export const changeCapacity = (id, capacity) => ({
   capacity,
 });
 
-export const changeStatus = (id, status) => ({
-  type: CHANGE_STATUS,
-  id,
-  status,
-});
-
 export const changeReproduction = (id, reproduction) => ({
   type: CHANGE_REPRODUCTION,
   id,

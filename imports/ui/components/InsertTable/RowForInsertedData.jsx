@@ -1,4 +1,4 @@
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -45,9 +45,20 @@ class RowForGroup extends React.Component {
   }
 
   changeStatus(e) {
-    const id = this.props.dataId;
-    const status = e.target.value;
-    this.props.actions.changeStatus(id, status);
+    const currentValue = e.currentTarget.innerText;
+    const recordId = this.props.dataId;
+    let newStatus = 'planned';
+    if (currentValue === 'planned') {
+      newStatus = 'planted';
+    } else if (currentValue === 'planted') {
+      newStatus = 'harvested';
+    }
+    e.currentTarget.innerText = newStatus;
+    Meteor.call('record.updateStatus', { recordId, newStatus }, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   }
   render() {
     return (
@@ -89,14 +100,12 @@ class RowForGroup extends React.Component {
             onChange={this.changeCapacity}
           />
         </div>
-        <div className="tcoll4 tcell">
-          <input
-            className="input"
-            type="text"
-            ref={`status${this.props.dataId}`}
-            defaultValue={this.props.defaultStatus}
-            onChange={this.changeStatus}
-          />
+        <div
+          className="tcoll4 tcell cursor-pointer"
+          ref={`status${this.props.dataId}`}
+          onClick={this.changeStatus}
+        >
+          {this.props.defaultStatus}
         </div>
         <div className="tcoll5 " onClick={this.props.removeRow}><div className="insert-list action remove">-</div></div>
       </div>

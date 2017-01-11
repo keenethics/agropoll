@@ -91,7 +91,12 @@ Meteor.methods({
         status: dataObj[id].status,
 
         updatedAt: Date.now(),
-      }})
+      }});
     }
+  },
+  'record.updateStatus': ({ recordId, newStatus }) => {
+    const updateData = {};
+    updateData.$set = { status: newStatus };
+    Records.update(recordId, updateData);
   },
 });

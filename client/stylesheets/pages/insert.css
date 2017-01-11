@@ -82,6 +82,9 @@ input.input:focus {
 }
 
 .searchBar-wrapper {
+  width: 85%;
+  margin: 0 auto;
+  padding: 4px 0px;
 }
 
 
@@ -242,20 +245,25 @@ div.tcell {
   float: left;
 }
 
+.pin-locations {
+  width: 85%;
+  margin: 0 auto;
+}
+
 
 .locationPin {
-  padding: 4px;
-  border: 1px solid #a3dea3;
+  margin: 0px 1px;
+  padding: 2px 4px;
   max-width: 20%;
   line-height: 1em;
   font-size: 0.9em;
   overflow: hidden;
   cursor: pointer;
-  margin: 0 5px;  
 }
 
 .locationPin:hover {
-  background-color: #ddd;
+  background-color: rgba(120, 130, 100, 0.7);
+  color: rgba(255, 240, 130, 1);
 }
 
 .control-bar {
@@ -303,6 +311,9 @@ div.tcell {
 }
 
 .years-container {
+  margin-top: 5px;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .years {
@@ -313,25 +324,23 @@ div.tcell {
 }
 
 .li-class {
-  margin-right: 10px;
+  font-size: 0.8rem;
+  margin: 0px 1px;
   display: inline-block;
   float: left;
   cursor: pointer;
-  padding: 4px;
+  padding: 2px 10px;
   color: rgba(40, 30, 120, 1);
-  border-radius: 7px;
+  border-radius: 0px 0px 4px 4px;
 }
 
 .li-class:hover {
-  padding: 4px 4px 4px 4px;
-  margin-top: 3px;
   background-color: rgba(120, 130, 100, 0.7);
   color: rgba(255, 240, 130, 1);
 }
 
 .selected {
-  padding: 4px 4px 4px 4px;
-  margin-top: 3px;
+  padding: 2px 10px;
   background-color: rgba(120, 130, 100, 0.7);
   color: rgba(255, 240, 130, 1);
 }

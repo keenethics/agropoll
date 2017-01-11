@@ -13,7 +13,7 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 
 import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
-// import TableHeader from '/imports/ui/components/InsertTable/TableHeader.jsx';
+import FilterFooter from '/imports/ui/components/FilterFooter/FilterFooter.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 import YearSelector from '/imports/ui/components/YearSelector.jsx';
 
@@ -78,7 +78,7 @@ class InsertPage extends React.Component {
 
       return (
         <div className="control-bar-container">
-          <div className="control-bar">
+          {/* <div className="control-bar">
             <div className="search-param">
               <SearchBar selectPlace={this.selectPlace} />
             </div>
@@ -93,8 +93,16 @@ class InsertPage extends React.Component {
                 <button className="save-btn" onClick={this.saveCropData}>Save</button>
               </div>
             </div>
-          </div>
+          </div> */}
           <TableInsert />
+          <FilterFooter>
+            <YearSelector />
+            <SearchBar selectPlace={this.selectPlace} />
+            <div className="pin-locations">
+              {this.renderPins()}
+              <button className="save-btn" onClick={this.saveCropData}>Save</button>
+            </div>
+          </FilterFooter>
         </div>
       );
     } else {

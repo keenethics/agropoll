@@ -19,11 +19,13 @@ class YearSelector extends React.Component {
 
   render() {
     return (
-      <ul className="years" onClick={this.selectYear}>
-        <li className={this.props.marketingYear === '2016' ? 'li-class selected' : 'li-class'} value="2016">2016</li>
-        <li className={this.props.marketingYear === '2017' ? 'li-class selected' : 'li-class'} value="2017">2017</li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018">2018</li>
-      </ul>
+      <div className="years-container">
+        <ul className="years" onClick={this.selectYear}>
+          <li className={this.props.marketingYear === '2016' ? 'li-class selected' : 'li-class'} value="2016">2016</li>
+          <li className={this.props.marketingYear === '2017' ? 'li-class selected' : 'li-class'} value="2017">2017</li>
+          <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018">2018</li>
+        </ul>
+      </div>
     );
   }
 }

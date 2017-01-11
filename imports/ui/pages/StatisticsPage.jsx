@@ -48,11 +48,9 @@ class StatisticsPage extends React.Component {
           ))}
         </div>
         <FilterFooter>
+          <YearSelector />
           <LocationFilter />
           <StatusFilter />
-          <div className="years-container">
-            <YearSelector />
-          </div>
         </FilterFooter>
       </div>
     );

@@ -143,6 +143,7 @@ class LoginPage extends React.Component {
         <div>
           <h1>Login</h1>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
+            <label>Email: </label>
             <input type="email" name="login-email" id="login-email" />
             <input type="submit" id="login-button" />
           </form>
@@ -157,15 +158,14 @@ class LoginPage extends React.Component {
           <h1>Welcome {user.profile.name}</h1>
           <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
             <span>Enter your name: </span>
-            <input type="text" ref="nameChange" placeholder="Enter new name" />
-            <input type="submit" />
+            <input type="text" ref="nameChange" placeholder="Enter new name" value={user.profile.name} />
+            <input type="submit" value="Change" />
           </form>
-
+          <br />
           <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
-            <p>{`Your current email: ${Meteor.user().emails[0].address}`}</p>
             <span>Enter your email: </span>
-            <input type="email" ref="emailChange" placeholder="Enter new email" />
-            <input type="submit" />
+            <input type="email" ref="emailChange" placeholder="Enter new email" value={user.emails[0].address} />
+            <input type="submit" value="Change" />
           </form>
           <p>Your locations: </p>
           {this.renderPins()}

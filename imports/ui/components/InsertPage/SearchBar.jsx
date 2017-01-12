@@ -17,6 +17,7 @@ class SearchBar extends React.Component {
     this.submitPlace = this.submitPlace.bind(this);
     this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
+    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
@@ -56,9 +57,10 @@ class SearchBar extends React.Component {
   }
 
   submitPlace(e) {
-    if (!this.refs.inputCountry.value || !e.keyCode === 13) {
-      console.log(e);
-      console.log('1111111');
+    if (!this.refs.inputCountry.value) {
+      return;
+    }
+    if (e.charCode !== 13) {
       return;
     }
     this.props.actions.startSpinner();
@@ -84,6 +86,7 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
+  change() {}
   render() {
     return (
       <div className="searchBar-wrapper">

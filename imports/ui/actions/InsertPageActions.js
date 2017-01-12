@@ -38,7 +38,7 @@ export const saveData = () => (dispatch, getState) => {
   const insertTableState = getState().insertTable;
   dispatch(hideCrops());
   Meteor.call('record.updateMulti', insertTableState.inputData);
-}
+};
 
 export const showCrops = (groupId) => ({
   type: SHOW_CROPS,

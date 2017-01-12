@@ -131,7 +131,7 @@ class TableInsert extends React.Component {
     const marketingYear = this.props.all.marketingYear;
     const placeType = this.props.insertPage.placeType;
     const canAdd = placeId && placeType === 'locality' && marketingYear;
-    const stateGroupId = this.props.insertPage.groupId;
+    const stateGroupId = this.props.insertPage.groupId || ''; // ----- check this -----
     const stateHideCrops = this.props.insertPage.hideCrops;
     return crops.map((crop) => {
       const currentGroup = stateGroupId.toString() === crop.groupId.toString();

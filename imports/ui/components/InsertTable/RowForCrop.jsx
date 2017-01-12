@@ -9,10 +9,11 @@ export default class RowForCrop extends React.Component {
   render() {
     return (
       <div className="trow">
-        <div className="tcoll0">
-          {this.props.canAdd && <div onClick={() => this.props.addCropElem(this.props.cropId)} className="insert-list action add">+</div> || ''}
-        </div>
         <div className="tcoll1 tcell">
+          { this.props.canAdd && <div
+            className="add-crop"
+            onClick={() => this.props.addCropElem(this.props.cropId, this.props.cropName)}
+          > + </div> }
           <span>{this.props.cropName}</span>
         </div>
         <div className="tcoll2 tcell">
@@ -22,7 +23,6 @@ export default class RowForCrop extends React.Component {
           {this.props.avgCapacity && this.props.avgCapacity.toFixed(4) || ''}
         </div>
         <div className="tcoll4 tcell"></div>
-        <div className="tcoll5"></div>
       </div>
     );
   }

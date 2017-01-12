@@ -62,23 +62,32 @@ class RowForGroup extends React.Component {
   }
   render() {
     return (
-      <div className="trow">
-        <div className="tcoll0 ">&nbsp;</div>
+      <div className="trow-crop">
         <div className="tcoll1 tcell">
-          <input
-            className="input"
-            type="text"
-            ref={`sort${this.props.dataId}`}
-            defaultValue={this.props.defaultSort}
-            placeholder="сорт"
-            onChange={this.changeSort}
-          />
+          <div
+            className="cropName"
+          >
+            <div
+              className="remove-crop"
+              onClick={this.props.removeRow}
+            >
+              &ndash;
+            </div>
+            <input
+              className="input-sort"
+              type="text"
+              ref={`sort${this.props.dataId}`}
+              defaultValue={this.props.defaultSort}
+              placeholder="сорт ..."
+              onChange={this.changeSort}
+            />
+          </div>
           <input
             className="input"
             type="text"
             ref={`reproduction${this.props.dataId}`}
             defaultValue={this.props.defaultReproduction}
-            placeholder="репродукція"
+            placeholder="репродукція ..."
             onChange={this.changeReproduction}
           />
         </div>
@@ -107,7 +116,6 @@ class RowForGroup extends React.Component {
         >
           {this.props.defaultStatus}
         </div>
-        <div className="tcoll5 " onClick={this.props.removeRow}><div className="insert-list action remove">-</div></div>
       </div>
     );
   }

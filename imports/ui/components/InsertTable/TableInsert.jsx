@@ -77,16 +77,17 @@ class TableInsert extends React.Component {
   }
 
   addCropElem(cropId) {
-    const place_id = this.props.insertPage.place_id;
+    console.log('11111111111111111');
+    const placeId = this.props.insertPage.place_id;
     const placeType = this.props.insertPage.placeType;
     const marketingYear = this.props.all.marketingYear;
 
-    if (place_id && placeType === 'locality' && marketingYear) {
+    if (placeId && placeType === 'locality' && marketingYear) {
       Meteor.call('record.insert', {
         marketingYear,
         reproduction: '',
         cropCapacity: 0,
-        place_id,
+        placeId,
         cropId,
         square: 0,
         status: 'planned',
@@ -127,10 +128,10 @@ class TableInsert extends React.Component {
   }
 
   renderCropsRows(crops) {
-    const place_id = this.props.insertPage.place_id;
+    const placeId = this.props.insertPage.place_id;
     const marketingYear = this.props.all.marketingYear;
     const placeType = this.props.insertPage.placeType;
-    const canAdd = place_id && placeType === 'locality' && marketingYear;
+    const canAdd = placeId && placeType === 'locality' && marketingYear;
     const stateGroupId = this.props.insertPage.groupId;
     const stateHideCrops = this.props.insertPage.hideCrops;
     return crops.map((crop) => {

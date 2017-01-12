@@ -98,12 +98,12 @@ class TableInsert extends React.Component {
   }
 
   renderInsertedCropsRows(crop) {
-    const place_id = this.props.insertPage.place_id;
+    const placeId = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.all.marketingYear;
     const cropsData = Records.find({
       cropId: crop.id,
-      'location.place_id': place_id,
+      'location.place_id': placeId,
       userId,
       marketingYear,
     });

@@ -9,10 +9,10 @@ export const addInputData = ({ _id, sort, reproduction, square, cropCapacity, st
   type: ADD_INPUT_DATA,
   _id,
   sort,
-  square,
-  status,
   reproduction,
+  square,
   cropCapacity,
+  status,
 });
 
 export const changeSort = (id, sort) => ({

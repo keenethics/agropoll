@@ -10,19 +10,20 @@ const getParentLocations = (locationObj, parentId) => {
   switch (parentLocation.type) {
     case 'administrative_area_level_1':
       locationObj.administrative_area_level_1 = parentLocation.place_id;
-    break;
+      break;
     case 'administrative_area_level_2':
       locationObj.administrative_area_level_2 = parentLocation.place_id;
-    break;
+      break;
     case 'administrative_area_level_3':
       locationObj.administrative_area_level_3 = parentLocation.place_id;
-    break;
+      break;
+    default:
+      break;
   }
 
   if (parentLocation.parentId)
     locationObj = getParentLocations(locationObj, parentLocation.parentId);
-
-}
+};
 
 Meteor.methods({
   'record.insert'({ marketingYear, placeId, cropId, sort, reproduction, square, cropCapacity, status }) {

@@ -17,10 +17,10 @@ export default function InsertTableReducer(state = initialState, action = {}) {
       const { _id, sort, reproduction, square, cropCapacity, status } = action;
       state.inputData[_id] = {
         sort,
-        square,
-        status,
         reproduction,
+        square,
         cropCapacity,
+        status,
       };
       return Object.assign({}, state);
     }

@@ -77,7 +77,6 @@ class TableInsert extends React.Component {
   }
 
   addCropElem(cropId) {
-    console.log('11111111111111111');
     const placeId = this.props.insertPage.place_id;
     const placeType = this.props.insertPage.placeType;
     const marketingYear = this.props.all.marketingYear;

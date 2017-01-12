@@ -10,11 +10,9 @@ class YearSelector extends React.Component {
   }
 
   selectYear(e) {
-    if (e.target.tagName === 'LI') {
-      const year = e.target.value.toString();
-      // localStorage.setItem('marketingYear', year);
-      this.props.actions.selectYear(year);
-    }
+    const year = e.target.value ? e.target.value.toString() : e.target.innerText;
+    // localStorage.setItem('marketingYear', year);
+    this.props.actions.selectYear(year);
   }
 
   render() {

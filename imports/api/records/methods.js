@@ -94,6 +94,8 @@ Meteor.methods({
       }});
     }
   },
+
+  // --- method for update status---
   'record.updateStatus': ({ recordId, newStatus }) => {
     const updateData = {};
     updateData.$set = { status: newStatus };

@@ -1,0 +1,7 @@
+.search-icon {
+  display: inline-block;
+  background-image: url('img/search.svg');
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}

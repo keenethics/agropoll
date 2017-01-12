@@ -36,22 +36,30 @@ class StatisticsPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="table-container">
-          <StatisticsTableHeader />
-          {this.props.groups.map(group => (
-            <div key={group.id} className="group">
-              <div className="head-row">
-                <div className="head">{group.name}</div>
-              </div>
-              {this.renderRows(group)}
-            </div>
-          ))}
+        <div className="filter-bar">
+          <div className="statistic-one">
+            <YearSelector />
+          </div>
+          <div className="statistic-two">
+            <StatusFilter />
+          </div>
+          <div className="statistic-three">
+            <LocationFilter />
+          </div>
         </div>
-        <FilterFooter>
-          <YearSelector />
-          <LocationFilter />
-          <StatusFilter />
-        </FilterFooter>
+        <div className="statistic-content">
+          <div className="table-container">
+            <StatisticsTableHeader />
+            {this.props.groups.map(group => (
+              <div key={group.id} className="group">
+                <div className="head-row">
+                  <div className="head">{group.name}</div>
+                </div>
+                {this.renderRows(group)}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

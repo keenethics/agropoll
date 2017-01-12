@@ -77,32 +77,24 @@ class InsertPage extends React.Component {
       }
 
       return (
-        <div className="control-bar-container">
-          {/* <div className="control-bar">
-            <div className="search-param">
-              <SearchBar selectPlace={this.selectPlace} />
+        <div>
+          <div className="filter-bar">
+            <div className="statistic-one">
+              <YearSelector />
             </div>
-            <div className="search-param">
-              <div className="years-container">
-                <YearSelector />
-              </div>
-            </div>
-            <div className="search-param">
+            <div className="statistic-two">
               <div className="pin-locations">
                 {this.renderPins()}
                 <button className="save-btn" onClick={this.saveCropData}>Save</button>
               </div>
             </div>
-          </div> */}
-          <TableInsert />
-          <FilterFooter>
-            <YearSelector />
-            <SearchBar selectPlace={this.selectPlace} />
-            <div className="pin-locations">
-              {this.renderPins()}
-              <button className="save-btn" onClick={this.saveCropData}>Save</button>
+            <div className="statistic-three">
+              <SearchBar selectPlace={this.selectPlace} />
             </div>
-          </FilterFooter>
+          </div>
+          <div className="control-bar-container">
+            <TableInsert />
+          </div>
         </div>
       );
     } else {

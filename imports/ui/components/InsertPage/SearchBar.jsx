@@ -17,7 +17,6 @@ class SearchBar extends React.Component {
     this.submitPlace = this.submitPlace.bind(this);
     this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
-    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
@@ -56,7 +55,12 @@ class SearchBar extends React.Component {
     return fullAddress;
   }
 
-  submitPlace() {
+  submitPlace(e) {
+    if (!this.refs.inputCountry.value || !e.keyCode === 13) {
+      console.log(e);
+      console.log('1111111');
+      return;
+    }
     this.props.actions.startSpinner();
     if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
@@ -80,14 +84,6 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
-  change() {
-    if (this.refs.inputCountry.value) {
-      this.refs.selectButton.removeAttribute('disabled');
-    } else {
-      this.refs.selectButton.setAttribute('disabled', 'disabled');
-    }
-  }
-
   render() {
     return (
       <div className="searchBar-wrapper">
@@ -96,11 +92,15 @@ class SearchBar extends React.Component {
           ref="inputCountry"
           type="text"
           placeholder="Country..."
+          onKeyPress={this.submitPlace}
           onChange={this.change}
         />
-        <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
+        <div className="search-icon-div cursor-pointer">
+          <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>
+        </div>
+        {/* <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
           Select
-        </button>
+        </button> */}
       </div>
     );
   }

@@ -3,12 +3,13 @@
 }
 
 .select-filter {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-align: center;
-  padding: 8px 5px;
+  padding: 5px 0px;
   border: none;
   background-color: transparent;
   outline: none;
+  width: 190px;
 }
 
 .select-filter-option {
@@ -18,22 +19,22 @@
 
 .filter-title-page {
   text-align: center;
-  font-size: 0.9rem;
-  padding: 5px 0 5px 5px;
+  font-size: 0.8rem;
+  margin: 5px 0 5px 5px;
   letter-spacing: 1px;
 }
 
 .statistic-param {
-  padding: 7px 0 5px 5px;
-  font-size: 0.7em;
+  padding: 5px 0 5px 5px;
+  font-size: 0.8em;
 }
 
 .checkbox-span {
-  margin-right: 20px;
+  margin-right: 10px;
   vertical-align: top;
 }
 
 .statistic-input {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
 }

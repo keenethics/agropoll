@@ -56,24 +56,50 @@
   text-align: center;
 }
 
+.statistic-content {
+  margin-top: 55px;
+}
+
 .table-container {
+  margin-top: 55px;
   width: 85%;
   margin: 0 auto;
 }
 
 .LocationFilter-wrapper {
-  margin-left: 7.5%;
 }
 
 .StatusFilter-wrapper {
-  margin-left: 7.5%;
 }
 
 .filter-country {
-  font-size: 1.1rem;
-  margin: 5px;
+  font-size: 0.9rem;
+  margin: 5px 5px 5px 0px;
 }
 
+.filter-bar {
+  position: fixed;
+  height: 30px;
+  top: 40px;
+  width: 100%;
+  box-shadow: 0px 1px 1px 0px rgba(145, 148, 148, 0.95);
+  background-color: rgba(230, 230, 230, 1);
+}
+
+.statistic-one {
+  width: 25%;
+  float: left;
+}
+.statistic-two {
+  margin-top: 2px;
+  width: 25%;
+  float: left;
+}
+.statistic-three {
+  margin-top: 2px;
+  width: 50%;
+  float: left;
+}
 @media screen and (max-width: 300px) {
   .row {
     flex-direction: column;

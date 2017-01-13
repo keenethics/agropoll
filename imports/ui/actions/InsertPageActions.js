@@ -29,16 +29,18 @@ export const hideSpinner = () => ({
   type: HIDE_SPINNER,
 });
 
-export const hideCrops = () => ({
+export const hideCrops = (groupId) => ({
   type: HIDE_CROPS,
+  groupId: groupId || ''
 });
 
 export const saveData = () => (dispatch, getState) => {
   const insertTableState = getState().insertTable;
   dispatch(hideCrops());
   Meteor.call('record.updateMulti', insertTableState.inputData);
-}
+};
 
-export const showCrops = () => ({
+export const showCrops = (groupId) => ({
   type: SHOW_CROPS,
+  groupId: groupId || ''
 });

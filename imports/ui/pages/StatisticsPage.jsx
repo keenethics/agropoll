@@ -9,7 +9,6 @@ import StatisticsTableRow from '/imports/ui/components/StatisticsPage/Statistics
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
 import LocationFilter from '/imports/ui/components/StatisticsPage/LocationFilter.jsx';
 import StatusFilter from '/imports/ui/components/StatisticsPage/StatusFilter.jsx';
-import FilterFooter from '/imports/ui/components/FilterFooter/FilterFooter.jsx';
 import YearSelector from '/imports/ui/components/YearSelector.jsx';
 
 import { connect } from 'react-redux';
@@ -36,24 +35,30 @@ class StatisticsPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="table-container">
-          <StatisticsTableHeader />
-          {this.props.groups.map(group => (
-            <div key={group.id} className="group">
-              <div className="head-row">
-                <div className="head">{group.name}</div>
-              </div>
-              {this.renderRows(group)}
-            </div>
-          ))}
-        </div>
-        <FilterFooter>
-          <LocationFilter />
-          <StatusFilter />
-          <div className="years-container">
+        <div className="filter-bar">
+          <div className="statistic-one">
             <YearSelector />
           </div>
-        </FilterFooter>
+          <div className="statistic-two">
+            <StatusFilter />
+          </div>
+          <div className="statistic-three">
+            <LocationFilter />
+          </div>
+        </div>
+        <div className="statistic-content">
+          <div className="table-container">
+            <StatisticsTableHeader />
+            {this.props.groups.map(group => (
+              <div key={group.id} className="group">
+                <div className="head-row">
+                  <div className="head">{group.name}</div>
+                </div>
+                {this.renderRows(group)}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

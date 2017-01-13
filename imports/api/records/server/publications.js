@@ -7,9 +7,9 @@ Meteor.publish('records.all', function () {
   return Records.find();
 });
 
-Meteor.publish('records.user',() => {
-  const user = Meteor.users.findOne({ _id: this.userId });
-  if(!user)
+Meteor.publish('records.user', function () {
+  if (!this.userId) {
     throw new Meteor.Error('not-authorized');
-  return Records.find({ userId: user._id });
+  }
+  return Records.find({ userId: this.userId });
 });

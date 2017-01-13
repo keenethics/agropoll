@@ -16,3 +16,8 @@ Install `linter` and `linter-eslint` packages in Atom.
 # Sign up
 
 To sign user up, submit your email at `login` page. In case you caught an error, revise Terminal and copy `body` parameter found there. Paste into browser this URL: `localhost:3000/login/<body>`.
+
+# WARNING!
+
+1. Please, do not change names of existing variables!
+2. Do not remove methods, which you don't know where they are used!

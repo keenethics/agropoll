@@ -59,13 +59,13 @@ class StatisticsPage extends React.Component {
   }
 }
 
-const container = createContainer(({ params }) => {
-  console.log('this.props :-->', this.props);
+const container = createContainer((props) => {
+  console.log('this.props :-->', props);
 
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.filter');
+  Meteor.subscribe('records.filter', props.statisticsTable);
 
   return {
     user,

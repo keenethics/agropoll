@@ -73,7 +73,13 @@ class TableInsert extends React.Component {
   }
 
   removeCropRow(id) {
-    Meteor.call('record.removeOne', id);
+    this.props.insertPageActions.startSpinner();
+    Meteor.call('record.removeOne', id, (err, res) => {
+      this.props.insertPageActions.hideSpinner();
+      if (err) {
+        console.log(err.reason);
+      }
+    });
   }
 
   addCropElem(cropId) {
@@ -207,7 +213,7 @@ const TableInsertContainer = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('records.user');
   Meteor.subscribe('localities.all');
 
   return {

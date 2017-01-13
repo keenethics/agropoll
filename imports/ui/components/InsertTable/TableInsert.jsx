@@ -75,7 +75,13 @@ class TableInsert extends React.Component {
   }
 
   removeCropRow(id) {
-    Meteor.call('record.removeOne', id);
+    this.props.insertPageActions.startSpinner();
+    Meteor.call('record.removeOne', id, (err, res) => {
+      this.props.insertPageActions.hideSpinner();
+      if (err) {
+        console.log(err.reason);
+      }
+    });
   }
 
   addCropElem(cropId) {

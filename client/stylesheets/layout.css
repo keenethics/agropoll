@@ -58,10 +58,8 @@ body {
   position: relative;
 }
 .main-layout {
-  margin-top: 40px;
+  margin-top: 90px;
   width: 100%;
-  margin-bottom: 115px;
-  display: table;
 }
 
 .title-color {

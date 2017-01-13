@@ -250,7 +250,7 @@ div.tcell {
 .table-title {
   text-align: center;
   font-weight: bold;
-  margin: 10px 0px 20px 0px;
+  margin: 0px 0px 20px 0px;
   color: rgba(5, 85, 75, 1);
 }
 
@@ -304,18 +304,18 @@ div.tcell {
   -moz-box-shadow: 1px 1px 0px 0px #899599;
   -webkit-box-shadow: 1px 1px 0px 0px #899599;
   box-shadow: 1px 1px 0px 0px #899599;
-  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(70, 120, 140, 1)), color-stop(1, rgba(140, 175, 120, 0.9)));
-  background:-moz-linear-gradient(top, rgba(70, 120, 140, 1) 5%, rgba(140, 175, 120, 0.9) 100%);
-  background:-webkit-linear-gradient(top, rgba(70, 120, 140, 1) 5%, rgba(140, 175, 120, 0.9) 100%);
-  background:-o-linear-gradient(top, rgba(70, 120, 140, 1) 5%, rgba(140, 175, 120, 0.9) 100%);
-  background:-ms-linear-gradient(top, rgba(70, 120, 140, 1) 5%, rgba(140, 175, 120, 0.9) 100%);
-  background:linear-gradient(to bottom, rgba(70, 120, 140, 1) 5%, rgba(140, 175, 120, 0.9) 100%);
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(135, 143, 146, 1)), color-stop(1, rgba(188, 189, 187, 0.9)));
+  background:-moz-linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
+  background:-webkit-linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
+  background:-o-linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
+  background:-ms-linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
+  background: linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468cf0', endColorstr='##8cafdc',GradientType=0);
   margin-left: 10px;
   text-align: center;
   cursor: pointer;
   height: 100%;
-  padding: 5px;
+  padding: 2px 8px 2px 8px;
   border-radius: 4px;
   color: #ffffff;
   border:none;

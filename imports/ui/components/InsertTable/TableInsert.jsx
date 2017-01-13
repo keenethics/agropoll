@@ -77,16 +77,16 @@ class TableInsert extends React.Component {
   }
 
   addCropElem(cropId) {
-    const placeId = this.props.insertPage.place_id;
+    const place_id = this.props.insertPage.place_id;
     const placeType = this.props.insertPage.placeType;
     const marketingYear = this.props.all.marketingYear;
 
-    if (placeId && placeType === 'locality' && marketingYear) {
+    if (place_id && placeType === 'locality' && marketingYear) {
       Meteor.call('record.insert', {
         marketingYear,
         reproduction: '',
         cropCapacity: 0,
-        placeId,
+        place_id,
         cropId,
         square: 0,
         status: 'planned',
@@ -98,12 +98,12 @@ class TableInsert extends React.Component {
   }
 
   renderInsertedCropsRows(crop) {
-    const placeId = this.props.insertPage.place_id;
+    const place_id = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.all.marketingYear;
     const cropsData = Records.find({
       cropId: crop.id,
-      'location.place_id': placeId,
+      'location.place_id': place_id,
       userId,
       marketingYear,
     });
@@ -127,10 +127,10 @@ class TableInsert extends React.Component {
   }
 
   renderCropsRows(crops) {
-    const placeId = this.props.insertPage.place_id;
+    const place_id = this.props.insertPage.place_id;
     const marketingYear = this.props.all.marketingYear;
     const placeType = this.props.insertPage.placeType;
-    const canAdd = placeId && placeType === 'locality' && marketingYear;
+    const canAdd = place_id && placeType === 'locality' && marketingYear;
     const stateGroupId = this.props.insertPage.groupId || ''; // ----- check this -----
     const stateHideCrops = this.props.insertPage.hideCrops;
     return crops.map((crop) => {

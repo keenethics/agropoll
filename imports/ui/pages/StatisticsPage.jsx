@@ -9,7 +9,6 @@ import StatisticsTableRow from '/imports/ui/components/StatisticsPage/Statistics
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
 import LocationFilter from '/imports/ui/components/StatisticsPage/LocationFilter.jsx';
 import StatusFilter from '/imports/ui/components/StatisticsPage/StatusFilter.jsx';
-import FilterFooter from '/imports/ui/components/FilterFooter/FilterFooter.jsx';
 import YearSelector from '/imports/ui/components/YearSelector.jsx';
 
 import { connect } from 'react-redux';

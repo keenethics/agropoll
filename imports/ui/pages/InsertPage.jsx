@@ -13,7 +13,6 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 
 import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
-import FilterFooter from '/imports/ui/components/FilterFooter/FilterFooter.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 import YearSelector from '/imports/ui/components/YearSelector.jsx';
 

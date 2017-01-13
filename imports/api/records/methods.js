@@ -26,11 +26,11 @@ const getParentLocations = (locationObj, parentId) => {
 };
 
 Meteor.methods({
-  'record.insert'({ marketingYear, placeId, cropId, sort, reproduction, square, cropCapacity, status }) {
+  'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropCapacity, status }) {
     // check(url, String);
     // check(title, String);
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
-    const location = Localities.findOne({ place_id: placeId });
+    const location = Localities.findOne({ place_id: place_id });
     const locationObj = {
       place_id: location.place_id,
       administrative_area_level_1: null,
@@ -42,7 +42,7 @@ Meteor.methods({
       getParentLocations(locationObj, location.parentId);
     }
 
-    Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': placeId } });
+    Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': place_id } });
 
     return Records.insert({
       // userEmail: user.emails[0].address,

@@ -31,12 +31,11 @@ export default function InsertPageReducer(state = initialState, action = {}) {
       });
     }
     case GO_TO_PIN: {
-      const { place_id, fullAddress, hideCrops, groupId } = action;
+      const { place_id, fullAddress, hideCrops } = action;
       return Object.assign({}, state, {
         place_id,
         hideCrops,
         fullAddress,
-        groupId
       });
     }
     case HIDE_CROPS: {

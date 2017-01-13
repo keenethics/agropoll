@@ -186,7 +186,7 @@ const TableInsertContainer = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('records.user');
   Meteor.subscribe('localities.all');
 
   return {

@@ -3,10 +3,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Records } from '../records.js';
 
-Meteor.publish('records.all', function () {
-  return Records.find();
+Meteor.publish('records.filter', function() {
+  return Records.find({}, { fields: { 'location.place_id': 0 } });
+  // Ми повинні віддавати без локаліті (як мінімум без place_id)
 });
 
-Meteor.publish('records.user',(userId) => {
+Meteor.publish('records.user', (userId) => { // User from cient!!!!!!!!!!!!!!!
   return Records.find({ userId });
 });

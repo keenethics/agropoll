@@ -65,7 +65,7 @@ const container = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.all');
+  Meteor.subscribe('records.filter');
 
   return {
     user,

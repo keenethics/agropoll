@@ -20,4 +20,4 @@ To sign user up, submit your email at `login` page. In case you caught an error,
 # WARNING!
 
 1. Please, do not change names of existing variables!
-2. Do not remove methods, which you don't know where they are used!
+2. Do not remove methods, if you don't know where they are used!

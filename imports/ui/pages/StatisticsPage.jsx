@@ -19,13 +19,13 @@ class StatisticsPage extends React.Component {
   // }
 
   renderRows(group) {
-    const records = this.props && this.props.records.filter((item) =>
+    const records = this.props && this.props.records /* .filter((item) =>
       item.marketingYear === this.props.all.marketingYear
     ).filter((item) =>
       item.status === 'planned' && this.props.statisticsTable.planned ||
       item.status === 'planted' && this.props.statisticsTable.planted ||
       item.status === 'harvested' && this.props.statisticsTable.harvested
-    ) || [];
+    ) */ || [];
 
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
       <StatisticsTableRow crop={crop} key={crop.id} records={records} />
@@ -33,6 +33,8 @@ class StatisticsPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.records);
+
     return (
       <div>
         <div className="filter-bar">
@@ -65,8 +67,6 @@ class StatisticsPage extends React.Component {
 }
 
 const container = createContainer((props) => {
-  // console.log('this.props :-->', props, { ...props.statisticsTable, ...props.all });
-
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');

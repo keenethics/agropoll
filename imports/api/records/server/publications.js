@@ -5,7 +5,18 @@ import { Records } from '../records.js';
 
 Meteor.publish('records.filter', function (filters) {
   console.log(filters);
-  return Records.find({}, { fields: { 'location.place_id': 0 } });
+  const statuses = {
+    planned: filters.planned,
+    planted: filters.planted,
+    harvested: filters.harvested,
+  };
+  console.log(statuses, Object.keys(statuses).filter((item) => statuses[item]));
+
+  return Records.find({
+    marketingYear: filters.marketingYear,
+
+    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
+  }, { fields: { 'location.place_id': 0 } });
   // Ми повинні віддавати без локаліті (як мінімум без place_id)
 });
 

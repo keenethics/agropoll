@@ -34,9 +34,9 @@ class InsertPage extends React.Component {
       (locality) => locality.place_id === locationId
     ).fullAddress;
 
-      localStorage.setItem('place_id', locationId);
-      localStorage.setItem('placeType', Localities.findOne({ place_id: locationId }).type);
-      localStorage.setItem('fullAddress', fullAddress);
+    localStorage.setItem('place_id', locationId);
+    localStorage.setItem('placeType', Localities.findOne({ place_id: locationId }).type);
+    localStorage.setItem('fullAddress', fullAddress);
 
     this.props.actions.goToPin(locationId, fullAddress, true);
   }
@@ -60,6 +60,8 @@ class InsertPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.records);
+
     if (Meteor.user()) {
       const place_id = this.props.insertPage.place_id;
       const place = Localities.findOne({ place_id });

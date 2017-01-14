@@ -26,7 +26,6 @@ class TableInsert extends React.Component {
     this.hasUserThisCrop = this.hasUserThisCrop.bind(this);
     this.renderTableRows = this.renderTableRows.bind(this);
     this.renderCropsRows = this.renderCropsRows.bind(this);
-    this.renderInsertedCropsRows = this.renderInsertedCropsRows.bind(this);
   }
 
   getSquareValue(cropId) {
@@ -64,18 +63,23 @@ class TableInsert extends React.Component {
   }
 
   collapseCrops(e) {
-    const elementsToHide = e.target.parentElement.parentElement.children;
-    const arrElementsToHide = Array.prototype.slice.call(elementsToHide);
-
-    this.props.insertPageActions.showCrops();
-    arrElementsToHide.shift(); // remove the name of crop
-    arrElementsToHide.forEach((elem) => {
-      elem.className = elem.className.replace(' hidden', '');
-    });
+    if (this.props.insertPage.hideCrops) {
+      this.props.insertPageActions.showCrops(e.currentTarget.id);
+    } else if (this.props.insertPage.groupId.toString() === e.currentTarget.id.toString()) {
+      this.props.insertPageActions.hideCrops(e.currentTarget.id);
+    } else {
+      this.props.insertPageActions.showCrops(e.currentTarget.id);
+    }
   }
 
   removeCropRow(id) {
-    Meteor.call('record.removeOne', id);
+    this.props.insertPageActions.startSpinner();
+    Meteor.call('record.removeOne', id, (err, res) => {
+      this.props.insertPageActions.hideSpinner();
+      if (err) {
+        console.log(err.reason);
+      }
+    });
   }
 
   addCropElem(cropId) {
@@ -110,10 +114,11 @@ class TableInsert extends React.Component {
       marketingYear,
     });
     return cropsData.map((cropData) => {
-      this.props.insertTableActions.addInputData(cropData);
       return (
         <div key={cropData._id}>
           <RowForInsertedData
+            addInputData={this.props.insertTableActions.addInputData}
+            cropData={cropData}
             dataId={cropData._id}
             defaultSort={cropData.sort}
             defaultReproduction={cropData.reproduction}
@@ -132,23 +137,41 @@ class TableInsert extends React.Component {
     const marketingYear = this.props.all.marketingYear;
     const placeType = this.props.insertPage.placeType;
     const canAdd = place_id && placeType === 'locality' && marketingYear;
+    const stateGroupId = this.props.insertPage.groupId || ''; // ----- check this -----
+    const stateHideCrops = this.props.insertPage.hideCrops;
     return crops.map((crop) => {
+      const currentGroup = stateGroupId.toString() === crop.groupId.toString();
       const squareValue = this.getSquareValue(crop.id);
       const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
-      const hiddenClass = (!this.hasUserThisCrop(crop) && this.props.insertPage.hideCrops) ? ' hidden' : '';
-      return (
-        <div key={crop.id} className={hiddenClass}>
-          <RowForCrop
-            addCropElem={this.addCropElem}
-            cropId={crop.id}
-            canAdd={canAdd}
-            cropName={crop.name}
-            squareValue={squareValue}
-            avgCapacity={avgCapacity}
-          />
-          {this.renderInsertedCropsRows(crop)}
-        </div>
-      );
+      if (this.hasUserThisCrop(crop)) {
+        return (
+          <div key={crop.id}>
+            <RowForCrop
+              addCropElem={this.addCropElem}
+              cropId={crop.id}
+              canAdd={canAdd}
+              cropName={crop.name}
+              squareValue={squareValue}
+              avgCapacity={avgCapacity}
+            />
+            {this.renderInsertedCropsRows(crop)}
+          </div>
+        );
+      } else if (!stateHideCrops && currentGroup) {
+        return (
+          <div key={crop.id}>
+            <RowForCrop
+              addCropElem={this.addCropElem}
+              cropId={crop.id}
+              canAdd={canAdd}
+              cropName={crop.name}
+              squareValue={squareValue}
+              avgCapacity={avgCapacity}
+            />
+          </div>
+        );
+      }
+      return null;
     });
   }
 
@@ -157,7 +180,11 @@ class TableInsert extends React.Component {
       const crops = Crops.find({ groupId: group.id }).fetch();
       return (
         <div key={group.id}>
-          <RowForGroup groupName={group.name} collapseCrops={this.collapseCrops} />
+          <RowForGroup
+            groupId={group.id}
+            groupName={group.name}
+            collapseCrops={this.collapseCrops}
+          />
           { this.renderCropsRows(crops) }
         </div>
       );
@@ -186,7 +213,7 @@ const TableInsertContainer = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('records.user');
   Meteor.subscribe('localities.all');
 
   return {

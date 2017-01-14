@@ -34,12 +34,12 @@ class SearchBar extends React.Component {
       this.setState({ selectedPlace: place });
     });
 
-    this.setState({ autocomplete });
+  //  this.setState({ autocomplete });
   }
 
   getFullAddress() {
     const place = this.state.selectedPlace;
-    let fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
+    let fullAddress = place.formatted_address.substr(0, (place.formatted_address.lastIndexOf(',') === -1 ? place.formatted_address.length : place.formatted_address.lastIndexOf(',')));
 
     if (place.address_components.length === 4 &&
       !place.address_components[1].long_name.includes('міськрада') &&
@@ -56,7 +56,13 @@ class SearchBar extends React.Component {
     return fullAddress;
   }
 
-  submitPlace() {
+  submitPlace(e) {
+    if (!this.refs.inputCountry.value) {
+      return;
+    }
+    if (e.charCode !== 13) {
+      return;
+    }
     this.props.actions.startSpinner();
     if (this.state.selectedPlace) {
       Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
@@ -80,14 +86,7 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
-  change() {
-    if (this.refs.inputCountry.value) {
-      this.refs.selectButton.removeAttribute('disabled');
-    } else {
-      this.refs.selectButton.setAttribute('disabled', 'disabled');
-    }
-  }
-
+  change() {}
   render() {
     return (
       <div className="searchBar-wrapper">
@@ -96,11 +95,15 @@ class SearchBar extends React.Component {
           ref="inputCountry"
           type="text"
           placeholder="Country..."
+          onKeyPress={this.submitPlace}
           onChange={this.change}
         />
-        <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
+        <div className="search-icon-div cursor-pointer">
+          <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>
+        </div>
+        {/* <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
           Select
-        </button>
+        </button> */}
       </div>
     );
   }

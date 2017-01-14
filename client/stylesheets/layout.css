@@ -58,10 +58,8 @@ body {
   position: relative;
 }
 .main-layout {
-  margin-top: 55px;
+  margin-top: 90px;
   width: 100%;
-  margin-bottom: 85px;
-  display: table;
 }
 
 .title-color {
@@ -79,4 +77,8 @@ body {
 
 .margin-left-3 {
   margin-left: 3px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

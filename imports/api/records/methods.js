@@ -10,19 +10,20 @@ const getParentLocations = (locationObj, parentId) => {
   switch (parentLocation.type) {
     case 'administrative_area_level_1':
       locationObj.administrative_area_level_1 = parentLocation.place_id;
-    break;
+      break;
     case 'administrative_area_level_2':
       locationObj.administrative_area_level_2 = parentLocation.place_id;
-    break;
+      break;
     case 'administrative_area_level_3':
       locationObj.administrative_area_level_3 = parentLocation.place_id;
-    break;
+      break;
+    default:
+      break;
   }
 
   if (parentLocation.parentId)
     locationObj = getParentLocations(locationObj, parentLocation.parentId);
-
-}
+};
 
 Meteor.methods({
   'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropCapacity, status }) {
@@ -37,7 +38,7 @@ Meteor.methods({
       administrative_area_level_3: null,
     };
 
-    if (location.parentId){
+    if (location.parentId) {
       getParentLocations(locationObj, location.parentId);
     }
 
@@ -91,7 +92,14 @@ Meteor.methods({
         status: dataObj[id].status,
 
         updatedAt: Date.now(),
-      }})
+      }});
     }
+  },
+
+  // --- method for update status---
+  'record.updateStatus': ({ recordId, newStatus }) => {
+    const updateData = {};
+    updateData.$set = { status: newStatus };
+    Records.update(recordId, updateData);
   },
 });

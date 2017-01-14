@@ -13,6 +13,7 @@ const initialState = {
   place_id: localStorage.getItem('place_id'),
   placeType: localStorage.getItem('placeType'),
   hideCrops: true,
+  groupId: '',
   seekingLocation: false,
 };
 
@@ -38,10 +39,10 @@ export default function InsertPageReducer(state = initialState, action = {}) {
       });
     }
     case HIDE_CROPS: {
-      return Object.assign({}, state, { hideCrops: true });
+      return Object.assign({}, state, { hideCrops: true, groupId: action.groupId || '' });
     }
     case SHOW_CROPS: {
-      return Object.assign({}, state, { hideCrops: false });
+      return Object.assign({}, state, { hideCrops: false, groupId: action.groupId || '' });
     }
     case SHOW_SPINNER: {
       return Object.assign({}, state, { seekingLocation: true });

@@ -10,13 +10,32 @@ Meteor.publish('records.filter', function (filters) {
     planted: filters.planted,
     harvested: filters.harvested,
   };
-  console.log(statuses, Object.keys(statuses).filter((item) => statuses[item]));
 
-  return Records.find({
+  const locationFilter = filters.place_id || filters.administrative_area_level_2 || filters.administrative_area_level_1;
+  console.log(statuses, Object.keys(statuses).filter((item) => statuses[item]), locationFilter);
+
+  return locationFilter ? Records.find({
     marketingYear: filters.marketingYear,
-
+    $or: [
+      { 'location.administrative_area_level_1': locationFilter },
+      { 'location.administrative_area_level_2': locationFilter },
+      { 'location.place_id': locationFilter },
+    ],
     status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
-  }, { fields: { 'location.place_id': 0 } });
+  }, {
+    fields: {
+      'location.place_id': 0,
+      userId: 0,
+    }
+  }) : Records.find({
+    marketingYear: filters.marketingYear,
+    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
+  }, {
+    fields: {
+      'location.place_id': 0,
+      userId: 0,
+    }
+  });
   // Ми повинні віддавати без локаліті (як мінімум без place_id)
 });
 
@@ -24,5 +43,5 @@ Meteor.publish('records.user', function () {
   if (!this.userId) {
     throw new Meteor.Error('not-authorized');
   }
-  return Records.find({ userId: this.userId });
+  return Records.find({ userId: this.userId }, { userId: 0 });
 });

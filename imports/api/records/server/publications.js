@@ -4,7 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import { Records } from '../records.js';
 
 Meteor.publish('records.filter', function (filters) {
-  console.log(filters);
   const statuses = {
     planned: filters.planned,
     planted: filters.planted,
@@ -12,25 +11,23 @@ Meteor.publish('records.filter', function (filters) {
   };
 
   const locationFilter = filters.place_id || filters.administrative_area_level_2 || filters.administrative_area_level_1;
-  console.log(statuses, Object.keys(statuses).filter((item) => statuses[item]), locationFilter);
 
-  return locationFilter ? Records.find({
+  const query = {
     marketingYear: filters.marketingYear,
-    $or: [
+    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
+  };
+
+  if (locationFilter) {
+    query.$or = [
       { 'location.administrative_area_level_1': locationFilter },
       { 'location.administrative_area_level_2': locationFilter },
       { 'location.place_id': locationFilter },
-    ],
-    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
-  }, {
-    fields: {
-      'location.place_id': 0,
-      userId: 0,
-    }
-  }) : Records.find({
-    marketingYear: filters.marketingYear,
-    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
-  }, {
+    ];
+  }
+
+  console.log('query', query);
+
+  return Records.find(query, {
     fields: {
       'location.place_id': 0,
       userId: 0,

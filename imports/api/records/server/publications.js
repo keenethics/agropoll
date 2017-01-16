@@ -1,9 +1,19 @@
 // All records-related publications
 
 import { Meteor } from 'meteor/meteor';
+import { check, Match } from 'meteor/check';
+
 import { Records } from '../records.js';
 
 Meteor.publish('records.filter', function (filters) {
+  check(filters.planned, String);
+  check(filters.planted, String);
+  check(filters.harvested, String);
+  check(filters.place_id, String);
+  check(filters.administrative_area_level_1, Match.OneOf(String, null));
+  check(filters.administrative_area_level_2, Match.OneOf(String, null));
+  check(filters.marketingYear, String);
+
   console.log(filters);
   const statuses = {
     planned: filters.planned,

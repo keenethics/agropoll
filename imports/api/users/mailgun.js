@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 
 Meteor.methods({
   emailLogin: (email, body = 'hello') => {
-
+    check(email, String);
+    check(body, String);
+    
     //this.unblock();
 
     var postURL = process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages';

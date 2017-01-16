@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Records } from '/imports/api/records/records.js';
 import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js';
+import { check } from 'meteor/check';
 
 var generateLoginToken = () => {
   var stampedToken = Accounts._generateStampedLoginToken();
@@ -28,6 +29,8 @@ var saveLoginToken = (userId, callback) => {
 
 Meteor.methods({
   'user.emailChange'(newEmail) {
+    check(newEmail, String);
+
     if (!Meteor.userId()) return new Meteor.Error ('No user');
     const user = Meteor.users.findOne({ _id: Meteor.userId() })
     const userId = user._id;
@@ -38,6 +41,8 @@ Meteor.methods({
     return true;
   },
   'user.nameChange'(newName) {
+    check(newName, String);
+
     if(!Meteor.userId())
       return new Meteor.Error('No user');
 
@@ -46,6 +51,8 @@ Meteor.methods({
     return true;
   },
   'LoginProcedure': (email) => {
+    check(email, String);
+
     var user = Meteor.users.findOne({
       'emails.address': email
     });
@@ -68,6 +75,8 @@ Meteor.methods({
     })(email, hash, now);
   },
   'Login': (hash) => {
+    check(hash, String);
+
     const session = LoginSessions.findOne({ _id: hash })
 
     if (!session) {

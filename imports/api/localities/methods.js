@@ -1,10 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http'
-// import { check } from 'meteor/check';
+import { check } from 'meteor/check';
 import { Localities } from './localities.js';
 
 Meteor.methods({
-  'localities.addPlace'(place){
+  'localities.addPlace'(place) {
+    check(place.name, String);
+    check(place.formatted_address, String);
+    check(place.place_id, String);
+    for (index in place.address_components) {
+      check(place.address_components[index].long_name, String);
+    }
+    check(place.address_components[0].long_name, String);
+    check(place.types[0], String);
+
     // removing ', Україна'
     var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
     var locality = Localities.findOne({

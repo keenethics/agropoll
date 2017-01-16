@@ -5,6 +5,8 @@ import {
   SHOW_CROPS,
   SHOW_SPINNER,
   HIDE_SPINNER,
+  HIDE_MODAL,
+  SHOW_MODAL,
 } from '/imports/ui/actions/InsertPageActions.js';
 
 
@@ -15,6 +17,8 @@ const initialState = {
   hideCrops: true,
   groupId: '',
   seekingLocation: false,
+  hideModal: false,
+  modalObject: null,
 };
 
 
@@ -49,6 +53,12 @@ export default function InsertPageReducer(state = initialState, action = {}) {
     }
     case HIDE_SPINNER: {
       return Object.assign({}, state, { seekingLocation: false });
+    }
+    case SHOW_MODAL: {
+      return Object.assign({}, state, { hideModal: false, modalObject: action.modalObject });
+    }
+    case HIDE_MODAL: {
+      return Object.assign({}, state, { hideModal: true });
     }
     default: return state;
   }

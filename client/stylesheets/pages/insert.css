@@ -113,6 +113,7 @@ input.input {
 }
 
 .searchBar-wrapper {
+  position: relative;
   width: 100%;
   text-align: right;
 }
@@ -300,7 +301,7 @@ div.tcell {
   text-align: center;
 }
 
-.save-btn {
+.btn {
   -moz-box-shadow: 1px 1px 0px 0px #899599;
   -webkit-box-shadow: 1px 1px 0px 0px #899599;
   box-shadow: 1px 1px 0px 0px #899599;
@@ -321,7 +322,7 @@ div.tcell {
   border:none;
 }
 
-.save-btn:hover {
+.btn:hover {
   background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(140, 175, 120, 0.9)), color-stop(1, rgba(140, 175, 120, 0.9)));
 	background:-moz-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
 	background:-webkit-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
@@ -330,7 +331,7 @@ div.tcell {
 	background:linear-gradient(to bottom, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
 }
 
-.save-btn:active {
+.btn:active {
   transform: translate(1px, 1px);
 }
 
@@ -341,6 +342,8 @@ div.tcell {
 }
 
 .years {
+  position: relative;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -387,6 +390,17 @@ div.tcell {
 
 .search-icon-div:hover {
   opacity: 1;
+}
+
+.modal-location {
+  background-color: white;
+  position: absolute;
+  left: 35%;
+  top: 35%;
+  width: 30%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 2px #899599;
 }
 
 @media screen and (max-width: 500px) {

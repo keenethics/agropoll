@@ -87,17 +87,19 @@
 }
 
 .statistic-one {
-  width: 25%;
+  overflow: hidden;
+  width: 40%;
   float: left;
 }
 .statistic-two {
+  overflow: hidden;
   margin-top: 5px;
-  width: 25%;
+  width: 40%;
   float: left;
 }
 .statistic-three {
   margin-top: 2px;
-  width: 50%;
+  width: 20%;
   float: left;
 }
 @media screen and (max-width: 300px) {

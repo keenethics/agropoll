@@ -23,6 +23,7 @@ class InsertPage extends React.Component {
     this.goToPin = this.goToPin.bind(this);
     this.renderPins = this.renderPins.bind(this);
     this.saveCropData = this.saveCropData.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   saveCropData() {
@@ -30,10 +31,20 @@ class InsertPage extends React.Component {
   }
 
   goToPin(locationId) {
+    console.log(locationId);
     const fullAddress = this.props.localities.find(
       (locality) => locality.place_id === locationId
     ).fullAddress;
     this.props.actions.goToPin(locationId, fullAddress, true);
+  }
+  showModal() {
+    this.props.actions.showModal(<SearchBar />);
+  }
+  renderLocalityModal() {
+    if (!this.props.insertPage.hideModal) {
+      return this.props.insertPage.modalObject;
+    }
+    return null;
   }
 
   renderPins() {
@@ -54,29 +65,43 @@ class InsertPage extends React.Component {
     });
   }
 
+  renderTable() {
+    const place_id = this.props.insertPage.place_id;
+    const place = Localities.findOne({ place_id });
+    const marketingYear = this.props.all.marketingYear;
+    if (!(!place_id || !place || place.type !== 'locality' || !marketingYear)) {
+      return (<div className="control-bar-container">
+        <TableInsert />
+      </div>
+      );
+    }
+    return null;
+  }
+
   render() {
     if (Meteor.user()) {
-      const place_id = this.props.insertPage.place_id;
-      const place = Localities.findOne({ place_id });
-      const marketingYear = this.props.all.marketingYear;
-      if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
-        return (
-          <div className="control-bar-container">
-            <div className="control-bar">
-              <div className="search-param">
-                <SearchBar selectPlace={this.selectPlace} />
-              </div>
-              <div className="search-param">
-                <YearSelector />
-                <button className="save-btn" onClick={this.saveCropData}>Save</button>
-              </div>
-            </div>
-          </div>
-        );
-      }
+      // const place_id = this.props.insertPage.place_id;
+      // const place = Localities.findOne({ place_id });
+      // const marketingYear = this.props.all.marketingYear;
+      // if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
+      //   return (
+      //     <div className="control-bar-container">
+      //       <div className="control-bar">
+      //         <div className="search-param">
+      //           <SearchBar selectPlace={this.selectPlace} />
+      //         </div>
+      //         <div className="search-param">
+      //           <YearSelector />
+      //           <button className="save-btn" onClick={this.saveCropData}>Save</button>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      // }
 
       return (
         <div>
+          {this.renderLocalityModal()}
           <div className="filter-bar">
             <div className="statistic-one">
               <YearSelector />
@@ -84,16 +109,17 @@ class InsertPage extends React.Component {
             <div className="statistic-two">
               <div className="pin-locations">
                 {this.renderPins()}
-                <button className="save-btn" onClick={this.saveCropData}>Save</button>
               </div>
             </div>
-            <div className="statistic-three">
-              <SearchBar selectPlace={this.selectPlace} />
+            <div className="statistic-three text-center">
+              <button className="btn" onClick={this.showModal}>Add location</button>
+              <button className="btn" onClick={this.saveCropData}>Save</button>
             </div>
           </div>
-          <div className="control-bar-container">
+          {this.renderTable()}
+          {/* <div className="control-bar-container">
             <TableInsert />
-          </div>
+          </div> */}
         </div>
       );
     } else {

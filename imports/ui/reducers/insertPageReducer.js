@@ -23,6 +23,7 @@ const initialState = {
 
 
 export default function InsertPageReducer(state = initialState, action = {}) {
+  console.log(action);
   switch (action.type) {
     case SELECT_PLACE: {
       const place_id = action.place_id;
@@ -35,9 +36,10 @@ export default function InsertPageReducer(state = initialState, action = {}) {
       });
     }
     case GO_TO_PIN: {
-      const { place_id, fullAddress, hideCrops } = action;
+      const { place_id, placeType, fullAddress, hideCrops } = action;
       return Object.assign({}, state, {
         place_id,
+        placeType,
         hideCrops,
         fullAddress,
       });

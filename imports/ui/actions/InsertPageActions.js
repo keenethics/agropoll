@@ -16,9 +16,10 @@ export const selectPlace = (place, fullAddress) => ({
   fullAddress,
 });
 
-export const goToPin = (place_id, fullAddress, hideCrops) => ({
+export const goToPin = (place_id, placeType, fullAddress, hideCrops) => ({
   type: GO_TO_PIN,
   place_id,
+  placeType,
   hideCrops,
   fullAddress,
 });

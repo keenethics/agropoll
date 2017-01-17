@@ -16,8 +16,6 @@ Meteor.publish('records.filter', function (filters) {
     marketingYear: String,
   });
 
-  // console.log(filters);
-
   const statuses = {
     planned: filters.planned,
     planted: filters.planted,

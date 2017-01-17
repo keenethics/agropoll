@@ -18,7 +18,9 @@ class StatisticsPage extends React.Component {
   //   super(props);
   // }
 
-  renderRows(group) {
+  render() {
+    console.log(this.props.records);
+
     const records = this.props && this.props.records /* .filter((item) =>
       item.marketingYear === this.props.all.marketingYear
     ).filter((item) =>
@@ -39,15 +41,7 @@ class StatisticsPage extends React.Component {
         { cropId: crop.id, totalSquare: 0, totalYield: 0 }
       )
     );
-    console.log(cropsView);
-
-    return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-      <StatisticsTableRow crop={crop} key={crop.id} records={records} cropsView={cropsView} />
-    ));
-  }
-
-  render() {
-    console.log(this.props.records);
+    console.log(':-->',cropsView);
 
     return (
       <div>
@@ -70,7 +64,15 @@ class StatisticsPage extends React.Component {
                 <div className="head-row">
                   <div className="head">{group.name}</div>
                 </div>
-                {this.renderRows(group)}
+                {this.props.crops.filter(crop =>
+                  crop.groupId === group.id
+                ).map(crop => (
+                  <StatisticsTableRow
+                    key={crop.id}
+                    crop={crop}
+                    cropsView={cropsView.find((item) => item.cropId === crop.id)}
+                  />
+                ))}
               </div>
             ))}
           </div>

@@ -99,9 +99,15 @@ class InsertPage extends React.Component {
     const place = Localities.findOne({ place_id });
     const marketingYear = this.props.all.marketingYear;
     if (!(!place_id || !place || place.type !== 'locality' || !marketingYear)) {
-      return (<div className="control-bar-container">
-        <TableInsert />
-      </div>
+      return (
+        <div>
+          <div className="control-bar-container">
+            <TableInsert />
+          </div>
+          <div className="insert-button-container text-center padding-top-5">
+            <button className="btn btn-insert" onClick={this.saveCropData}>Save</button>
+          </div>
+        </div>
       );
     }
     return null;
@@ -185,9 +191,7 @@ class InsertPage extends React.Component {
             </div>
           </div>
           {this.renderTable()}
-          <div className="insert-button-container text-center padding-top-5">
-            <button className="btn btn-insert" onClick={this.saveCropData}>Save</button>
-          </div>
+
         </div>
       );
     } else {

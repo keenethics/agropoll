@@ -5,7 +5,7 @@ import { Localities } from './localities.js';
 
 Meteor.methods({
   'localities.addPlace'(place) {
-    console.log(place.address_components);
+    console.log(place);
     check(place.name, String);
     check(place.formatted_address, String);
     check(place.place_id, String);
@@ -15,12 +15,13 @@ Meteor.methods({
     check(place.types[0], String);
 
     // removing ', Україна'
-    var fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
+    const index = place.formatted_address.lastIndexOf(',');
+    var fullAddress = (index !== -1) ? place.formatted_address.substr(0, place.formatted_address.lastIndexOf(',')) : place.formatted_address;
     var locality = Localities.findOne({
       place_id: place.place_id
     })
 
-    if (place.address_components.length === 4 &&
+    if (index !== -1 && place.address_components.length === 4 &&
       !place.address_components[1].long_name.includes('міськрада') &&
       !place.address_components[1].long_name.includes('місто')){
         let positionOfComa = fullAddress.indexOf(',');
@@ -54,7 +55,7 @@ Meteor.methods({
       Localities.insert(locality);
     }
   }
-})
+});
 
 function getPlace(address){
   const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?';

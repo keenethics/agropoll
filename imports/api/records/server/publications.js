@@ -14,7 +14,7 @@ Meteor.publish('records.filter', function (filters) {
   check(filters.administrative_area_level_2, Match.OneOf(String, null));
   check(filters.marketingYear, String);
 
-  console.log(filters);
+  // console.log(filters);
 
   const statuses = {
     planned: filters.planned,

@@ -33,16 +33,16 @@ class StatisticsPage extends React.Component {
       ).reduce((prev, next) =>
         ({
           cropId: prev.cropId,
-          square: prev.square + Number(next.square),
-          harvest: prev.harvest + next.square * next.cropCapacity
+          totalSquare: prev.totalSquare + Number(next.square),
+          totalYield: prev.totalYield + next.square * next.cropCapacity,
         }),
-        { cropId: crop.id, square: 0, harvest: 0 }
+        { cropId: crop.id, totalSquare: 0, totalYield: 0 }
       )
     );
     console.log(cropsView);
 
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-      <StatisticsTableRow crop={crop} key={crop.id} records={records} />
+      <StatisticsTableRow crop={crop} key={crop.id} records={records} cropsView={cropsView} />
     ));
   }
 

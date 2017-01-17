@@ -19,20 +19,36 @@ class StatisticsPage extends React.Component {
   // }
 
   renderRows(group) {
-    const records = this.props && this.props.records.filter((item) =>
+    const records = this.props && this.props.records /* .filter((item) =>
       item.marketingYear === this.props.all.marketingYear
     ).filter((item) =>
       item.status === 'planned' && this.props.statisticsTable.planned ||
       item.status === 'planted' && this.props.statisticsTable.planted ||
       item.status === 'harvested' && this.props.statisticsTable.harvested
-    ) || [];
+    ) */ || [];
+
+    const cropsView = this.props.crops.map((crop) =>
+      records.filter((record) =>
+        record.cropId === crop.id
+      ).reduce((prev, next) =>
+        ({
+          cropId: prev.cropId,
+          totalSquare: prev.totalSquare + Number(next.square),
+          totalYield: prev.totalYield + next.square * next.cropCapacity,
+        }),
+        { cropId: crop.id, totalSquare: 0, totalYield: 0 }
+      )
+    );
+    console.log(cropsView);
 
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
-      <StatisticsTableRow crop={crop} key={crop.id} records={records} />
+      <StatisticsTableRow crop={crop} key={crop.id} records={records} cropsView={cropsView} />
     ));
   }
 
   render() {
+    console.log(this.props.records);
+
     return (
       <div>
         <div className="filter-bar">
@@ -64,13 +80,11 @@ class StatisticsPage extends React.Component {
   }
 }
 
-const container = createContainer(({ params }) => {
-  console.log('this.props :-->', this.props);
-
+const container = createContainer((props) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.all');
+  Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
 
   return {
     user,

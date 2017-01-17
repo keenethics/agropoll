@@ -102,14 +102,25 @@ input.input {
 
 .remove-crop {
   float: left;
-  margin: 0 7px;
+  text-align: center;
   color: rgba(200, 10, 10, 0.4);
   font-weight: bold;
   cursor: pointer;
+  width: 10%;
 }
 
 .remove-crop:hover {
   color: rgba(200, 10, 10, 1);
+}
+
+.sort-conteiner {
+  width: 90%;
+  float: left;
+}
+
+.reproduction-conteiner {
+  width: 50%;
+  float: left;
 }
 
 .searchBar-wrapper {
@@ -337,6 +348,7 @@ div.trow-crop {
   border-radius: 4px;
   color: rgb(20, 80, 20);
   border:none;
+  height: 20px;
 }
 
 .btn:hover {

@@ -73,23 +73,27 @@ class RowForGroup extends React.Component {
             >
               &ndash;
             </div>
+            <div className="sort-conteiner">
+              <input
+                className="input-sort"
+                type="text"
+                ref={`sort${this.props.dataId}`}
+                defaultValue={this.props.defaultSort}
+                placeholder="сорт ..."
+                onChange={this.changeSort}
+              />
+            </div>
+          </div>
+          <div className="reproduction-conteiner">
             <input
-              className="input-sort"
+              className="input"
               type="text"
-              ref={`sort${this.props.dataId}`}
-              defaultValue={this.props.defaultSort}
-              placeholder="сорт ..."
-              onChange={this.changeSort}
+              ref={`reproduction${this.props.dataId}`}
+              defaultValue={this.props.defaultReproduction}
+              placeholder="репродукція ..."
+              onChange={this.changeReproduction}
             />
           </div>
-          <input
-            className="input"
-            type="text"
-            ref={`reproduction${this.props.dataId}`}
-            defaultValue={this.props.defaultReproduction}
-            placeholder="репродукція ..."
-            onChange={this.changeReproduction}
-          />
         </div>
         <div className="tcoll2 tcell">
           <input

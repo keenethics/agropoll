@@ -40,7 +40,7 @@ class SearchBar extends React.Component {
 
   getFullAddress() {
     const place = this.state.selectedPlace;
-    let fullAddress = place.formatted_address.substr(0, place.formatted_address.lastIndexOf(','));
+    let fullAddress = place.formatted_address.substr(0, (place.formatted_address.lastIndexOf(',') === -1 ? place.formatted_address.length : place.formatted_address.lastIndexOf(',')));
 
     if (place.address_components.length === 4 &&
       !place.address_components[1].long_name.includes('міськрада') &&

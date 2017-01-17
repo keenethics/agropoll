@@ -13,12 +13,10 @@ const initialState = {
 export default function statisticsTableReducer(state = initialState, action = {}) {
   switch (action.type) {
     case types.CHANGE_LOCATION_FILTER: {
-      console.log(action);
       return { ...state, ...action.obj };
     }
     case types.CHANGE_STATUS_FILTER: {
-      const planned /* , planted, harvested }*/ = action.planned;
-      return Object.assign({}, state, { planned });
+      return { ...state, ...action.statuses };
     }
     default: return state;
   }

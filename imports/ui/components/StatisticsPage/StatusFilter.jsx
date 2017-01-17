@@ -12,21 +12,16 @@ class StatusFilter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      // administrative_area_level_1: null // this.refs.selectAdmAreaLev1.value,
-    };
+    this.changeStatusFilter = this.changeStatusFilter.bind(this);
   }
 
-  changeStatusFilter(e) {
-    console.log(e.target.checked);
-
-    // this.props.actions.changeStatusFilter(this.refs.planned.value, null, null);
-    //
-    // this.setState({
-    //   administrative_area_level_1: this.refs.selectAdmAreaLev1.value // this.refs.selectAdmAreaLev1.value,
-    // });
-
-    this.props.actions.changeStatusFilter(e.target.name, e.target.checked);
+  changeStatusFilter() {
+    const statuses = {
+      planned: this.refs.planned.checked,
+      planted: this.refs.planted.checked,
+      harvested: this.refs.harvested.checked,
+    };
+    this.props.actions.changeStatusFilter(statuses);
   }
 
   render() {
@@ -34,16 +29,16 @@ class StatusFilter extends React.Component {
       <div className="StatusFilter-wrapper percent-85 float-left">
         <div className="float-left statistic-param">
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" checked={this.props.state.planned} onChange={this.changeStatusFilter.bind(this)} ref="planned" />
-            <span className="checkbox-span"> planned </span>
+            <input className="statistic-input" type="checkbox" ref="planned" checked={this.props.state.planned} onChange={this.changeStatusFilter} />
+            <span className="checkbox-span">planned</span>
           </div>
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" defaultChecked="true" ref="planted" />
-            <span className="checkbox-span"> planted </span>
+            <input className="statistic-input" type="checkbox" ref="planted" checked={this.props.state.planted} onChange={this.changeStatusFilter} />
+            <span className="checkbox-span">planted</span>
           </div>
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" ref="harvested" />
-            <span className="checkbox-span"> harvested </span>
+            <input className="statistic-input" type="checkbox" ref="harvested" checked={this.props.state.harvested} onChange={this.changeStatusFilter} />
+            <span className="checkbox-span">harvested</span>
           </div>
         </div>
       </div>

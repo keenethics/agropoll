@@ -136,6 +136,8 @@ class InsertPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.records);
+
     if (Meteor.user()) {
       // const place_id = this.props.insertPage.place_id;
       // const place = Localities.findOne({ place_id });
@@ -206,7 +208,7 @@ const container = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.user', Meteor.userId());
+  Meteor.subscribe('records.user');
   Meteor.subscribe('localities.all');
 
   return {

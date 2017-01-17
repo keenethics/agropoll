@@ -1,13 +1,11 @@
 import * as types from './types';
 
-export const changeLocationFilter = obj => ({
+export const changeLocationFilter = (obj) => ({
   type: types.CHANGE_LOCATION_FILTER,
   obj,
 });
 
-export const changeStatusFilter = (name, status) => ({
+export const changeStatusFilter = (statuses) => ({
   type: types.CHANGE_STATUS_FILTER,
-  planned: status,
-  // planted,
-  // harvested,
+  statuses,
 });

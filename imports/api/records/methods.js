@@ -94,13 +94,6 @@ Meteor.methods({
   },
   'record.updateMulti' (dataObj) {
     for (id in dataObj) {
-      check(id, String);
-      check(dataObj[id].sort, String);
-      check(dataObj[id].reproduction, String);
-      check(dataObj[id].square, Number);
-      check(dataObj[id].cropCapacity, Number);
-      check(dataObj[id].status, String);
-
       Records.update({ _id: id }, { $set: {
         sort: dataObj[id].sort,
         reproduction: dataObj[id].reproduction,

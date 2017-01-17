@@ -6,13 +6,15 @@ import { check, Match } from 'meteor/check';
 import { Records } from '../records.js';
 
 Meteor.publish('records.filter', function (filters) {
-  check(filters.planned, Boolean);
-  check(filters.planted, Boolean);
-  check(filters.harvested, Boolean);
-  check(filters.place_id, Match.OneOf(String, null));
-  check(filters.administrative_area_level_1, Match.OneOf(String, null));
-  check(filters.administrative_area_level_2, Match.OneOf(String, null));
-  check(filters.marketingYear, String);
+  check(filters, {
+    planned: Boolean,
+    planted: Boolean,
+    harvested: Boolean,
+    place_id: Match.OneOf(String, null),
+    administrative_area_level_1: Match.OneOf(String, null),
+    administrative_area_level_2: Match.OneOf(String, null),
+    marketingYear: String,
+  });
 
   console.log(filters);
   const statuses = {

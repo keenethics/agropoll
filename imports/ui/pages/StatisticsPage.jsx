@@ -27,6 +27,20 @@ class StatisticsPage extends React.Component {
       item.status === 'harvested' && this.props.statisticsTable.harvested
     ) */ || [];
 
+    const cropsView = this.props.crops.map((crop) =>
+      records.filter((record) =>
+        record.cropId === crop.id
+      ).reduce((prev, next) =>
+        ({
+          cropId: prev.cropId,
+          square: prev.square + Number(next.square),
+          harvest: prev.harvest + next.square * next.cropCapacity
+        }),
+        { cropId: crop.id, square: 0, harvest: 0 }
+      )
+    );
+    console.log(cropsView);
+
     return this.props.crops.filter(crop => crop.groupId === group.id).map(crop => (
       <StatisticsTableRow crop={crop} key={crop.id} records={records} />
     ));

@@ -14,21 +14,20 @@ const initialState = {
 export default function InsertTableReducer(state = initialState, action = {}) {
   switch (action.type) {
     case ADD_INPUT_DATA: {
-      const { _id, sort, reproduction, square, cropCapacity, status } = action;
+      const { _id, sort, reproduction, square, cropCapacity } = action;
       state.inputData[_id] = {
         sort,
         reproduction,
         square,
         cropCapacity,
-        status,
       };
       return Object.assign({}, state);
     }
-    case CHANGE_STATUS: {
-      const { id, status } = action;
-      state.inputData[id].status = status;
-      return Object.assign({}, state);
-    }
+    // case CHANGE_STATUS: {
+    //   const { id, status } = action;
+    //   state.inputData[id].status = status;
+    //   return Object.assign({}, state);
+    // }
     case CHANGE_CAPACITY: {
       const { id, capacity } = action;
       state.inputData[id].cropCapacity = capacity;

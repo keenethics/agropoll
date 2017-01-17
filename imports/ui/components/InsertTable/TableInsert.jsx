@@ -149,7 +149,6 @@ class TableInsert extends React.Component {
             <RowForCrop
               addCropElem={this.addCropElem}
               cropId={crop.id}
-              canAdd={canAdd}
               cropName={crop.name}
               squareValue={squareValue}
               avgCapacity={avgCapacity}
@@ -163,7 +162,6 @@ class TableInsert extends React.Component {
             <RowForCrop
               addCropElem={this.addCropElem}
               cropId={crop.id}
-              canAdd={canAdd}
               cropName={crop.name}
               squareValue={squareValue}
               avgCapacity={avgCapacity}

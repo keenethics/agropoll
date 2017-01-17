@@ -7,7 +7,7 @@ export default class LocationPin extends React.Component {
 
   render() {
     return (
-      <span>{this.props.fullAddress && this.props.fullAddress.substring(0, this.props.fullAddress.indexOf(','))}</span>
+      <div className="pin-inner">{this.props.fullAddress && this.props.fullAddress.substring(0, this.props.fullAddress.indexOf(','))}</div>
     );
   }
 }

@@ -90,7 +90,7 @@ Meteor.methods({
       sort,
 
       updatedAt: Date.now(),
-    }} );
+    } });
   },
   'record.updateMulti' (dataObj) {
     for (id in dataObj) {
@@ -99,8 +99,6 @@ Meteor.methods({
         reproduction: dataObj[id].reproduction,
         square: dataObj[id].square,
         cropCapacity: dataObj[id].cropCapacity,
-        status: dataObj[id].status,
-
         updatedAt: Date.now(),
       }});
     }

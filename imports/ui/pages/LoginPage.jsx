@@ -92,7 +92,13 @@ class LoginPage extends React.Component {
     const fullAddress = this.props.localities.find(
       (locality) => locality.place_id === locationId
     ).fullAddress;
-    this.props.actions.goToPin(locationId, fullAddress, true);
+    const placeType = this.props.localities.find(
+      (locality) => locality.place_id === locationId
+    ).type;
+    localStorage.setItem('place_id', locationId);
+    localStorage.setItem('placeType', placeType);
+    localStorage.setItem('fullAddress', fullAddress);
+    this.props.actions.goToPin(locationId, placeType, fullAddress, true);
     browserHistory.push('/insert');
   }
 

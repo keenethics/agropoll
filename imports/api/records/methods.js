@@ -1,7 +1,7 @@
 // Methods related to records
 
 import { Meteor } from 'meteor/meteor';
-// import { check } from 'meteor/check';
+import { check } from 'meteor/check';
 import { Localities } from '/imports/api/localities/localities.js'
 import { Records } from './records.js';
 
@@ -27,8 +27,15 @@ const getParentLocations = (locationObj, parentId) => {
 
 Meteor.methods({
   'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropCapacity, status }) {
-    // check(url, String);
-    // check(title, String);
+    check(marketingYear, String);
+    check(place_id, String);
+    check(cropId, Number);
+    check(sort, String);
+    check(reproduction, String);
+    check(square, Number);
+    check(cropCapacity, Number);
+    check(status, String);
+
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const location = Localities.findOne({ place_id: place_id });
     const locationObj = {
@@ -60,6 +67,8 @@ Meteor.methods({
     });
   },
   'record.removeOne'(_id) {
+    check(_id, String);
+    
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const record = Records.findOne({ _id });
     const place_id = record.location.place_id;
@@ -72,6 +81,7 @@ Meteor.methods({
     return Records.remove({_id})
   },
   'record.update' (criteria, { sort, reproduction, square, cropCapacity, status }) {
+    // check()
     return Records.update(criteria, { $set: {
       reproduction,
       cropCapacity,
@@ -98,6 +108,9 @@ Meteor.methods({
 
   // --- method for update status---
   'record.updateStatus': ({ recordId, newStatus }) => {
+    check(recordId, String);
+    check(newStatus, String);
+
     const updateData = {};
     updateData.$set = { status: newStatus };
     Records.update(recordId, updateData);

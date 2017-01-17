@@ -65,8 +65,7 @@ class SearchBar extends React.Component {
     if (!this.refs.inputCountry.value) {
       return;
     }
-
-    if (event.type !== 'react-click' && e.charCode !== 13) {
+    if (e.type !== 'click' && e.charCode !== 13) {
       return;
     }
     this.props.actions.startSpinner();

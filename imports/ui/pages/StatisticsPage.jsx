@@ -19,7 +19,7 @@ class StatisticsPage extends React.Component {
   // }
 
   render() {
-    console.log(this.props.records);
+    console.log('records >-->', this.props.records);
 
     const records = this.props && this.props.records /* .filter((item) =>
       item.marketingYear === this.props.all.marketingYear

@@ -23,7 +23,6 @@ const initialState = {
 
 
 export default function InsertPageReducer(state = initialState, action = {}) {
-  console.log(action);
   switch (action.type) {
     case SELECT_PLACE: {
       const place_id = action.place_id;

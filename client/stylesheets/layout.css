@@ -51,6 +51,26 @@ body {
   width: 100%;
 }
 
+.percent-70 {
+  width: 70%;
+}
+
+.percent-30 {
+  width: 30%;
+}
+
+.percent-60 {
+  width: 60%;
+}
+
+.percent-40 {
+  width: 40%;
+}
+
+.relative {
+  position: relative;
+}
+
 .display-inlBlock {
   display: inline-block;
 }
@@ -76,6 +96,10 @@ body {
 
 .margin-top-5 {
   margin-top: 5px;
+}
+
+.padding-top-5 {
+  padding-top: 5px;
 }
 
 

@@ -14,7 +14,7 @@ class YearSelector extends React.Component {
   }
 
   componentDidMount() {
-    document.getElementsByTagName('body')[0].addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', () => {
       this.down = false;
     });
 
@@ -26,15 +26,6 @@ class YearSelector extends React.Component {
 
   selectYear(e) {
     this.down = false;
-    if (parseInt(e.currentTarget.style.left, 10) > 0) {
-      e.currentTarget.style.left = '0px';
-    }
-    const wraperWidth = parseInt(e.currentTarget.parentElement.offsetWidth, 10);
-    const elementWidth = parseInt(e.currentTarget.offsetWidth, 10);
-    const leftProp = parseInt(e.currentTarget.style.left, 10);
-    if ((leftProp * -1) > (elementWidth - wraperWidth)) {
-      e.currentTarget.style.left = `${wraperWidth - elementWidth}px`;
-    }
     const year = e.target.value ? e.target.value.toString() : e.target.innerText;
     // localStorage.setItem('marketingYear', year);
     this.props.actions.selectYear(year);
@@ -42,14 +33,17 @@ class YearSelector extends React.Component {
 
   mouseDown(e) {
     this.down = true;
-    this.XCoordinate = e.clientX;
+    this.XCoordinate = e.clientX || e.nativeEvent.pageX;
   }
 
   mouseMove(e) {
-    if (this.down) {
-      const difference = e.clientX - this.XCoordinate;
+    const yearWidth = parseInt(document.getElementsByClassName('years')[0].offsetWidth, 10);
+    const yearWrapper = document.getElementsByClassName('statistic-one')[0] || document.getElementsByClassName('insert-one')[0];
+    if (yearWrapper.offsetWidth && yearWidth && this.down && yearWidth > yearWrapper.offsetWidth) {
+      const XCoord = e.clientX || e.nativeEvent.pageX;
+      const difference = XCoord - this.XCoordinate;
       e.currentTarget.style.left = `${parseInt(e.currentTarget.style.left || 0, 10) + difference}px`;
-      this.XCoordinate = e.clientX;
+      this.XCoordinate = XCoord;
     }
   }
   render() {
@@ -59,6 +53,9 @@ class YearSelector extends React.Component {
         onMouseUp={this.selectYear}
         onMouseDown={this.mouseDown}
         onMouseMove={this.mouseMove}
+        onTouchStart={this.mouseDown}
+        onTouchEnd={this.selectYear}
+        onTouchMove={this.mouseMove}
       >
         <li className={this.props.marketingYear === '2016' ? 'li-class selected' : 'li-class'} value="2016"><div>2016</div></li>
         <li className={this.props.marketingYear === '2017' ? 'li-class selected' : 'li-class'} value="2017"><div>2017</div></li>

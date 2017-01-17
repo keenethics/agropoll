@@ -11,7 +11,7 @@ Meteor.publish('localities', ({ administrative_area_level_1, administrative_area
   check(administrative_area_level_1, Match.OneOf(String, null));
   check(administrative_area_level_2, Match.OneOf(String, null));
 
-  Localities.find({
+  return Localities.find({
     $or: [
       {
         type: 'administrative_area_level_1'

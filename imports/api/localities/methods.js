@@ -5,13 +5,13 @@ import { Localities } from './localities.js';
 
 Meteor.methods({
   'localities.addPlace'(place) {
+    console.log(place.address_components);
     check(place.name, String);
     check(place.formatted_address, String);
     check(place.place_id, String);
-    for (index in place.address_components) {
-      check(place.address_components[index].long_name, String);
+    for (let value of place.address_components) {
+      check(value.long_name, String);
     }
-    check(place.address_components[0].long_name, String);
     check(place.types[0], String);
 
     // removing ', Україна'

@@ -7,6 +7,7 @@ import { PseudoRecords } from '/imports/api/pseudoRecords/pseudoRecords.js';
 
 Meteor.startup(() => {
   Meteor.setInterval(() => {
+    console.log();
     console.log('---', Date.now(), '---');
 
     Records.find().fetch().forEach((record) => {
@@ -24,9 +25,7 @@ Meteor.startup(() => {
 
     PseudoRecords.remove({});
     Clusters.find().fetch().forEach((cluster) => {
-      console.log('query:::', cluster.conditions,
-        Records.find(JSON.parse(cluster.conditions)).fetch().length
-      );
+      console.log('records:', Records.find(JSON.parse(cluster.conditions)).fetch().length, '| conditions =', cluster.conditions);
 
       Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
         const pseudoRecord = {
@@ -46,7 +45,7 @@ Meteor.startup(() => {
 
         PseudoRecords.insert(pseudoRecord);
 
-        console.log(`[${record.marketingYear}]`, record.square, '* (', cluster.farmersCount, '/', record.usersCount, ') =>', pseudoRecord.square);
+        console.log(`  [${record.marketingYear}]`, record.square, '* (', cluster.farmersCount, '/', record.usersCount, ') =>', pseudoRecord.square);
       });
     });
   }, 10000);

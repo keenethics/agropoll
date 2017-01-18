@@ -90,7 +90,8 @@ const container = createContainer((props) => {
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
   // Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
-  Meteor.subscribe('pseudoRecords.filter', { ...props.statisticsTable, ...props.all });
+  const pseudoRecordsHandler = Meteor.subscribe('pseudoRecords.filter', { ...props.statisticsTable, ...props.all });
+  console.log(pseudoRecordsHandler.ready());
 
   return {
     user,

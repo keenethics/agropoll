@@ -37,7 +37,7 @@ Meteor.publish('pseudoRecords.filter', function (filters) {
     ];
   }
 
-  console.log('query', query);
+  console.log('query =', query);
 
   return PseudoRecords.find(query, {
     fields: {

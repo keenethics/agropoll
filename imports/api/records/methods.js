@@ -63,7 +63,7 @@ Meteor.methods({
       status,
       sort,
 
-      updatedAt: Date.now(),
+      updatedAt: Number(Date.now()),
     });
   },
   'record.removeOne'(_id) {
@@ -89,8 +89,8 @@ Meteor.methods({
       status,
       sort,
 
-      updatedAt: Date.now(),
-    } });
+      updatedAt: Number(Date.now()),
+    }} );
   },
   'record.updateMulti' (dataObj) {
     for (id in dataObj) {
@@ -99,7 +99,8 @@ Meteor.methods({
         reproduction: dataObj[id].reproduction,
         square: dataObj[id].square,
         cropCapacity: dataObj[id].cropCapacity,
-        updatedAt: Date.now(),
+
+        updatedAt: Number(Date.now()),
       }});
     }
   },

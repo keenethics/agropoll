@@ -71,7 +71,7 @@ Meteor.startup(() => {
       id: crop[0],
       name: crop[2],
       groupId: crop[1],
-      avgCapacity: crop[3],
+      avgCapacity: Number(crop[3]),
     }));
   }
 

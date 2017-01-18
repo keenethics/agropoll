@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
     this.getFullAddress = this.getFullAddress.bind(this);
     this.initGoogleAutocomplete = this.initGoogleAutocomplete.bind(this);
     this.change = this.change.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +34,9 @@ class SearchBar extends React.Component {
 
       this.setState({ selectedPlace: place });
     });
-
   //  this.setState({ autocomplete });
   }
+
 
   getFullAddress() {
     const place = this.state.selectedPlace;
@@ -55,12 +56,16 @@ class SearchBar extends React.Component {
     }
     return fullAddress;
   }
-
+  hideModal() {
+    if (!this.props.insertPage.hideModal) {
+      this.props.actions.hideModal();
+    }
+  }
   submitPlace(e) {
     if (!this.refs.inputCountry.value) {
       return;
     }
-    if (e.charCode !== 13) {
+    if (e.type !== 'click' && e.charCode !== 13) {
       return;
     }
     this.props.actions.startSpinner();
@@ -77,9 +82,9 @@ class SearchBar extends React.Component {
       localStorage.setItem('place_id', this.state.selectedPlace.place_id);
       localStorage.setItem('placeType', this.state.selectedPlace.types[0]);
       localStorage.setItem('fullAddress', fullAddress);
-
       this.props.actions.selectPlace(this.state.selectedPlace, fullAddress);
     }
+    this.hideModal();
   }
 
   initGoogleAutocomplete(input, options) {
@@ -87,23 +92,46 @@ class SearchBar extends React.Component {
   }
 
   change() {}
+
+
   render() {
     return (
-      <div className="searchBar-wrapper">
-        <input
-          className="input-country"
-          ref="inputCountry"
-          type="text"
-          placeholder="Country..."
-          onKeyPress={this.submitPlace}
-          onChange={this.change}
-        />
-        <div className="search-icon-div cursor-pointer">
-          <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>
+
+      <div className="modal-location">
+        <div className="percent-100 text-center font-size-1_5rem"> Type locality name </div>
+        <div className="percent-100 padding-top-bot-25">
+          <div className="searchBar-wrapper">
+            <input
+              className="input-country"
+              ref="inputCountry"
+              type="text"
+              placeholder="Country..."
+              onKeyPress={this.submitPlace}
+              onChange={this.change}
+            />
+            <div className="search-icon-div cursor-pointer">
+              <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>
+            </div>
+          </div>
         </div>
-        {/* <button ref="selectButton" className="select-button" onClick={this.submitPlace}>
-          Select
-        </button> */}
+        <div className="percent-100">
+          <div className="percent-50 float-left text-center">
+            <button
+              className="btn"
+              onClick={this.submitPlace}
+            >
+              Add
+            </button>
+          </div>
+          <div className="percent-50 float-left text-center">
+            <button
+              className="btn"
+              onClick={this.hideModal}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

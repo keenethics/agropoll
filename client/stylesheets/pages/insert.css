@@ -102,17 +102,29 @@ input.input {
 
 .remove-crop {
   float: left;
-  margin: 0 7px;
+  text-align: center;
   color: rgba(200, 10, 10, 0.4);
   font-weight: bold;
   cursor: pointer;
+  width: 10%;
 }
 
 .remove-crop:hover {
   color: rgba(200, 10, 10, 1);
 }
 
+.sort-conteiner {
+  width: 90%;
+  float: left;
+}
+
+.reproduction-conteiner {
+  width: 50%;
+  float: left;
+}
+
 .searchBar-wrapper {
+  position: relative;
   width: 100%;
   text-align: right;
 }
@@ -223,28 +235,39 @@ div.trow-crop {
   flex-wrap: nowrap;
 }
 
-div.trow {
+.trow {
   margin-left: 1%;
   overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
 }
 
-div.tcell {
+.trow-crop-header {
+  margin-bottom: 2px;
+  box-shadow: 0px 2px 2px -1px rgba(130, 155, 200, 0.75);
+}
+
+.tcell {
   font-size: 1.05rem;
   text-align: center;
   display: inline-block;
   background-color: rgba(80, 230, 100, 0.09);
-  margin-left: 3px;
-  margin-bottom: 3px;
+  margin: 0 0 3px 3px;
   padding: 1px;
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(130, 155, 200, 0.75);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(130, 155, 200, 0.75);
   box-shadow: 2px 2px 2px 0px rgba(130, 155, 200, 0.75);
 }
 
 .tcoll1.tcell {
   text-align: left;
+}
+
+.tcell-crop-header {
+  margin: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 .table-title {
@@ -257,7 +280,7 @@ div.tcell {
 .table {
   margin: 0px auto;
   overflow: hidden;
-  width: 80%;
+  width: 85%;
   max-width: 1200px;
 }
 
@@ -271,23 +294,31 @@ div.tcell {
 }
 
 .pin-locations {
+  position: relative;
+  left: 1px;
   width: 100%;
 }
 
 
 .locationPin {
-  margin: 0px 1px;
-  padding: 2px 4px;
+  display: inline-block;
+  margin: 3px 2px 0 2px;
+  padding: 2px 10px;
   max-width: 20%;
   line-height: 1em;
   font-size: 0.9em;
-  overflow: hidden;
   cursor: pointer;
+  border-bottom: 1px solid rgba(10, 100, 10, 0.8);
+  border-left: 1px solid rgba(10, 100, 10, 0.8);
+  transform: skew(-15deg);
 }
 
 .locationPin:hover {
-  background-color: rgba(120, 130, 100, 0.7);
-  color: rgba(255, 240, 130, 1);
+  padding: 2px 10px 6px 10px;
+}
+
+.pin-inner {
+  transform: skew(15deg);
 }
 
 .control-bar {
@@ -300,7 +331,7 @@ div.tcell {
   text-align: center;
 }
 
-.save-btn {
+.btn {
   -moz-box-shadow: 1px 1px 0px 0px #899599;
   -webkit-box-shadow: 1px 1px 0px 0px #899599;
   box-shadow: 1px 1px 0px 0px #899599;
@@ -311,26 +342,25 @@ div.tcell {
   background:-ms-linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
   background: linear-gradient(to bottom, rgba(135, 143, 146, 1) 5%, rgba(188, 189, 187, 0.9) 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468cf0', endColorstr='##8cafdc',GradientType=0);
-  margin-left: 10px;
   text-align: center;
   cursor: pointer;
-  height: 100%;
   padding: 2px 8px 2px 8px;
   border-radius: 4px;
-  color: #ffffff;
+  color: rgb(20, 80, 20);
   border:none;
+  height: 20px;
 }
 
-.save-btn:hover {
-  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(140, 175, 120, 0.9)), color-stop(1, rgba(140, 175, 120, 0.9)));
-	background:-moz-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
-	background:-webkit-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
-	background:-o-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
-	background:-ms-linear-gradient(top, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
-	background:linear-gradient(to bottom, rgba(140, 175, 120, 0.9) 5%, rgba(140, 175, 120, 0.9) 100%);
+.btn:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(188, 189, 187, 0.9)), color-stop(1, rgba(135, 143, 146, 1)));
+	background:-moz-linear-gradient(top, rgba(188, 189, 187, 0.9) 5%, rgba(135, 143, 146, 1) 100%);
+	background:-webkit-linear-gradient(top, rgba(188, 189, 187, 0.9) 5%, rgba(135, 143, 146, 1) 100%);
+	background:-o-linear-gradient(top, rgba(188, 189, 187, 0.9) 5%, rgba(135, 143, 146, 1) 100%);
+	background:-ms-linear-gradient(top, rgba(188, 189, 187, 0.9) 5%, rgba(135, 143, 146, 1) 100%);
+	background:linear-gradient(to bottom, rgba(188, 189, 187, 0.9) 5%, rgba(135, 143, 146, 1) 100%);
 }
 
-.save-btn:active {
+.btn:active {
   transform: translate(1px, 1px);
 }
 
@@ -341,6 +371,8 @@ div.tcell {
 }
 
 .years {
+  position: relative;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -387,6 +419,74 @@ div.tcell {
 
 .search-icon-div:hover {
   opacity: 1;
+}
+
+.modal-location {
+  background-color: white;
+  position: absolute;
+  left: 35%;
+  top: 35%;
+  width: 30%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 2px #899599;
+}
+
+.insert-one {
+  overflow: hidden;
+  width: 50%;
+  float: left;
+}
+.insert-two {
+  overflow: hidden;
+  width: 50%;
+  float: left;
+}
+.insert-button-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.add-location-wrapper {
+  width: 20%;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.pins-wraper {
+  position: relative;
+  overflow: hidden;
+  width: 80%;
+  float: left;
+}
+
+.btn-insert {
+  width: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+  .insert-one {
+    overflow: hidden;
+    width: 85%;
+  }
+
+  .insert-two {
+    overflow: hidden;
+    width: 85%;
+  }
+
+  .control-bar-container {
+    margin-top: 100px;
+  }
+
+  .add-location-wrapper {
+    width: 15%;
+    text-align: left;
+  }
+
+  .pins-wraper {
+    width: 85%;
+  }
 }
 
 @media screen and (max-width: 500px) {

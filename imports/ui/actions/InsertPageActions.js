@@ -6,6 +6,8 @@ export const SHOW_CROPS = 'SHOW_CROPS';
 export const SELECT_PLACE = 'SELECT_PLACE';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 
 export const selectPlace = (place, fullAddress) => ({
   type: SELECT_PLACE,
@@ -14,9 +16,10 @@ export const selectPlace = (place, fullAddress) => ({
   fullAddress,
 });
 
-export const goToPin = (place_id, fullAddress, hideCrops) => ({
+export const goToPin = (place_id, placeType, fullAddress, hideCrops) => ({
   type: GO_TO_PIN,
   place_id,
+  placeType,
   hideCrops,
   fullAddress,
 });
@@ -43,4 +46,13 @@ export const saveData = () => (dispatch, getState) => {
 export const showCrops = (groupId) => ({
   type: SHOW_CROPS,
   groupId: groupId || ''
+});
+
+export const showModal = (modalObject) => ({
+  type: SHOW_MODAL,
+  modalObject: modalObject || null,
+});
+
+export const hideModal = () => ({
+  type: HIDE_MODAL,
 });

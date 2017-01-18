@@ -99,7 +99,6 @@ Meteor.methods({
         reproduction: dataObj[id].reproduction,
         square: dataObj[id].square,
         cropCapacity: dataObj[id].cropCapacity,
-        status: dataObj[id].status,
 
         updatedAt: Number(Date.now()),
       }});

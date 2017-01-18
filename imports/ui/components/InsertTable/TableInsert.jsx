@@ -91,7 +91,7 @@ class TableInsert extends React.Component {
       Meteor.call('record.insert', {
         marketingYear,
         reproduction: '',
-        cropCapacity: 0,
+        cropCapacity: Crops.findOne({ id: cropId }).avgCapacity,
         place_id,
         cropId,
         square: 0,

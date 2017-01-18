@@ -17,7 +17,7 @@ Records.schema = new SimpleSchema({
   userId: { type: String, optional: true },
   marketingYear: { type: String, optional: true },
   reproduction: { type: String, optional: true },
-  cropCapacity: { type: Number, optional: true },
+  cropCapacity: { type: Number, optional: true, decimal: true },
   cropId: { type: Number, optional: true },
   square: { type: Number, optional: true },
   status: { type: String, optional: true },

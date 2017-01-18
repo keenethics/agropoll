@@ -23,9 +23,11 @@ Records.schema = new SimpleSchema({
   status: { type: String, optional: true },
   sort: { type: String, optional: true },
   updatedAt: { type: Number, optional: true, decimal: true },
+  farmlandArea: { type: Number, optional: true, decimal: true },
 });
 Records.attachSchema(Records.schema);
 
+/*
 const updateTotalSquare = ({ userId, marketingYear }) => {
   const findQuery = {
     userId,
@@ -55,3 +57,4 @@ Records.after.update((userId, { marketingYear }) => {
 Records.after.remove((userId, { marketingYear }) => {
   updateTotalSquare({ userId, marketingYear });
 });
+*/

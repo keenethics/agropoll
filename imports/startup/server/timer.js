@@ -35,6 +35,7 @@ Meteor.startup(() => {
       }).fetch().reduce((sum, item) => sum + item.square, 0);
 
       console.log(record.marketingYear,'farmlandArea--->', farmlandArea);
+      Records.update(record._id, { $set: { farmlandArea } });
 
     });
 

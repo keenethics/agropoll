@@ -2,6 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
+import { Clusters } from '/imports/api/clusters/clusters.js';
 
 Meteor.startup(() => {
   // if the Crops collection is empty
@@ -13,7 +14,7 @@ Meteor.startup(() => {
       [3, "Кормові культури"],
     ];
 
-    groups.forEach(group => Groups.insert({
+    groups.forEach((group) => Groups.insert({
       id: group[0],
       name: group[1],
     }));
@@ -66,12 +67,24 @@ Meteor.startup(() => {
       [600, 3, "Різні кормові культури", 0],
     ];
 
-    crops.forEach(crop => Crops.insert({
+    crops.forEach((crop) => Crops.insert({
       id: crop[0],
       name: crop[2],
       groupId: crop[1],
       avgCapacity: crop[3],
     }));
+  }
 
+  if (Clusters.find().count() === 0) {
+    const clusters = [
+      { conditions: '{ "$and": [{ "square": { "$lt": 100 } }] }', farmersCount: 1000, usersCount: 0 },
+      { conditions: '{ "$and": [{ "square": { "$gte": 100 } }] }', farmersCount: 10, usersCount: 0 },
+    ];
+
+    clusters.forEach((cluster) => Clusters.insert({
+      conditions: cluster.conditions,
+      farmersCount: cluster.farmersCount,
+      usersCount: cluster.usersCount,
+    }));
   }
 });

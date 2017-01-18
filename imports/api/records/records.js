@@ -19,6 +19,7 @@ const updateTotalSquare = ({ userId, marketingYear }) => {
   replacement.$set = {};
   replacement.$set.totalSquare = Meteor.users.findOne(userId).totalSquare || {};
   replacement.$set.totalSquare[marketingYear] = fullArea;
+  console.log('replacement', replacement);
 
   const options = {
     upsert: true,

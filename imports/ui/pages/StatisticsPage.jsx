@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 // import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
+import { PseudoRecords } from '/imports/api/pseudoRecords/pseudoRecords.js';
 
 import StatisticsTableRow from '/imports/ui/components/StatisticsPage/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
@@ -19,8 +20,10 @@ class StatisticsPage extends React.Component {
   // }
 
   render() {
-    console.log('records >-->', this.props.records);
+    console.log('records >-->', this.props.records, Records.find().fetch());
+    console.log('pseudo records >==>', this.props.pseudoRecords, PseudoRecords.find().fetch());
 
+    // It had sorted on server
     const records = this.props && this.props.records /* .filter((item) =>
       item.marketingYear === this.props.all.marketingYear
     ).filter((item) =>
@@ -41,7 +44,7 @@ class StatisticsPage extends React.Component {
         { cropId: crop.id, totalSquare: 0, totalYield: 0 }
       )
     );
-    console.log(':-->',cropsView);
+    // console.log(':-->',cropsView);
 
     return (
       <div>
@@ -93,6 +96,7 @@ const container = createContainer((props) => {
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
     records: Records.find({}).fetch(),
+    pseudoRecords: PseudoRecords.find({}).fetch(),
   };
 }, StatisticsPage);
 

@@ -26,3 +26,5 @@ accounts-password
 accounts-base
 http
 matb33:collection-hooks
+aldeed:simple-schema
+aldeed:collection2

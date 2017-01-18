@@ -1,7 +1,6 @@
 // Definition of the records collection
 
 import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const Records = new Mongo.Collection('records');
@@ -24,6 +23,7 @@ Records.schema = new SimpleSchema({
   sort: { type: String, optional: true },
   updatedAt: { type: Number, optional: true, decimal: true },
   farmlandArea: { type: Number, optional: true, decimal: true },
+  usersCount: { type: Number, optional: true },
 });
 Records.attachSchema(Records.schema);
 

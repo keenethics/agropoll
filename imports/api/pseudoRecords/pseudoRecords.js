@@ -3,7 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 // import { Meteor } from 'meteor/meteor';
 
-export const PseudoRecords = new Mongo.Collection('PseudoRecords');
+export const PseudoRecords = new Mongo.Collection('pseudoRecords');
 
 // const updateTotalSquare = ({ userId, marketingYear }) => {
 //   const findQuery = {

@@ -42,15 +42,8 @@ Meteor.publish('pseudoRecords.filter', function (filters) {
   return PseudoRecords.find(query, {
     fields: {
       'location.place_id': 0,
-      userId: 0,
+      // userId: 0,
     }
   });
   // Ми повинні віддавати без локаліті (як мінімум без place_id)
-});
-
-Meteor.publish('pseudoRecords.user', function () {
-  if (!this.userId) {
-    throw new Meteor.Error('not-authorized');
-  }
-  return PseudoRecords.find({ userId: this.userId }, { userId: 0 });
 });

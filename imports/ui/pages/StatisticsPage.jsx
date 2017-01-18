@@ -3,7 +3,7 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 // import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
-import { Records } from '/imports/api/records/records.js';
+// import { Records } from '/imports/api/records/records.js';
 import { PseudoRecords } from '/imports/api/pseudoRecords/pseudoRecords.js';
 
 import StatisticsTableRow from '/imports/ui/components/StatisticsPage/StatisticsTableRow.jsx';
@@ -20,8 +20,8 @@ class StatisticsPage extends React.Component {
   // }
 
   render() {
-    console.log('records >-->', this.props.records, Records.find().fetch());
-    console.log('pseudo records >==>', this.props.pseudoRecords, PseudoRecords.find().fetch());
+    console.log('records >-->', this.props.records);
+    // console.log('pseudo records >==>', this.props.pseudoRecords);
 
     // It had sorted on server
     const records = this.props && this.props.records /* .filter((item) =>
@@ -89,14 +89,15 @@ const container = createContainer((props) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
+  // Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
+  Meteor.subscribe('pseudoRecords.filter', { ...props.statisticsTable, ...props.all });
 
   return {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
-    records: Records.find({}).fetch(),
-    pseudoRecords: PseudoRecords.find({}).fetch(),
+    // records: Records.find({}).fetch(),
+    records: PseudoRecords.find({}).fetch(),
   };
 }, StatisticsPage);
 

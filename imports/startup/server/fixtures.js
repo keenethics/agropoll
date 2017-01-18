@@ -75,16 +75,17 @@ Meteor.startup(() => {
     }));
   }
 
-  if (Clusters.find().count() === 0) {
-    const clusters = [
-      { conditions: '{ "$and": [{ "square": { "$lt": 100 } }] }', farmersCount: 1000, usersCount: 0 },
-      { conditions: '{ "$and": [{ "square": { "$gte": 100 } }] }', farmersCount: 10, usersCount: 0 },
-    ];
+  Clusters.remove({});
+  // if (Clusters.find().count() === 0) {
+  const clusters = [
+    { conditions: '{ "$and": [{ "farmlandArea": { "$lt": 100 } }] }', farmersCount: 1000 },
+    { conditions: '{ "$and": [{ "farmlandArea": { "$gte": 100 } }] }', farmersCount: 10 },
+  ];
 
-    clusters.forEach((cluster) => Clusters.insert({
-      conditions: cluster.conditions,
-      farmersCount: cluster.farmersCount,
-      usersCount: cluster.usersCount,
-    }));
-  }
+  clusters.forEach((cluster) => Clusters.insert({
+    conditions: cluster.conditions,
+    farmersCount: cluster.farmersCount,
+    // usersCount: cluster.usersCount,
+  }));
+  // }
 });

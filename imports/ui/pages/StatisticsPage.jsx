@@ -39,9 +39,9 @@ class StatisticsPage extends React.Component {
         ({
           cropId: prev.cropId,
           totalSquare: prev.totalSquare + Number(next.square),
-          totalYield: prev.totalYield + next.square * next.cropYield,
+          harvest: prev.harvest + next.square * next.cropYield,
         }),
-        { cropId: crop.id, totalSquare: 0, totalYield: 0 }
+        { cropId: crop.id, totalSquare: 0, harvest: 0 }
       )
     );
     // console.log(':-->',cropsView);

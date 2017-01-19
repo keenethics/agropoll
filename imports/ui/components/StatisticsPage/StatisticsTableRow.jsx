@@ -15,7 +15,7 @@ export default class StatisticsTableRow extends React.Component {
           <span>{this.props.cropsView.totalSquare}</span>
         </div>
         <div className="cell coll-3">
-          <span>{this.props.cropsView.totalYield}</span>
+          <span>{this.props.cropsView.harvest}</span>
         </div>
       </div>
     );

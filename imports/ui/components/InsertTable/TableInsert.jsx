@@ -49,7 +49,7 @@ class TableInsert extends React.Component {
       record.location.place_id === place_id &&
       record.userId === userId &&
       record.marketingYear === marketingYear
-    ).reduce((a, b) => a + (+b.square * +b.cropCapacity), 0);
+    ).reduce((a, b) => a + (+b.square * +b.cropYield), 0);
     return capacity / square;
   }
 
@@ -91,7 +91,7 @@ class TableInsert extends React.Component {
       Meteor.call('record.insert', {
         marketingYear,
         reproduction: '',
-        cropCapacity: 0,
+        cropYield: 0,
         place_id,
         cropId,
         square: 0,
@@ -123,7 +123,7 @@ class TableInsert extends React.Component {
             defaultSort={cropData.sort}
             defaultReproduction={cropData.reproduction}
             defaultSquare={cropData.square}
-            defaultCapacity={cropData.cropCapacity}
+            defaultCapacity={cropData.cropYield}
             defaultStatus={cropData.status}
             removeRow={() => this.removeCropRow(cropData._id)}
           />

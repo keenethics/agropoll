@@ -5,13 +5,13 @@ export const ADD_INPUT_DATA = 'ADD_INPUT_DATA';
 export const CHANGE_CAPACITY = 'CHANGE_CAPACITY';
 export const CHANGE_REPRODUCTION = 'CHANGE_REPRODUCTION';
 
-export const addInputData = ({ _id, sort, reproduction, square, cropCapacity }) => ({
+export const addInputData = ({ _id, sort, reproduction, square, cropYield }) => ({
   type: ADD_INPUT_DATA,
   _id,
   sort,
   reproduction,
   square,
-  cropCapacity,
+  cropYield,
 });
 
 export const changeSort = (id, sort) => ({

@@ -27,14 +27,14 @@ import { Clusters } from './clusters.js';
 // };
 //
 // Meteor.methods({
-//   'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropCapacity, status }) {
+//   'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropYield, status }) {
 //     check(marketingYear, String);
 //     check(place_id, String);
 //     check(cropId, Number);
 //     check(sort, String);
 //     check(reproduction, String);
 //     check(square, Number);
-//     check(cropCapacity, Number);
+//     check(cropYield, Number);
 //     check(status, String);
 //
 //     const user = Meteor.users.findOne({ _id: Meteor.userId() });
@@ -58,7 +58,7 @@ import { Clusters } from './clusters.js';
 //       userId: user._id,
 //       marketingYear,
 //       reproduction,
-//       cropCapacity,
+//       cropYield,
 //       cropId,
 //       square,
 //       status,
@@ -81,11 +81,11 @@ import { Clusters } from './clusters.js';
 //     }
 //     return Records.remove({_id})
 //   },
-//   'record.update' (criteria, { sort, reproduction, square, cropCapacity, status }) {
+//   'record.update' (criteria, { sort, reproduction, square, cropYield, status }) {
 //     // check()
 //     return Records.update(criteria, { $set: {
 //       reproduction,
-//       cropCapacity,
+//       cropYield,
 //       square,
 //       status,
 //       sort,
@@ -99,7 +99,7 @@ import { Clusters } from './clusters.js';
 //         sort: dataObj[id].sort,
 //         reproduction: dataObj[id].reproduction,
 //         square: dataObj[id].square,
-//         cropCapacity: dataObj[id].cropCapacity,
+//         cropYield: dataObj[id].cropYield,
 //         updatedAt: Date.now(),
 //       }});
 //     }

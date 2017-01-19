@@ -32,7 +32,7 @@ Meteor.startup(() => {
           // _id: record._id,
           location: record.location,
           marketingYear: record.marketingYear,
-          cropCapacity: record.cropCapacity,
+          cropYield: record.cropYield,
           cropId: record.cropId,
           square: record.square * cluster.farmersCount / record.usersCount,
           status: record.status,

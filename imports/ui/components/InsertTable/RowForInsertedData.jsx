@@ -108,7 +108,7 @@ class RowForGroup extends React.Component {
           <input
             className="input"
             type="number"
-            ref={`cropCapacity${this.props.dataId}`}
+            ref={`cropYield${this.props.dataId}`}
             defaultValue={this.props.defaultCapacity}
             onChange={this.changeCapacity}
           />

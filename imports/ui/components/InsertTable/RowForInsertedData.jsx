@@ -12,7 +12,7 @@ class RowForGroup extends React.Component {
     this.changeSort = this.changeSort.bind(this);
     this.changeSquare = this.changeSquare.bind(this);
     this.changeReproduction = this.changeReproduction.bind(this);
-    this.changeCapacity = this.changeCapacity.bind(this);
+    this.changeYield = this.changeYield.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
   }
 
@@ -38,10 +38,10 @@ class RowForGroup extends React.Component {
     this.props.actions.changeReproduction(id, reproduction);
   }
 
-  changeCapacity(e) {
+  changeYield(e) {
     const id = this.props.dataId;
-    const capacity = e.target.value;
-    this.props.actions.changeCapacity(id, capacity);
+    const cropYield = e.target.value;
+    this.props.actions.changeYield(id, cropYield);
   }
 
   changeStatus(e) {
@@ -109,8 +109,8 @@ class RowForGroup extends React.Component {
             className="input"
             type="number"
             ref={`cropYield${this.props.dataId}`}
-            defaultValue={this.props.defaultCapacity}
-            onChange={this.changeCapacity}
+            defaultValue={this.props.defaultYield}
+            onChange={this.changeYield}
           />
         </div>
         <div

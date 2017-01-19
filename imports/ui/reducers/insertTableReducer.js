@@ -1,7 +1,7 @@
 import {
   ADD_INPUT_DATA,
   CHANGE_STATUS,
-  CHANGE_CAPACITY,
+  CHANGE_YIELD,
   CHANGE_SORT,
   CHANGE_REPRODUCTION,
   CHANGE_SQUARE,
@@ -28,9 +28,9 @@ export default function InsertTableReducer(state = initialState, action = {}) {
     //   state.inputData[id].status = status;
     //   return Object.assign({}, state);
     // }
-    case CHANGE_CAPACITY: {
-      const { id, capacity } = action;
-      state.inputData[id].cropYield = capacity;
+    case CHANGE_YIELD: {
+      const { id, cropYield } = action;
+      state.inputData[id].cropYield = cropYield;
       return Object.assign({}, state);
     }
     case CHANGE_SORT: {

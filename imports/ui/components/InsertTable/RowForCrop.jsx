@@ -17,7 +17,7 @@ export default class RowForCrop extends React.Component {
           {this.props.squareValue || ''}
         </div>
         <div className="tcoll3 tcell tcell-crop-header">
-          {this.props.avgCapacity && this.props.avgCapacity.toFixed(4) || ''}
+          {this.props.avgCropYield && this.props.avgCropYield.toFixed(4) || ''}
         </div>
         <div className="tcoll4 tcell tcell-crop-header"></div>
       </div>

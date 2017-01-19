@@ -12,7 +12,7 @@ Crops.schema = new SimpleSchema({
   id: { type: Number, optional: true },
   name: { type: String, optional: true },
   groupId: { type: Number, optional: true },
-  avgCapacity: { type: Number, optional: true, decimal: true }
+  avgCropYield: { type: Number, optional: true, decimal: true }
 });
 Crops.attachSchema(Crops.schema);
 

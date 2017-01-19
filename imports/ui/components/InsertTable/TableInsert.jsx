@@ -39,18 +39,18 @@ class TableInsert extends React.Component {
     ).reduce((a, b) => a + +b.square, 0);
   }
 
-  getAvgCapacityValue(cropId, square) {
+  getAvgYieldValue(cropId, square) {
     const place_id = this.props.insertPage.place_id;
     const userId = this.props.user._id;
     const marketingYear = this.props.all.marketingYear;
 
-    const capacity = this.props.records.filter((record) =>
+    const cropYield = this.props.records.filter((record) =>
       record.cropId === cropId &&
       record.location.place_id === place_id &&
       record.userId === userId &&
       record.marketingYear === marketingYear
     ).reduce((a, b) => a + (+b.square * +b.cropYield), 0);
-    return capacity / square;
+    return cropYield / square;
   }
 
   hasUserThisCrop(crop) {
@@ -123,7 +123,7 @@ class TableInsert extends React.Component {
             defaultSort={cropData.sort}
             defaultReproduction={cropData.reproduction}
             defaultSquare={cropData.square}
-            defaultCapacity={cropData.cropYield}
+            defaultYield={cropData.cropYield}
             defaultStatus={cropData.status}
             removeRow={() => this.removeCropRow(cropData._id)}
           />
@@ -142,7 +142,7 @@ class TableInsert extends React.Component {
     return crops.map((crop) => {
       const currentGroup = stateGroupId.toString() === crop.groupId.toString();
       const squareValue = this.getSquareValue(crop.id);
-      const avgCapacity = this.getAvgCapacityValue(crop.id, squareValue);
+      const avgCropYield = this.getAvgYieldValue(crop.id, squareValue);
       if (this.hasUserThisCrop(crop)) {
         return (
           <div key={crop.id}>
@@ -151,7 +151,7 @@ class TableInsert extends React.Component {
               cropId={crop.id}
               cropName={crop.name}
               squareValue={squareValue}
-              avgCapacity={avgCapacity}
+              avgCropYield={avgCropYield}
             />
             {this.renderInsertedCropsRows(crop)}
           </div>
@@ -164,7 +164,7 @@ class TableInsert extends React.Component {
               cropId={crop.id}
               cropName={crop.name}
               squareValue={squareValue}
-              avgCapacity={avgCapacity}
+              avgCropYield={avgCropYield}
             />
           </div>
         );

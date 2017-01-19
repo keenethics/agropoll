@@ -20,7 +20,7 @@ Meteor.startup(() => {
     id: Number(crop[0]),
     name: crop[2],
     groupId: Number(crop[1]),
-    avgCapacity: Number(crop[3]),
+    avgCropYield: Number(crop[3]),
   }));
 
   Clusters.remove({});

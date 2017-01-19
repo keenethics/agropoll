@@ -2,7 +2,7 @@ export const CHANGE_SORT = 'CHANGE_SORT';
 export const CHANGE_SQUARE = 'CHANGE_SQUARE';
 export const CHANGE_STATUS = 'CHANGE_STATUS';
 export const ADD_INPUT_DATA = 'ADD_INPUT_DATA';
-export const CHANGE_CAPACITY = 'CHANGE_CAPACITY';
+export const CHANGE_YIELD = 'CHANGE_YIELD';
 export const CHANGE_REPRODUCTION = 'CHANGE_REPRODUCTION';
 
 export const addInputData = ({ _id, sort, reproduction, square, cropYield }) => ({
@@ -26,10 +26,10 @@ export const changeSquare = (id, square) => ({
   square,
 });
 
-export const changeCapacity = (id, capacity) => ({
-  type: CHANGE_CAPACITY,
+export const changeYield = (id, cropYield) => ({
+  type: CHANGE_YIELD,
   id,
-  capacity,
+  cropYield,
 });
 
 export const changeReproduction = (id, reproduction) => ({

@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Crops } from './crops.js';
 
 // Meteor.methods({
-//   'record.insert'(marketingYear, location, crop, sort, reproduction, area, cropYield, status) {
+//   'record.insert'(year, location, crop, sort, reproduction, area, cropYield, status) {
 //     // check(url, String);
 //     // check(title, String);
 //
@@ -13,7 +13,7 @@ import { Crops } from './crops.js';
 //
 //     return Records.insert({
 //       farmerId: this.userId,
-//       marketingYear,
+//       year,
 //       location,
 //       crop,
 //       sort,

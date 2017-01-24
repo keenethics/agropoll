@@ -97,8 +97,8 @@ class InsertPage extends React.Component {
   renderTable() {
     const place_id = this.props.insertPage.place_id;
     const place = Localities.findOne({ place_id });
-    const marketingYear = this.props.all.marketingYear;
-    if (!(!place_id || !place || place.type !== 'locality' || !marketingYear)) {
+    const year = this.props.all.year;
+    if (!(!place_id || !place || place.type !== 'locality' || !year)) {
       return (
         <div>
           <div className="control-bar-container">
@@ -147,8 +147,8 @@ class InsertPage extends React.Component {
     if (Meteor.user()) {
       // const place_id = this.props.insertPage.place_id;
       // const place = Localities.findOne({ place_id });
-      // const marketingYear = this.props.all.marketingYear;
-      // if (!place_id || !place || place.type !== 'locality' || !marketingYear) {
+      // const year = this.props.all.year;
+      // if (!place_id || !place || place.type !== 'locality' || !year) {
       //   return (
       //     <div className="control-bar-container">
       //       <div className="control-bar">

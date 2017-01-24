@@ -26,8 +26,8 @@
 // };
 //
 // Meteor.methods({
-//   'record.insert'({ marketingYear, place_id, cropId, sort, reproduction, square, cropYield, status }) {
-//     check(marketingYear, String);
+//   'record.insert'({ year, place_id, cropId, sort, reproduction, square, cropYield, status }) {
+//     check(year, String);
 //     check(place_id, String);
 //     check(cropId, Number);
 //     check(sort, String);
@@ -55,7 +55,7 @@
 //       // userEmail: user.emails[0].address,
 //       location: locationObj,
 //       userId: user._id,
-//       marketingYear,
+//       year,
 //       reproduction,
 //       cropYield,
 //       cropId,

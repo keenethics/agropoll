@@ -25,7 +25,7 @@ class StatisticsPage extends React.Component {
 
     // It had sorted on server
     const records = this.props && this.props.records /* .filter((item) =>
-      item.marketingYear === this.props.all.marketingYear
+      item.year === this.props.all.year
     ).filter((item) =>
       item.status === 'planned' && this.props.statisticsTable.planned ||
       item.status === 'planted' && this.props.statisticsTable.planted ||

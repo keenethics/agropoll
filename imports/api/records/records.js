@@ -14,7 +14,7 @@ Records.schema = new SimpleSchema({
   'location.administrative_area_level_2': { type: String, optional: true },
   'location.administrative_area_level_3': { type: String, optional: true },
   userId: { type: String, optional: true },
-  marketingYear: { type: String, optional: true },
+  year: { type: String, optional: true },
   reproduction: { type: String, optional: true },
   cropYield: { type: Number, optional: true },
   cropId: { type: Number, optional: true },
@@ -23,15 +23,15 @@ Records.schema = new SimpleSchema({
   sort: { type: String, optional: true },
   updatedAt: { type: Number, optional: true, decimal: true },
   farmlandArea: { type: Number, optional: true, decimal: true },
-  usersCount: { type: Number, optional: true },
+  // usersCount: { type: Number, optional: true },
 });
 Records.attachSchema(Records.schema);
 
 /*
-const updateTotalSquare = ({ userId, marketingYear }) => {
+const updateTotalSquare = ({ userId, year }) => {
   const findQuery = {
     userId,
-    marketingYear,
+    year,
   };
   const recordCursor = Records.find(findQuery);
   let fullArea = 0;
@@ -41,7 +41,7 @@ const updateTotalSquare = ({ userId, marketingYear }) => {
   const replacement = {};
   replacement.$set = {};
   replacement.$set.totalSquare = Meteor.users.findOne(userId).totalSquare || {};
-  replacement.$set.totalSquare[marketingYear] = fullArea;
+  replacement.$set.totalSquare[year] = fullArea;
   console.log('replacement', replacement);
 
   const options = {
@@ -50,11 +50,11 @@ const updateTotalSquare = ({ userId, marketingYear }) => {
   Meteor.users.update(userId, replacement, options);
 };
 
-Records.after.update((userId, { marketingYear }) => {
-  updateTotalSquare({ userId, marketingYear });
+Records.after.update((userId, { year }) => {
+  updateTotalSquare({ userId, year });
 });
 
-Records.after.remove((userId, { marketingYear }) => {
-  updateTotalSquare({ userId, marketingYear });
+Records.after.remove((userId, { year }) => {
+  updateTotalSquare({ userId, year });
 });
 */

@@ -13,7 +13,7 @@ Meteor.publish('records.filter', function (filters) {
     place_id: Match.OneOf(String, null),
     administrative_area_level_1: Match.OneOf(String, null),
     administrative_area_level_2: Match.OneOf(String, null),
-    marketingYear: String,
+    year: String,
   });
 
   const statuses = {
@@ -25,7 +25,7 @@ Meteor.publish('records.filter', function (filters) {
   const locationFilter = filters.place_id || filters.administrative_area_level_2 || filters.administrative_area_level_1;
 
   const query = {
-    marketingYear: filters.marketingYear,
+    year: filters.year,
     status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
   };
 

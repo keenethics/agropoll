@@ -5,10 +5,10 @@ import { Mongo } from 'meteor/mongo';
 
 export const PseudoRecords = new Mongo.Collection('pseudoRecords');
 
-// const updateTotalSquare = ({ userId, marketingYear }) => {
+// const updateTotalSquare = ({ userId, year }) => {
 //   const findQuery = {
 //     userId,
-//     marketingYear,
+//     year,
 //   };
 //   const recordCursor = PseudoRecords.find(findQuery);
 //   let fullArea = 0;
@@ -18,7 +18,7 @@ export const PseudoRecords = new Mongo.Collection('pseudoRecords');
 //   const replacement = {};
 //   replacement.$set = {};
 //   replacement.$set.totalSquare = Meteor.users.findOne(userId).totalSquare || {};
-//   replacement.$set.totalSquare[marketingYear] = fullArea;
+//   replacement.$set.totalSquare[year] = fullArea;
 //
 //   const options = {
 //     upsert: true,
@@ -26,10 +26,10 @@ export const PseudoRecords = new Mongo.Collection('pseudoRecords');
 //   Meteor.users.update(userId, replacement, options);
 // };
 //
-// PseudoRecords.after.update((userId, { marketingYear }) => {
-//   updateTotalSquare({ userId, marketingYear });
+// PseudoRecords.after.update((userId, { year }) => {
+//   updateTotalSquare({ userId, year });
 // });
 //
-// PseudoRecords.after.remove((userId, { marketingYear }) => {
-//   updateTotalSquare({ userId, marketingYear });
+// PseudoRecords.after.remove((userId, { year }) => {
+//   updateTotalSquare({ userId, year });
 // });

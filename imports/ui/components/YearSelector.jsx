@@ -27,7 +27,7 @@ class YearSelector extends React.Component {
   selectYear(e) {
     this.down = false;
     const year = e.target.value ? e.target.value.toString() : e.target.innerText;
-    // localStorage.setItem('marketingYear', year);
+    // localStorage.setItem('year', year);
     this.props.actions.selectYear(year);
   }
 
@@ -57,15 +57,9 @@ class YearSelector extends React.Component {
         onTouchEnd={this.selectYear}
         onTouchMove={this.mouseMove}
       >
-        <li className={this.props.marketingYear === '2016' ? 'li-class selected' : 'li-class'} value="2016"><div>2016</div></li>
-        <li className={this.props.marketingYear === '2017' ? 'li-class selected' : 'li-class'} value="2017"><div>2017</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
-        <li className={this.props.marketingYear === '2018' ? 'li-class selected' : 'li-class'} value="2018"><div>2018</div></li>
+        <li className={this.props.year === '2016-17' ? 'li-class selected' : 'li-class'} value="2016-17"><div>2016-17</div></li>
+        <li className={this.props.year === '2017-18' ? 'li-class selected' : 'li-class'} value="2017-18"><div>2017-18</div></li>
+        <li className={this.props.year === '2018-19' ? 'li-class selected' : 'li-class'} value="2018-19"><div>2018-19</div></li>
       </ul>
     );
   }

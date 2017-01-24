@@ -31,7 +31,6 @@ class SearchBar extends React.Component {
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-
       this.setState({ selectedPlace: place });
     });
   //  this.setState({ autocomplete });

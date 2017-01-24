@@ -5,10 +5,10 @@ import { Mongo } from 'meteor/mongo';
 
 export const Clusters = new Mongo.Collection('clusters');
 
-// const updateTotalSquare = ({ userId, marketingYear }) => {
+// const updateTotalSquare = ({ userId, year }) => {
 //   const findQuery = {
 //     userId,
-//     marketingYear,
+//     year,
 //   };
 //   const recordCursor = Records.find(findQuery);
 //   let fullArea = 0;
@@ -18,7 +18,7 @@ export const Clusters = new Mongo.Collection('clusters');
 //   const replacement = {};
 //   replacement.$set = {};
 //   replacement.$set.totalSquare = Meteor.users.findOne(userId).totalSquare || {};
-//   replacement.$set.totalSquare[marketingYear] = fullArea;
+//   replacement.$set.totalSquare[year] = fullArea;
 //
 //   const options = {
 //     upsert: true,
@@ -26,10 +26,10 @@ export const Clusters = new Mongo.Collection('clusters');
 //   Meteor.users.update(userId, replacement, options);
 // };
 //
-// Records.after.update((userId, { marketingYear }) => {
-//   updateTotalSquare({ userId, marketingYear });
+// Records.after.update((userId, { year }) => {
+//   updateTotalSquare({ userId, year });
 // });
 //
-// Records.after.remove((userId, { marketingYear }) => {
-//   updateTotalSquare({ userId, marketingYear });
+// Records.after.remove((userId, { year }) => {
+//   updateTotalSquare({ userId, year });
 // });

@@ -25,12 +25,13 @@ Meteor.startup(() => {
 
   Clusters.remove({});
   const clusters = [
-    { conditions: '{ "farmlandArea": { "$lt": 100 } }', farmersCount: 1000 },
+    { conditions: '{ "farmlandArea": { "$lt": 100 } }', totalArea: 10000 },
     { conditions: '{ "farmlandArea": { "$gte": 100 } }', farmersCount: 10 },
   ];
   clusters.forEach((cluster) => Clusters.insert({
     conditions: cluster.conditions,
     farmersCount: cluster.farmersCount,
+    totalArea: cluster.totalArea,
     // usersCount: cluster.usersCount,
   }));
 });

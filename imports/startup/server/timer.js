@@ -8,7 +8,7 @@ import { PseudoRecords } from '/imports/api/pseudoRecords/pseudoRecords.js';
 Meteor.startup(() => {
   Meteor.setInterval(() => {
     console.log();
-    console.log('---', Date.now(), '---');
+    console.log('---', (Date.now() / 1000).toFixed(0), '---');
 
     Records.find().fetch().forEach((record) => {
       const farmlandArea = Records.find({
@@ -31,8 +31,6 @@ Meteor.startup(() => {
     Clusters.find().fetch().forEach((cluster) => {
       console.log('records:', Records.find(JSON.parse(cluster.conditions)).fetch().length, '| conditions =', cluster.conditions);
 
-
-
       Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
 
         // -->
@@ -51,13 +49,19 @@ Meteor.startup(() => {
         )().length;
         // <--
 
+        const totalSquare = Records.find({
+          year: record.year,
+          ...JSON.parse(cluster.conditions)
+        }).fetch().reduce((sum, item) => sum + item.square, 0);
+
         const pseudoRecord = {
           // _id: record._id,
           location: record.location,
           year: record.year,
           cropYield: record.cropYield,
           cropId: record.cropId,
-          square: record.square * cluster.farmersCount / /*record.*/usersCount,
+          square: cluster.farmersCount && record.square * cluster.farmersCount / usersCount ||
+            cluster.totalArea && record.square * cluster.totalArea / totalSquare,
           status: record.status,
           // sort: record.sort,
           // reproduction: record.reproduction,
@@ -68,7 +72,8 @@ Meteor.startup(() => {
 
         PseudoRecords.insert(pseudoRecord);
 
-        console.log(`  [${record.year}]`, record.square, '* (', cluster.farmersCount, '/', /*record.*/usersCount, ') =>', pseudoRecord.square);
+        if (cluster.farmersCount) console.log(`  [${record.year}]`, '<farmersCount>', record.square, '* (', cluster.farmersCount, '/', usersCount, ') =>', pseudoRecord.square);
+        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, '* (', cluster.totalArea, '/', /*record.*/totalSquare, ') =>', pseudoRecord.square);
       });
     });
   }, 10000);

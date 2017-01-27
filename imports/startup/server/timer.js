@@ -23,7 +23,10 @@ Meteor.startup(() => {
       //   }, callback)
       // )().length;
 
-      Records.update(record._id, { $set: { farmlandArea/*, usersCount */ } });
+      const type = Meteor.users.findOne({ _id: record.userId }).profile.type;
+      console.log('-->', type);
+
+      Records.update(record._id, { $set: { farmlandArea/*, usersCount */, type } });
     });
 
     PseudoRecords.remove({});
@@ -73,7 +76,7 @@ Meteor.startup(() => {
         PseudoRecords.insert(pseudoRecord);
 
         if (cluster.farmersCount) console.log(`  [${record.year}]`, '<farmersCount>', record.square, '* (', cluster.farmersCount, '/', usersCount, ') =>', pseudoRecord.square);
-        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, '* (', cluster.totalArea, '/', /*record.*/totalSquare, ') =>', pseudoRecord.square);
+        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, '* (', cluster.totalArea, '/', totalSquare, ') =>', pseudoRecord.square);
       });
     });
   }, 10000);

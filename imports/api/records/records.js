@@ -24,6 +24,7 @@ Records.schema = new SimpleSchema({
   updatedAt: { type: Number, optional: true, decimal: true },
   farmlandArea: { type: Number, optional: true, decimal: true },
   // usersCount: { type: Number, optional: true },
+  type: { type: String, optional: true },
 });
 Records.attachSchema(Records.schema);
 

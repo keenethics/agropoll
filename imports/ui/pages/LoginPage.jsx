@@ -32,6 +32,8 @@ class LoginPage extends React.Component {
     this.onNameSubmit = this.onNameSubmit.bind(this);
     this.onEmailSubmit = this.onEmailSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.setProfileName = this.setProfileName.bind(this);
+    this.changeType = this.changeType.bind(this);
   }
 
   componentWillMount() {
@@ -88,6 +90,28 @@ class LoginPage extends React.Component {
     });
   }
 
+  getProfileName(email) {
+    return email.substring(0, email.indexOf('@'));
+  }
+
+  setProfileName() {
+    this.setState({
+      name: {
+        title: this.refs.nameChange.value,
+        edit: true
+      }
+    });
+  }
+
+  setUserEmail() {
+    this.setState({
+      email: {
+        title: this.refs.emailChange.value,
+        edit: true
+      }
+    });
+  }
+
   goToPin(locationId) {
     const fullAddress = this.props.localities.find(
       (locality) => locality.place_id === locationId
@@ -102,16 +126,6 @@ class LoginPage extends React.Component {
     browserHistory.push('/insert');
   }
 
-  logout() {
-    Meteor.call('LoginProcedure', this.props.user.emails[0].address);
-    Meteor.call('Logout');
-    Meteor.logout();
-  }
-
-  logoutFromDevice() {
-    localStorage.clear();
-  }
-
   handleLoginSubmit(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim();
@@ -124,6 +138,16 @@ class LoginPage extends React.Component {
         console.log('redirecting!', res);
       }
     });
+  }
+
+  logout() {
+    Meteor.call('LoginProcedure', this.props.user.emails[0].address);
+    Meteor.call('Logout');
+    Meteor.logout();
+  }
+
+  logoutFromDevice() {
+    localStorage.clear();
   }
 
   renderPins() {
@@ -146,26 +170,9 @@ class LoginPage extends React.Component {
     });
   }
 
-  getProfileName(email) {
-    return email.substring(0, email.indexOf("@"));
-  }
-
-  setProfileName() {
-    this.setState({
-      name: {
-        title: this.refs.nameChange.value,
-        edit: true
-      }
-    });
-  }
-
-  setUserEmail() {
-    this.setState({
-      email: {
-        title: this.refs.emailChange.value,
-        edit: true
-      }
-    });
+  changeType() {
+    console.log(this.refs);
+    Meteor.call('user.changeType', this.refs.type.value);
   }
 
   render() {
@@ -175,7 +182,7 @@ class LoginPage extends React.Component {
         <div>
           <h1>Login</h1>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
-            <label>Email: </label>
+            <label htmlFor="login-email">Email: </label>
             <input type="email" name="login-email" id="login-email" />
             <input type="submit" id="login-button" />
           </form>
@@ -193,7 +200,15 @@ class LoginPage extends React.Component {
               <div className="float-left percent-80">
                 <label className="label" htmlFor="nameChange">
                   <span>Enter your name:</span>
-                  <input type="text" id="nameChange" ref="nameChange" placeholder="Enter new name" className="name-change" onChange={this.setProfileName.bind(this)} value={this.state.name.title || !this.state.name.edit && user.profile.name || ''} />
+                  <input
+                    type="text"
+                    id="nameChange"
+                    ref="nameChange"
+                    placeholder="Enter new name"
+                    className="name-change"
+                    onChange={this.setProfileName}
+                    value={this.state.name.title || !this.state.name.edit && user.profile.name || ''}
+                  />
                 </label>
               </div>
               <div className="float-left percent-20 text-center">
@@ -217,6 +232,22 @@ class LoginPage extends React.Component {
               </div>
             </form>
           </div>
+
+          <div className="percent-100 float-left text-left margin-top-20">
+            Choose your farm type
+          </div>
+          <div className="percent-100 float-left text-left margin-top-20">
+            <div className="float-left percent-80">
+              <label className="label" htmlFor="emailChange">
+                <select ref="type" onChange={this.changeType} value={user.profile.type}>
+                  <option value="other">Інше (внесені дані не враховуються)</option>
+                  <option value="company">Сільськогосподарське підприємство</option>
+                  <option value="personal">Особисте селянське господарство</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
           <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
             Your locations:
           </div>
@@ -241,8 +272,7 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions, dispatch) });
 
-
-const container = createContainer(({ params }) => {
+const container = createContainer(() => {
   const user = Meteor.user();
   Meteor.subscribe('localities.all');
 

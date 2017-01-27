@@ -43,13 +43,23 @@ Meteor.methods({
   'user.nameChange'(newName) {
     check(newName, String);
 
-    if(!Meteor.userId())
-      return new Meteor.Error('No user');
+    if (!Meteor.userId()) return new Meteor.Error('No user');
 
     const userId = Meteor.userId();
-    Meteor.users.update({_id:userId}, {$set: { 'profile.name': newName  } });
+    Meteor.users.update({ _id: userId }, { $set: { 'profile.name': newName } });
     return true;
   },
+
+  'user.changeType'(type) {
+    check(type, String);
+
+    if (!Meteor.userId()) return new Meteor.Error('No user');
+
+    const userId = Meteor.userId();
+    Meteor.users.update({ _id: userId }, { $set: { 'profile.type': type } });
+    return true;
+  },
+
   'LoginProcedure': (email) => {
     check(email, String);
 

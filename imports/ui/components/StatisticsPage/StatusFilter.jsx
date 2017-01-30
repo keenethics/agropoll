@@ -1,7 +1,4 @@
 import React from 'react';
-// import { Meteor } from 'meteor/meteor';
-// import { createContainer } from 'meteor/react-meteor-data';
-// import { Localities } from '/imports/api/localities/localities.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -45,14 +42,6 @@ class StatusFilter extends React.Component {
     );
   }
 }
-
-// const container = createContainer(({ params }) => {
-//   const localities = Meteor.subscribe('localities.all');
-//
-//   return {
-//     localities: Localities.find().fetch(),
-//   }
-// }, LocationFilter);
 
 const mapStateToProps = (state) => ({
   state: state.statisticsTable,

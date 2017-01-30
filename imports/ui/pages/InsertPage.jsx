@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-// import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -142,28 +141,7 @@ class InsertPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.records);
-
     if (Meteor.user()) {
-      // const place_id = this.props.insertPage.place_id;
-      // const place = Localities.findOne({ place_id });
-      // const year = this.props.all.year;
-      // if (!place_id || !place || place.type !== 'locality' || !year) {
-      //   return (
-      //     <div className="control-bar-container">
-      //       <div className="control-bar">
-      //         <div className="search-param">
-      //           <SearchBar selectPlace={this.selectPlace} />
-      //         </div>
-      //         <div className="search-param">
-      //           <YearSelector />
-      //           <button className="save-btn" onClick={this.saveCropData}>Save</button>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   );
-      // }
-
       return (
         <div>
           {this.renderLocalityModal()}

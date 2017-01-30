@@ -140,7 +140,7 @@ const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(actions,
 
 const mapStateToProps = (state) => ({ insertPage: state.insertPage });
 
-const containter = createContainer(({ params }) => {
+const containter = createContainer(() => {
   const user = Meteor.user();
 
   return {

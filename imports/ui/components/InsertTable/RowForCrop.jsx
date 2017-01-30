@@ -2,10 +2,6 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 export default class RowForCrop extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <div className="trow trow-crop-header">

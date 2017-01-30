@@ -207,7 +207,7 @@ const mapDispatchToProps = (dispatch) => ({
   insertTableActions: bindActionCreators(insertTableActions, dispatch),
 });
 
-const TableInsertContainer = createContainer(({ params }) => {
+const TableInsertContainer = createContainer(() => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');

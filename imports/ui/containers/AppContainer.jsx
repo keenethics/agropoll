@@ -6,10 +6,6 @@ import { Circle } from 'better-react-spinkit';
 import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
 class AppContainer extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     const backgroundStyle = {
       position: 'fixed',

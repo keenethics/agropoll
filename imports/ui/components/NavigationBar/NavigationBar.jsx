@@ -4,10 +4,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import NavigatinButton from './NavigationButton.jsx';
 
 class NavigationBar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <div className="navContainer">
@@ -26,7 +22,7 @@ class NavigationBar extends React.Component {
   }
 }
 
-export default createContainer(({ params }) => {
+export default createContainer(() => {
   const user = Meteor.user();
 
   return {

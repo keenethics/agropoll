@@ -16,13 +16,6 @@ Meteor.startup(() => {
         year: record.year,
       }).fetch().reduce((sum, item) => sum + Number(item.square), 0);
 
-      // const usersCount = Meteor.wrapAsync((callback) =>
-      //   Records.rawCollection().distinct('userId', {
-      //     year: record.year,
-      //     // for the same cluster!!!!!!!!!!!!!
-      //   }, callback)
-      // )().length;
-
       const type = Meteor.users.findOne({ _id: record.userId }).profile.type;
       console.log('-->', type);
 
@@ -36,13 +29,6 @@ Meteor.startup(() => {
 
       Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
 
-        // -->
-        // console.log('{...} -->');
-        // console.log({
-        //   year: record.year,
-        //   // For the same cluster!!!!!!!!!!!!!
-        //   ...JSON.parse(cluster.conditions)
-        // });
         const usersCount = Meteor.wrapAsync((callback) =>
           Records.rawCollection().distinct('userId', {
             year: record.year,
@@ -50,7 +36,6 @@ Meteor.startup(() => {
             ...JSON.parse(cluster.conditions)
           }, callback)
         )().length;
-        // <--
 
         const totalSquare = Records.find({
           year: record.year,
@@ -64,7 +49,7 @@ Meteor.startup(() => {
           cropYield: record.cropYield,
           cropId: record.cropId,
           square: cluster.farmersCount && record.square * cluster.farmersCount / usersCount ||
-            cluster.totalArea && record.square * cluster.totalArea / totalSquare,
+            cluster.totalArea && record.square * cluster.totalArea / totalSquare || 0,
           status: record.status,
           // sort: record.sort,
           // reproduction: record.reproduction,
@@ -75,8 +60,8 @@ Meteor.startup(() => {
 
         PseudoRecords.insert(pseudoRecord);
 
-        if (cluster.farmersCount) console.log(`  [${record.year}]`, '<farmersCount>', record.square, '* (', cluster.farmersCount, '/', usersCount, ') =>', pseudoRecord.square);
-        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, '* (', cluster.totalArea, '/', totalSquare, ') =>', pseudoRecord.square);
+        if (cluster.farmersCount) console.log(`  [${record.year}]`, '<farmersCount>', record.square, 'x (', cluster.farmersCount, '/', usersCount, ') =>', pseudoRecord.square);
+        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, 'x (', cluster.totalArea, '/', totalSquare, ') =>', pseudoRecord.square);
       });
     });
   }, 10000);

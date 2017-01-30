@@ -5,6 +5,7 @@ import { check, Match } from 'meteor/check';
 
 import { Clusters } from '../clusters.js';
 
+/*
 Meteor.publish('clusters.filter', function (filters) {
   check(filters, {
     planned: Boolean,
@@ -54,3 +55,4 @@ Meteor.publish('clusters.user', function () {
   }
   return Clusters.find({ userId: this.userId }, { userId: 0 });
 });
+*/

@@ -126,7 +126,7 @@ class LoginPage extends React.Component {
     browserHistory.push('/insert');
   }
 
-  goToEmail(email) {
+  goToEmail(domain) {
     const emailServices = [
       {
         domain: 'gmail.com',
@@ -165,12 +165,8 @@ class LoginPage extends React.Component {
         url: 'https://mail.yahoo.com'
       }
     ];
-    for (let value of emailServices) {
-      if (email === value.domain) {
-        return value.url;
-      }
-    }
-    return null;
+
+    return (emailServices.find((item) => item.domain === domain) || { url: null }).url;
   }
 
   handleLoginSubmit(e) {
@@ -184,8 +180,7 @@ class LoginPage extends React.Component {
         const url = this.goToEmail(email.substring(email.indexOf('@') + 1));
         if (url) {
           document.location.href = url;
-        }
-        else {
+        } else {
           browserHistory.push('/redirect');
           console.log('redirecting!', res);
         }

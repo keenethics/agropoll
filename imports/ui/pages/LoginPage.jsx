@@ -126,6 +126,53 @@ class LoginPage extends React.Component {
     browserHistory.push('/insert');
   }
 
+  goToEmail(email) {
+    const emailServices = [
+      {
+        domain: 'gmail.com',
+        url: 'https://mail.google.com'
+      },
+      {
+        domain: 'ukr.net',
+        url: 'https://mail.ukr.net'
+      },
+      {
+        domain: 'outlook.com',
+        url: 'https://outlook.live.com'
+      },
+      {
+        domain: 'yandex.ru',
+        url: 'https://mail.yandex.ru'
+      },
+      {
+        domain: 'mail.ru',
+        url: 'https://mail.ru'
+      },
+      {
+        domain: 'zoho.com',
+        url: 'https://www.zoho.com/mail/'
+      },
+      {
+        domain: 'icloud.com',
+        url: 'https://www.icloud.com/mail'
+      },
+      {
+        domain: 'rambler.ru',
+        url: 'https://mail.rambler.ru'
+      },
+      {
+        domain: 'yahoo.com',
+        url: 'https://mail.yahoo.com'
+      }
+    ];
+    for (let value of emailServices) {
+      if (email === value.domain) {
+        return value.url;
+      }
+    }
+    return null;
+  }
+
   handleLoginSubmit(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim();
@@ -134,8 +181,14 @@ class LoginPage extends React.Component {
       if (err) {
         console.error(err);
       } else {
-        browserHistory.push('/redirect');
-        console.log('redirecting!', res);
+        const url = this.goToEmail(email.substring(email.indexOf('@') + 1));
+        if (url) {
+          document.location.href = url;
+        }
+        else {
+          browserHistory.push('/redirect');
+          console.log('redirecting!', res);
+        }
       }
     });
   }

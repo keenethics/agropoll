@@ -17,9 +17,8 @@ Meteor.startup(() => {
       }).fetch().reduce((sum, item) => sum + Number(item.square), 0);
 
       const type = Meteor.users.findOne({ _id: record.userId }).profile.type;
-      console.log('-->', type);
 
-      Records.update(record._id, { $set: { farmlandArea/*, usersCount */, type } });
+      Records.update(record._id, { $set: { farmlandArea, type } });
     });
 
     PseudoRecords.remove({});

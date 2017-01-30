@@ -25,9 +25,9 @@ Meteor.startup(() => {
 
   Clusters.remove({});
   const clusters = [
-    { conditions: '{ "type": "company", "farmlandArea": { "$lt": 100 } }', farmersCount: 1000 },
-    { conditions: '{ "type": "company", "farmlandArea": { "$gte": 100 } }', farmersCount: 10 },
-    { conditions: '{ "type": "personal" }', totalArea: 10000 },
+    { conditions: '{ "type": "company", "farmlandArea": { "$gt": 0 }, "farmlandArea": { "$lte": 100 } }', farmersCount: 1000 },
+    { conditions: '{ "type": "company", "farmlandArea": { "$gt": 100 } }', farmersCount: 10 },
+    { conditions: '{ "type": "personal", "farmlandArea": { "$gt": 0 } }', totalArea: 10000 },
   ];
   clusters.forEach((cluster) => Clusters.insert({
     conditions: cluster.conditions,

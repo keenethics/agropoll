@@ -37,12 +37,20 @@ Meteor.publish('records.filter', function (filters) {
     ];
   }
 
-  console.log('query', query);
+  console.log('query =', query);
 
   return Records.find(query, {
     fields: {
       'location.place_id': 0,
+      'location.administrative_area_level_2': 0,
+      'location.administrative_area_level_3': 0,
       userId: 0,
+      square: 0,
+      type: 0,
+      farmlandArea: 0,
+      // usersCount: 0,
+
+
     }
   });
   // Ми повинні віддавати без локаліті (як мінімум без place_id)

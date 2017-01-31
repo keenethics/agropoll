@@ -3,8 +3,7 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 // import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
-// import { Records } from '/imports/api/records/records.js';
-import { PseudoRecords } from '/imports/api/pseudoRecords/pseudoRecords.js';
+import { Records } from '/imports/api/records/records.js';
 
 import StatisticsTableRow from '/imports/ui/components/StatisticsPage/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
@@ -15,13 +14,9 @@ import YearSelector from '/imports/ui/components/YearSelector.jsx';
 import { connect } from 'react-redux';
 
 class StatisticsPage extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   render() {
     console.log('records >-->', this.props.records);
-    // console.log('pseudo records >==>', this.props.pseudoRecords);
 
     // It had sorted on server
     const records = this.props && this.props.records /* .filter((item) =>
@@ -38,8 +33,8 @@ class StatisticsPage extends React.Component {
       ).reduce((prev, next) =>
         ({
           cropId: prev.cropId,
-          totalSquare: prev.totalSquare + Number(next.square),
-          harvest: prev.harvest + next.square * next.cropYield,
+          totalSquare: prev.totalSquare + Number(next.squareNorm),
+          harvest: prev.harvest + next.squareNorm * next.cropYield,
         }),
         { cropId: crop.id, totalSquare: 0, harvest: 0 }
       )
@@ -89,16 +84,14 @@ const container = createContainer((props) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  // Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
-  const pseudoRecordsHandler = Meteor.subscribe('pseudoRecords.filter', { ...props.statisticsTable, ...props.all });
-  console.log(pseudoRecordsHandler.ready());
+  const recordsHandler = Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
+  console.log(recordsHandler.ready());
 
   return {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
-    // records: Records.find({}).fetch(),
-    records: PseudoRecords.find({}).fetch(),
+    records: Records.find({}).fetch(),
   };
 }, StatisticsPage);
 

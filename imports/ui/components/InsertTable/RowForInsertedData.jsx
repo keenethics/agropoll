@@ -99,6 +99,8 @@ class RowForGroup extends React.Component {
           <input
             className="input"
             type="number"
+            min="0"
+            step="0.01"
             ref={`square${this.props.dataId}`}
             defaultValue={this.props.defaultSquare}
             onChange={this.changeSquare}
@@ -108,6 +110,8 @@ class RowForGroup extends React.Component {
           <input
             className="input"
             type="number"
+            min="0"
+            step="0.1"
             ref={`cropYield${this.props.dataId}`}
             defaultValue={this.props.defaultYield}
             onChange={this.changeYield}

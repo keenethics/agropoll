@@ -36,7 +36,7 @@ class TableInsert extends React.Component {
       record.cropId === cropId &&
       record.location.place_id === place_id &&
       record.userId === userId && record.year === year
-    ).reduce((a, b) => a + +b.square, 0);
+    ).reduce((a, b) => a + Number(b.square), 0);
   }
 
   getAvgYieldValue(cropId, square) {

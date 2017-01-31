@@ -10,10 +10,10 @@ export default class RowForCrop extends React.Component {
           <span>{this.props.cropName}</span>
         </div>
         <div className="tcoll2 tcell tcell-crop-header">
-          {this.props.squareValue || ''}
+          {this.props.squareValue && this.props.squareValue.toFixed(2) || ''}
         </div>
         <div className="tcoll3 tcell tcell-crop-header">
-          {this.props.avgCropYield && this.props.avgCropYield.toFixed(4) || ''}
+          {this.props.avgCropYield && this.props.avgCropYield.toFixed(1) || ''}
         </div>
         <div className="tcoll4 tcell tcell-crop-header"></div>
       </div>

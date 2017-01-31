@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-// import { browserHistory } from 'react-router';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
 
@@ -16,16 +15,10 @@ import { connect } from 'react-redux';
 class StatisticsPage extends React.Component {
 
   render() {
-    console.log('records >-->', this.props.records);
+    console.info('Subscribed records:', this.props.records);
 
     // It had sorted on server
-    const records = this.props && this.props.records /* .filter((item) =>
-      item.year === this.props.all.year
-    ).filter((item) =>
-      item.status === 'planned' && this.props.statisticsTable.planned ||
-      item.status === 'planted' && this.props.statisticsTable.planted ||
-      item.status === 'harvested' && this.props.statisticsTable.harvested
-    ) */ || [];
+    const records = this.props && this.props.records || [];
 
     const cropsView = this.props.crops.map((crop) =>
       records.filter((record) =>
@@ -39,7 +32,6 @@ class StatisticsPage extends React.Component {
         { cropId: crop.id, totalSquare: 0, harvest: 0 }
       )
     );
-    // console.log(':-->',cropsView);
 
     return (
       <div>
@@ -85,7 +77,7 @@ const container = createContainer((props) => {
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
   const recordsHandler = Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
-  console.log(recordsHandler.ready());
+  console.info('Records ready:', recordsHandler.ready());
 
   return {
     user,

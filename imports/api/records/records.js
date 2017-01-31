@@ -7,7 +7,6 @@ export const Records = new Mongo.Collection('records');
 
 // Defining a schema for collection
 Records.schema = new SimpleSchema({
-  // _id: { type: String, optional: true },
   location: { type: Object, optional: true },
   'location.place_id': { type: String, optional: true },
   'location.administrative_area_level_1': { type: String, optional: true },
@@ -24,7 +23,6 @@ Records.schema = new SimpleSchema({
   status: { type: String, optional: true },
   updatedAt: { type: Number, optional: true, decimal: true },
   farmlandArea: { type: Number, optional: true, decimal: true },
-  // usersCount: { type: Number, optional: true },
   type: { type: String, optional: true },
 });
 Records.attachSchema(Records.schema);

@@ -27,7 +27,6 @@ class YearSelector extends React.Component {
   selectYear(e) {
     this.down = false;
     const year = e.target.textContent;
-    // localStorage.setItem('year', year);
     this.props.actions.selectYear(year);
   }
 

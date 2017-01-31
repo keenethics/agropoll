@@ -33,10 +33,11 @@ Meteor.methods({
         ].join('');
     }
 
-    if(!locality){
+    if (!locality) {
       const addressComponents = place.address_components;
       const type = place.types[0];
-      /* Remove place and country from addressComponents */
+
+      // Remove place and country from addressComponents
       addressComponents.shift();
       addressComponents.pop();
 
@@ -44,10 +45,10 @@ Meteor.methods({
         type,
         name: place.name,
         place_id: place.place_id,
-        fullAddress
-      }
+        fullAddress,
+      };
 
-      if (addressComponents.length > 0){
+      if (addressComponents.length > 0) {
         var parentId = getParent(addressComponents, 0)
         locality.parentId = parentId;
       }

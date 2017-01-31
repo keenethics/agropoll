@@ -22,7 +22,9 @@ class SearchBar extends React.Component {
   }
 
   componentDidMount() {
+    // It's needed by Google API
     this.change();
+
     this.inputCountry = this.refs.inputCountry;
     const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
       types: ['(regions)'],
@@ -73,7 +75,7 @@ class SearchBar extends React.Component {
         if (!err) {
           this.props.actions.hideSpinner();
         } else {
-           console.log(err.reason);
+           console.error(err.reason);
         }
       });
       const fullAddress = this.getFullAddress();
@@ -90,6 +92,7 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
+  // It's needed by Google API
   change() {}
 
 

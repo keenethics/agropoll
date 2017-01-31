@@ -5,8 +5,8 @@ Meteor.methods({
   emailLogin: (email, body = 'hello') => {
     check(email, String);
     check(body, String);
-    
-    //this.unblock();
+
+    //this.unblock(); // ????
 
     var postURL = process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages';
     var options = {

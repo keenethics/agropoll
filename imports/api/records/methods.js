@@ -52,7 +52,6 @@ Meteor.methods({
     Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': place_id } });
 
     return Records.insert({
-      // userEmail: user.emails[0].address,
       location: locationObj,
       userId: user._id,
       year,
@@ -105,7 +104,6 @@ Meteor.methods({
     }
   },
 
-  // --- method for update status---
   'record.updateStatus': ({ recordId, newStatus }) => {
     check(recordId, String);
     check(newStatus, String);

@@ -33,6 +33,5 @@ Meteor.startup(() => {
     conditions: cluster.conditions,
     farmersCount: cluster.farmersCount,
     totalArea: cluster.totalArea,
-    // usersCount: cluster.usersCount,
   }));
 });

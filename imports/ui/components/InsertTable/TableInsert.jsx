@@ -77,7 +77,7 @@ class TableInsert extends React.Component {
     Meteor.call('record.removeOne', id, (err, res) => {
       this.props.insertPageActions.hideSpinner();
       if (err) {
-        console.log(err.reason);
+        console.error(err.reason);
       }
     });
   }
@@ -137,7 +137,7 @@ class TableInsert extends React.Component {
     const year = this.props.all.year;
     const placeType = this.props.insertPage.placeType;
     const canAdd = place_id && placeType === 'locality' && year;
-    const stateGroupId = this.props.insertPage.groupId || ''; // ----- check this -----
+    const stateGroupId = this.props.insertPage.groupId || ''; // ----- check this ----- ?????
     const stateHideCrops = this.props.insertPage.hideCrops;
     return crops.map((crop) => {
       const currentGroup = stateGroupId.toString() === crop.groupId.toString();

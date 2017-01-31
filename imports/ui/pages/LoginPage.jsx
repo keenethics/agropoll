@@ -202,7 +202,6 @@ class LoginPage extends React.Component {
     const places_id = this.props.user.profile && this.props.user.profile.locations || [];
     return places_id && places_id.map((place_id) => {
       if (this.props.localities.length) {
-        // console.log(place_id,'-->',this.props.localities);
         const fullAddress = this.props.localities.find(
           (locality) => locality.place_id === place_id
         ) ? this.props.localities.find(
@@ -219,7 +218,6 @@ class LoginPage extends React.Component {
   }
 
   changeType() {
-    console.log(this.refs);
     Meteor.call('user.changeType', this.refs.type.value);
   }
 

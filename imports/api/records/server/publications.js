@@ -39,6 +39,7 @@ Meteor.publish('records.filter', function (filters) {
 
   console.log('query =', query);
 
+  // Віддавати без локаліті (як мінімум без place_id)
   return Records.find(query, {
     fields: {
       'location.place_id': 0,
@@ -48,12 +49,8 @@ Meteor.publish('records.filter', function (filters) {
       square: 0,
       type: 0,
       farmlandArea: 0,
-      // usersCount: 0,
-
-
     }
   });
-  // Ми повинні віддавати без локаліті (як мінімум без place_id)
 });
 
 Meteor.publish('records.user', function () {

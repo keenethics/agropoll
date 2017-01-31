@@ -35,8 +35,6 @@ Meteor.methods({
     const user = Meteor.users.findOne({ _id: Meteor.userId() })
     const userId = user._id;
 
-    // Records.update({ userEmail: user.emails[0].address }, { $set: { userEmail: newEmail } }, { multi: true });
-
     Meteor.users.update({ _id: userId }, { $set: { 'emails.0.address': newEmail } });
     return true;
   },

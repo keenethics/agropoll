@@ -56,7 +56,7 @@ class RowForGroup extends React.Component {
     e.currentTarget.innerText = newStatus;
     Meteor.call('record.updateStatus', { recordId, newStatus }, (err) => {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
     });
   }

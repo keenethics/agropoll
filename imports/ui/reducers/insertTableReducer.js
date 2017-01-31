@@ -23,11 +23,6 @@ export default function InsertTableReducer(state = initialState, action = {}) {
       };
       return Object.assign({}, state);
     }
-    // case CHANGE_STATUS: {
-    //   const { id, status } = action;
-    //   state.inputData[id].status = status;
-    //   return Object.assign({}, state);
-    // }
     case CHANGE_YIELD: {
       const { id, cropYield } = action;
       state.inputData[id].cropYield = cropYield;

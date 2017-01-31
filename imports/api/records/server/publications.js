@@ -49,6 +49,7 @@ Meteor.publish('records.filter', function (filters) {
       square: 0,
       type: 0,
       farmlandArea: 0,
+      updatedAt: 0,
     }
   });
 });
@@ -57,5 +58,12 @@ Meteor.publish('records.user', function () {
   if (!this.userId) {
     throw new Meteor.Error('not-authorized');
   }
-  return Records.find({ userId: this.userId }, { userId: 0 });
+
+  return Records.find({ userId: this.userId }, {
+    fields: {
+      // userId: 0,
+      // squareNorm: 0,
+      // farmlandArea: 0,
+    }
+  });
 });

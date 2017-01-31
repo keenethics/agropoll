@@ -141,6 +141,8 @@ class InsertPage extends React.Component {
   }
 
   render() {
+    console.info('Subscribed records:', this.props.records);
+
     if (Meteor.user()) {
       return (
         <div>
@@ -190,8 +192,9 @@ const container = createContainer(({ params }) => {
   const user = Meteor.user();
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
-  Meteor.subscribe('records.user');
   Meteor.subscribe('localities.all');
+  const recordsHandler = Meteor.subscribe('records.user');
+  console.info('Records ready:', recordsHandler.ready());
 
   return {
     user,

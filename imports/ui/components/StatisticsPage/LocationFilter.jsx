@@ -40,9 +40,11 @@ class LocationFilter extends React.Component {
   render() {
     return (
       <div className="LocationFilter-wrapper percent-100 float-left">
-        {this.renderSelect('administrative_area_level_1', 'All Ukraine', 'admLevel1Items')}
+        {this.renderSelect('administrative_area_level_1', 'Вся Україна', 'admLevel1Items')}
+        {/*
         {this.props.administrative_area_level_1 ? this.renderSelect('administrative_area_level_2', 'Whole region', 'admLevel2Items') : ''}
         {this.props.administrative_area_level_2 ? this.renderSelect('place_id', 'Whole district', 'places') : ''}
+        */}
       </div>
     );
   }
@@ -50,13 +52,16 @@ class LocationFilter extends React.Component {
 
 const container = createContainer(({
   administrative_area_level_1,
-  administrative_area_level_2
+  administrative_area_level_2,
 }) => {
-  Meteor.subscribe('localities', { administrative_area_level_1, administrative_area_level_2 });
+  Meteor.subscribe('localities', {
+    administrative_area_level_1,
+    administrative_area_level_2,
+  });
   const admLevel1Items = [];
   const admLevel2Items = [];
   const places = [];
-  Localities.find().map((item) => {
+  Localities.find().forEach((item) => {
     switch (item.type) {
       case 'administrative_area_level_1': {
         admLevel1Items.push(item);

@@ -59,6 +59,7 @@ Meteor.methods({
       cropYield,
       cropId,
       square,
+      squareNorm: 0,
       status,
       sort,
 

@@ -9,6 +9,7 @@ Meteor.startup(() => {
     console.log();
     console.log('---', (Date.now() / 1000).toFixed(0), '---');
 
+    // Updating each Record to relate it to a Cluster
     Records.find().fetch().forEach((record) => {
       const farmlandArea = Records.find({
         userId: record.userId,
@@ -20,15 +21,18 @@ Meteor.startup(() => {
       Records.update(record._id, { $set: { farmlandArea, type } });
     });
 
+    // Passing over all Clusters
     Clusters.find().fetch().forEach((cluster) => {
       console.log('records:', Records.find(JSON.parse(cluster.conditions)).fetch().length, '| conditions =', cluster.conditions);
 
+      // Passing over each Record to find the appropriate Normalized Sqare
       Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
 
         const usersCount = Meteor.wrapAsync((callback) =>
           Records.rawCollection().distinct('userId', {
+            // For the same year ...
             year: record.year,
-            // For the same cluster!!!!!!!!!!!!!
+            // ... & for the same cluster!!
             ...JSON.parse(cluster.conditions)
           }, callback)
         )().length;
@@ -46,8 +50,7 @@ Meteor.startup(() => {
 
         Records.update(record._id, { $set: { squareNorm } });
 
-        if (cluster.farmersCount) console.log(`  [${record.year}]`, '<farmersCount>', record.square, 'x (', cluster.farmersCount, '/', usersCount, ') =>', squareNorm);
-        if (cluster.totalArea) console.log(`  [${record.year}]`, '<totalArea>', record.square, 'x (', cluster.totalArea, '/', totalSquare, ') =>', squareNorm);
+        console.log(`  [${record.year}] ( ${cluster.farmersCount} / ${usersCount} шт || ${cluster.totalArea} / ${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
   }, 10000);

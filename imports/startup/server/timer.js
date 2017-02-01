@@ -50,7 +50,7 @@ Meteor.startup(() => {
 
         Records.update(record._id, { $set: { squareNorm } });
 
-        console.log(`  [${record.year}] ( ${cluster.farmersCount} / ${usersCount} шт || ${cluster.totalArea} / ${totalSquare} га ) x ${record.square} => ${squareNorm}`);
+        console.log(`  [${record.year}] ( ${cluster.farmersCount}/${usersCount} шт || ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
   }, 10000);

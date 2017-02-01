@@ -25,7 +25,7 @@ class YearSelector extends React.Component {
   }
 
   selectYear(e) {
-    this.down = false;
+    this.down = false; // ???
     const year = e.target.textContent;
     this.props.actions.selectYear(year);
   }
@@ -49,16 +49,15 @@ class YearSelector extends React.Component {
     return (
       <ul
         className="years noselect"
-        onMouseUp={this.selectYear}
         onMouseDown={this.mouseDown}
         onMouseMove={this.mouseMove}
         onTouchStart={this.mouseDown}
         onTouchEnd={this.selectYear}
         onTouchMove={this.mouseMove}
       >
-        <li className={this.props.year === '2016-17' ? 'li-class selected' : 'li-class'}><div>2016-17</div></li>
-        <li className={this.props.year === '2017-18' ? 'li-class selected' : 'li-class'}><div>2017-18</div></li>
-        <li className={this.props.year === '2018-19' ? 'li-class selected' : 'li-class'}><div>2018-19</div></li>
+        <li onClick={this.selectYear} className={this.props.year === '2016-17' ? 'li-class selected' : 'li-class'}><div>2016-17</div></li>
+        <li onClick={this.selectYear} className={this.props.year === '2017-18' ? 'li-class selected' : 'li-class'}><div>2017-18</div></li>
+        <li onClick={this.selectYear} className={this.props.year === '2018-19' ? 'li-class selected' : 'li-class'}><div>2018-19</div></li>
       </ul>
     );
   }

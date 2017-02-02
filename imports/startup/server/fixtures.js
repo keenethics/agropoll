@@ -1,4 +1,5 @@
 // Fill the DB with example data on startup
+/* global Assets */
 
 import { Meteor } from 'meteor/meteor';
 import { Crops, Groups } from '/imports/api/crops/crops.js';

@@ -19,6 +19,10 @@ Meteor.startup(() => {
       const type = Meteor.users.findOne({ _id: record.userId }).profile.type;
 
       Records.update(record._id, { $set: { farmlandArea, type } });
+      // Sake of untracked clasters can be updated with squareNorm to 0
+      if (farmlandArea === 0) {
+        Records.update(record._id, { $set: { squareNorm: 0 } });
+      }
     });
 
     // Passing over all Clusters
@@ -27,7 +31,6 @@ Meteor.startup(() => {
 
       // Passing over each Record to find the appropriate Normalized Sqare
       Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
-
         const usersCount = Meteor.wrapAsync((callback) =>
           Records.rawCollection().distinct('userId', {
             // For the same year ...

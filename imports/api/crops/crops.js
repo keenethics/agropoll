@@ -12,13 +12,13 @@ Crops.schema = new SimpleSchema({
   id: { type: Number, optional: true },
   name: { type: String, optional: true },
   groupId: { type: Number, optional: true },
-  avgCropYield: { type: Number, optional: true, decimal: true }
+  avgCropYield: { type: Number, optional: true, decimal: true },
 });
 Crops.attachSchema(Crops.schema);
 
 Groups.schema = new SimpleSchema({
   _id: { type: String, optional: true },
   id: { type: Number, optional: true },
-  name: { type: String, optional: true }
+  name: { type: String, optional: true },
 });
 Groups.attachSchema(Groups.schema);

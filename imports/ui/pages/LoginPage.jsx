@@ -234,84 +234,81 @@ class LoginPage extends React.Component {
           </form>
         </div>
       );
-    } else {
-      if (!user.profile || !user.profile.name) {
-        Meteor.call('user.nameChange', this.getProfileName(user.emails[0].address));
-      }
-      return (
-        <div className="login-page">
-          <div className="title-page title-color">Welcome { user.profile ? user.profile.name : user.emails[0].address}</div>
-          <div className="percent-100 float-left text-left margin-top-20">
-            <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
-              <div className="float-left percent-80">
-                <label className="label" htmlFor="nameChange">
-                  <span>Enter your name:</span>
-                  <input
-                    type="text"
-                    id="nameChange"
-                    ref="nameChange"
-                    placeholder="Enter new name"
-                    className="name-change"
-                    onChange={this.setProfileName}
-                    value={this.state.name.title || !this.state.name.edit && user.profile.name || ''}
-                  />
-                </label>
-              </div>
-              <div className="float-left percent-20 text-center">
-                <input className="login-submit" type="submit" />
-              </div>
-            </form>
-          </div>
-          <div className="percent-100 float-left text-left margin-top-20">
-            {`Your current email: ${Meteor.user().emails[0].address}`}
-          </div>
-          <div className="percent-100 float-left text-left margin-top-20">
-            <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
-              <div className="float-left percent-80">
-                <label className="label" htmlFor="emailChange">
-                  <span>Enter your email: </span>
-                  <input id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" className="name-change" onChange={this.setUserEmail.bind(this)} value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''} />
-                </label>
-              </div>
-              <div className="float-left percent-20 text-center">
-                <input className="login-submit" type="submit" />
-              </div>
-            </form>
-          </div>
-
-          <div className="percent-100 float-left text-left margin-top-20">
-            Choose your farm type
-          </div>
-          <div className="percent-100 float-left text-left margin-top-20">
+    }
+    return (
+      <div className="login-page">
+        <div className="title-page title-color">Welcome { user.profile ? user.profile.name : user.emails[0].address}</div>
+        <div className="percent-100 float-left text-left margin-top-20">
+          <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
             <div className="float-left percent-80">
-              <label className="label" htmlFor="emailChange">
-                <select ref="type" onChange={this.changeType} value={user.profile.type}>
-                  <option value="other">Інше (внесені дані не враховуються)</option>
-                  <option value="company">Сільськогосподарське підприємство</option>
-                  <option value="personal">Особисте селянське господарство</option>
-                </select>
+              <label className="label" htmlFor="nameChange">
+                <span>Enter your name:</span>
+                <input
+                  type="text"
+                  id="nameChange"
+                  ref="nameChange"
+                  placeholder="Enter new name"
+                  className="name-change"
+                  onChange={this.setProfileName}
+                  value={this.state.name.title || !this.state.name.edit && user.profile.name || ''}
+                />
               </label>
             </div>
-          </div>
+            <div className="float-left percent-20 text-center">
+              <input className="login-submit" type="submit" />
+            </div>
+          </form>
+        </div>
+        <div className="percent-100 float-left text-left margin-top-20">
+          {`Your current email: ${Meteor.user().emails[0].address}`}
+        </div>
+        <div className="percent-100 float-left text-left margin-top-20">
+          <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
+            <div className="float-left percent-80">
+              <label className="label" htmlFor="emailChange">
+                <span>Enter your email: </span>
+                <input id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" className="name-change" onChange={this.setUserEmail.bind(this)} value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''} />
+              </label>
+            </div>
+            <div className="float-left percent-20 text-center">
+              <input className="login-submit" type="submit" />
+            </div>
+          </form>
+        </div>
 
-          <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
-            Your locations:
-          </div>
-          <div className="percent-100 float-left text-left margin-top-5">
-            {this.renderPins()}
-          </div>
-          <div className="percent-100 float-left text-left">
-            <span>Exit from device: </span>
-            <button className="login-submit" onClick={this.logoutFromDevice}> Logout </button>
-          </div>
-          <div className="percent-100 float-left text-left">
-            <span>Full exit: </span>
-            <button className="login-submit" onClick={this.logout}> Logout </button>
+        <div className="percent-100 float-left text-left margin-top-20">
+          Choose your farm type
+        </div>
+        <div className="percent-100 float-left text-left margin-top-20">
+          <div className="float-left percent-80">
+            <label className="label" htmlFor="emailChange">
+              <select ref="type" onChange={this.changeType} value={user.profile.type}>
+                <option value="other">Інше (внесені дані не враховуються)</option>
+                <option value="company">Сільськогосподарське підприємство</option>
+                <option value="personal">Особисте селянське господарство</option>
+              </select>
+            </label>
           </div>
         </div>
-      );
-    }
+
+        <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
+          Your locations:
+        </div>
+        <div className="percent-100 float-left text-left margin-top-5">
+          {this.renderPins()}
+        </div>
+        <div className="percent-100 float-left text-left">
+          <span>Exit from device: </span>
+          <button className="login-submit" onClick={this.logoutFromDevice}> Logout </button>
+        </div>
+        <div className="percent-100 float-left text-left">
+          <span>Full exit: </span>
+          <button className="login-submit" onClick={this.logout}> Logout </button>
+        </div>
+      </div>
+    );
   }
+  // }
 }
 
 const mapStateToProps = (state) => ({});

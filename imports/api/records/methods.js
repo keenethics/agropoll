@@ -7,23 +7,27 @@ import { Records } from './records.js';
 
 const getParentLocations = (locationObj, parentId) => {
   const parentLocation = Localities.findOne({ place_id: parentId });
+  const newLocationObj = Object.assign({}, locationObj);
+
   switch (parentLocation.type) {
     case 'administrative_area_level_1':
-      locationObj.administrative_area_level_1 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_1 = parentLocation.place_id;
       break;
     case 'administrative_area_level_2':
-      locationObj.administrative_area_level_2 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_2 = parentLocation.place_id;
       break;
     case 'administrative_area_level_3':
-      locationObj.administrative_area_level_3 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_3 = parentLocation.place_id;
       break;
     default:
       break;
   }
 
   if (parentLocation.parentId) {
-    getParentLocations(locationObj, parentLocation.parentId);
+    return getParentLocations(newLocationObj, parentLocation.parentId);
   }
+
+  return newLocationObj;
 };
 
 Meteor.methods({
@@ -39,7 +43,7 @@ Meteor.methods({
 
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const location = Localities.findOne({ place_id: place_id });
-    const locationObj = {
+    let locationObj = {
       place_id: location.place_id,
       administrative_area_level_1: null,
       administrative_area_level_2: null,
@@ -47,7 +51,7 @@ Meteor.methods({
     };
 
     if (location.parentId) {
-      getParentLocations(locationObj, location.parentId);
+      locationObj = getParentLocations(locationObj, location.parentId);
     }
 
     Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': place_id } });
@@ -94,7 +98,11 @@ Meteor.methods({
     } });
   },
   'record.updateMulti'(dataObj) {
-    // for (const id in dataObj) {
+    // dataObj is an object which looks like
+    // {
+    // recordId: record body
+    // }
+    //
     Object.keys(dataObj).forEach((id) => {
       Records.update({ _id: id }, { $set: {
         sort: dataObj[id].sort,

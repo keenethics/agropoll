@@ -85,7 +85,7 @@ function getParent(addressComponents, i) {
   if (!name.includes('міськрада') && !name.includes('місто')) {
     const parentPlace = getPlace(name);
     const dbParentPlace = Localities.findOne({ place_id: parentPlace.place_id });
-
+    // if there is no record in db
     if (!dbParentPlace) {
       const fullAddress = parentPlace.formatted_address.substr(0, parentPlace.formatted_address.lastIndexOf(','));
 
@@ -98,7 +98,7 @@ function getParent(addressComponents, i) {
       };
 
       place_id = locality.place_id;
-
+      // if there is more addressComponents after current
       if (addressComponents.length - 1 > i) {
         parentId = getParent(addressComponents, ++i);
         locality.parentId = parentId;

@@ -8,7 +8,7 @@ Meteor.methods({
     check(body, String);
 
 
-    //this.unblock(); // ????
+    // this.unblock(); // ????
     const postURL = `${process.env.MAILGUN_API_URL}/${process.env.MAILGUN_DOMAIN}/messages`;
     const options = {
       auth: `api:${process.env.MAILGUN_API_KEY}`,

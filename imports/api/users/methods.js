@@ -14,9 +14,11 @@ Accounts.onCreateUser((options, user) => {
 });
 
 const generateLoginToken = () => {
+  // _generateStampedLoginToken method for creating a new login token
+  // stampedToken is used for login and hashed token is adding to user's document in mongo
   const stampedToken = Accounts._generateStampedLoginToken();
   return [
-    stampedToken,
+    stampedToken,  // _hashStampedToken method for hashing the login token
     Accounts._hashStampedToken(stampedToken),
   ];
 };
@@ -72,15 +74,15 @@ Meteor.methods({
   'LoginProcedure': (email) => {
     check(email, String);
 
-    let user = Meteor.users.findOne({
+    const user = Meteor.users.findOne({
       'emails.address': email,
     });
 
     if (!user) {
-      user = Accounts.createUser({ email });
+      Accounts.createUser({ email });
     }
 
-    const now = new Date() + '';
+    const now = (new Date()).toString();
     LoginSessions.remove({ email });
 
     const hash = LoginSessions.insert({

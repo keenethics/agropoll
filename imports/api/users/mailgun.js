@@ -9,9 +9,9 @@ Meteor.methods({
 
 
     // this.unblock(); // ????
-    const postURL = `${process.env.MAILGUN_API_URL}/${process.env.MAILGUN_DOMAIN}/messages`;
+    const postURL = `${Meteor.settings.private.MAILGUN_API_URL}/${Meteor.settings.private.MAILGUN_DOMAIN}/messages`;
     const options = {
-      auth: `api:${process.env.MAILGUN_API_KEY}`,
+      auth: `api:${Meteor.settings.private.MAILGUN_API_KEY}`,
       params: {
         from: 'Agromonitor &lt;support@mg.agromonitor.com',
         to: [email],

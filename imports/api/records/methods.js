@@ -2,27 +2,32 @@
 
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { Localities } from '/imports/api/localities/localities.js'
+import { Localities } from '/imports/api/localities/localities.js';
 import { Records } from './records.js';
 
 const getParentLocations = (locationObj, parentId) => {
   const parentLocation = Localities.findOne({ place_id: parentId });
+  const newLocationObj = Object.assign({}, locationObj);
+
   switch (parentLocation.type) {
     case 'administrative_area_level_1':
-      locationObj.administrative_area_level_1 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_1 = parentLocation.place_id;
       break;
     case 'administrative_area_level_2':
-      locationObj.administrative_area_level_2 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_2 = parentLocation.place_id;
       break;
     case 'administrative_area_level_3':
-      locationObj.administrative_area_level_3 = parentLocation.place_id;
+      newLocationObj.administrative_area_level_3 = parentLocation.place_id;
       break;
     default:
       break;
   }
 
-  if (parentLocation.parentId)
-    locationObj = getParentLocations(locationObj, parentLocation.parentId);
+  if (parentLocation.parentId) {
+    return getParentLocations(newLocationObj, parentLocation.parentId);
+  }
+
+  return newLocationObj;
 };
 
 Meteor.methods({
@@ -38,7 +43,7 @@ Meteor.methods({
 
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const location = Localities.findOne({ place_id: place_id });
-    const locationObj = {
+    let locationObj = {
       place_id: location.place_id,
       administrative_area_level_1: null,
       administrative_area_level_2: null,
@@ -46,7 +51,7 @@ Meteor.methods({
     };
 
     if (location.parentId) {
-      getParentLocations(locationObj, location.parentId);
+      locationObj = getParentLocations(locationObj, location.parentId);
     }
 
     Meteor.users.update({ _id: user._id }, { $addToSet: { 'profile.locations': place_id } });
@@ -72,15 +77,15 @@ Meteor.methods({
     const user = Meteor.users.findOne({ _id: Meteor.userId() });
     const record = Records.findOne({ _id });
     const place_id = record.location.place_id;
-    const usersRecords = Records.find({ 'location.place_id': place_id, userId: user._id}).fetch();
+    const usersRecords = Records.find({ 'location.place_id': place_id, userId: user._id }).fetch();
 
-    if (usersRecords.length < 2){
+    if (usersRecords.length < 2) {
       Meteor.users.update({ _id: Meteor.userId() },
       { $pull: { 'profile.locations': { $in: [place_id] } } })
     }
-    return Records.remove({_id})
+    return Records.remove({ _id });
   },
-  'record.update' (criteria, { sort, reproduction, square, cropYield, status }) {
+  'record.update'(criteria, { sort, reproduction, square, cropYield, status }) {
     // check()
     return Records.update(criteria, { $set: {
       reproduction,
@@ -90,10 +95,15 @@ Meteor.methods({
       sort,
 
       updatedAt: Number(Date.now()),
-    }} );
+    } });
   },
-  'record.updateMulti' (dataObj) {
-    for (id in dataObj) {
+  'record.updateMulti'(dataObj) {
+    // dataObj is an object which looks like
+    // {
+    // recordId: record body
+    // }
+    //
+    Object.keys(dataObj).forEach((id) => {
       Records.update({ _id: id }, { $set: {
         sort: dataObj[id].sort,
         reproduction: dataObj[id].reproduction,
@@ -101,8 +111,8 @@ Meteor.methods({
         cropYield: dataObj[id].cropYield,
 
         updatedAt: Number(Date.now()),
-      }});
-    }
+      } });
+    });
   },
 
   'record.updateStatus': ({ recordId, newStatus }) => {

@@ -22,7 +22,8 @@ Meteor.publish('records.filter', function (filters) {
     harvested: filters.harvested,
   };
 
-  const locationFilter = filters.place_id || filters.administrative_area_level_2 || filters.administrative_area_level_1;
+  const locationFilter = filters.place_id || filters.administrative_area_level_2 ||
+  filters.administrative_area_level_1;
 
   const query = {
     year: filters.year,
@@ -50,7 +51,7 @@ Meteor.publish('records.filter', function (filters) {
       type: 0,
       farmlandArea: 0,
       updatedAt: 0,
-    }
+    },
   });
 });
 
@@ -64,6 +65,6 @@ Meteor.publish('records.user', function () {
       // userId: 0,
       // squareNorm: 0,
       // farmlandArea: 0,
-    }
+    },
   });
 });

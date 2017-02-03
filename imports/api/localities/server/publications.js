@@ -12,16 +12,16 @@ Meteor.publish('localities', ({ administrative_area_level_1, administrative_area
   return Localities.find({
     $or: [
       {
-        type: 'administrative_area_level_1'
+        type: 'administrative_area_level_1',
       },
       {
         type: 'administrative_area_level_2',
-        parentId: administrative_area_level_1
+        parentId: administrative_area_level_1,
       },
       {
         type: 'locality',
-        parentId: administrative_area_level_2
-      }
-    ]
+        parentId: administrative_area_level_2,
+      },
+    ],
   });
 });

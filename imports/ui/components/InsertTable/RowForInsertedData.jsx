@@ -45,7 +45,7 @@ class RowForGroup extends React.Component {
   }
 
   changeStatus(e) {
-    const currentValue = e.currentTarget.innerText;
+    const currentValue = e.currentTarget.dataset.status; // e.currentTarget.innerText;
     const recordId = this.props.dataId;
     let newStatus = 'planned';
     if (currentValue === 'planned') {
@@ -121,8 +121,9 @@ class RowForGroup extends React.Component {
           className="tcoll4 tcell cursor-pointer"
           ref={`status${this.props.dataId}`}
           onClick={this.changeStatus}
+          data-status={this.props.defaultStatus}
         >
-          {this.props.defaultStatus}
+          {{ planned: 'Заплановано', planted: 'Посіяно', harvested: 'Зібрано' }[this.props.defaultStatus]}
         </div>
       </div>
     );

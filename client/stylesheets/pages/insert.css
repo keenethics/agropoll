@@ -496,3 +496,21 @@ div.trow-crop {
     flex-direction: column;
   }
 }
+
+[data-status="planned"] {
+  background-color: blue;
+  color: white;
+  border-radius: 5px
+}
+
+[data-status="planted"] {
+  background-color: green;
+  color: white;
+  border-radius: 5px
+}
+
+[data-status="harvested"] {
+  background-color: orange;
+  color: black;
+  border-radius: 5px
+}

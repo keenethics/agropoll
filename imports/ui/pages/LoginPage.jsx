@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
     Meteor.call('user.emailChange', email, (err, res) => {
       if (err) {
         console.error(err);
-      } else { // ??????????????????????????????????????????????????
+      } else { // ??
         console.log('email changed to', email, res);
       }
       console.log(Meteor.user());
@@ -259,15 +259,21 @@ class LoginPage extends React.Component {
             </div>
           </form>
         </div>
-        <div className="percent-100 float-left text-left margin-top-20">
-          {`Your current email: ${Meteor.user().emails[0].address}`}
-        </div>
+
         <div className="percent-100 float-left text-left margin-top-20">
           <form id="emailChangeForm" ref="emailChangeForm" onSubmit={this.onEmailSubmit}>
             <div className="float-left percent-80">
               <label className="label" htmlFor="emailChange">
                 <span>Enter your email: </span>
-                <input id="emailChange" type="email" ref="emailChange" placeholder="Enter new email" className="name-change" onChange={this.setUserEmail.bind(this)} value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''} />
+                <input
+                  id="emailChange"
+                  type="email"
+                  ref="emailChange"
+                  placeholder="Enter new email"
+                  className="name-change"
+                  onChange={this.setUserEmail.bind(this)}
+                  value={this.state.email.title || !this.state.email.edit && user.emails[0].address || ''}
+                />
               </label>
             </div>
             <div className="float-left percent-20 text-center">
@@ -277,15 +283,19 @@ class LoginPage extends React.Component {
         </div>
 
         <div className="percent-100 float-left text-left margin-top-20">
-          Choose your farm type
-        </div>
-        <div className="percent-100 float-left text-left margin-top-20">
           <div className="float-left percent-80">
-            <label className="label" htmlFor="emailChange">
-              <select ref="type" onChange={this.changeType} value={user.profile.type}>
-                <option value="other">Інше (внесені дані не враховуються)</option>
-                <option value="company">Сільськогосподарське підприємство</option>
-                <option value="personal">Особисте селянське господарство</option>
+            <label className="label" htmlFor="selectType">
+              Вкажіть тип господарства, щоби дані відображалися в загальній статистиці
+              <select
+                ref="type"
+                id="selectType"
+                onChange={this.changeType}
+                value={user.profile.type}
+                className="select-filter"
+              >
+                <option value="other" className="select-filter-option">Інше (внесені дані не враховуються)</option>
+                <option value="company" className="select-filter-option">Сільськогосподарське підприємство</option>
+                <option value="personal" className="select-filter-option">Особисте селянське господарство</option>
               </select>
             </label>
           </div>

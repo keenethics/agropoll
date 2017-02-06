@@ -26,16 +26,16 @@ class StatusFilter extends React.Component {
       <div className="StatusFilter-wrapper percent-85 float-left">
         <div className="float-left statistic-param">
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" ref="planned" checked={this.props.state.planned} onChange={this.changeStatusFilter} />
-            <span className="checkbox-span">planned</span>
+            <input id="planned" className="statistic-input" type="checkbox" ref="planned" checked={this.props.state.planned} onChange={this.changeStatusFilter} />
+            <label htmlFor="planned" className="checkbox-span planned">заплановано</label>
           </div>
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" ref="planted" checked={this.props.state.planted} onChange={this.changeStatusFilter} />
-            <span className="checkbox-span">planted</span>
+            <input id="planted" className="statistic-input" type="checkbox" ref="planted" checked={this.props.state.planted} onChange={this.changeStatusFilter} />
+            <label htmlFor="planted" className="checkbox-span planted">посіяно</label>
           </div>
           <div className="float-left">
-            <input className="statistic-input" type="checkbox" ref="harvested" checked={this.props.state.harvested} onChange={this.changeStatusFilter} />
-            <span className="checkbox-span">harvested</span>
+            <input id="harvested" className="statistic-input" type="checkbox" ref="harvested" checked={this.props.state.harvested} onChange={this.changeStatusFilter} />
+            <label htmlFor="harvested" className="checkbox-span harvested">зібрано</label>
           </div>
         </div>
       </div>

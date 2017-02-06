@@ -132,3 +132,7 @@
     align-items: flex-end;
   }
 }
+
+.planned, .planted, .harvested {
+  cursor: pointer;
+}

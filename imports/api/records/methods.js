@@ -80,12 +80,15 @@ Meteor.methods({
     const usersRecords = Records.find({ 'location.place_id': place_id, userId: user._id }).fetch();
 
     if (usersRecords.length < 2) {
-      Meteor.users.update({ _id: Meteor.userId() },
-      { $pull: { 'profile.locations': { $in: [place_id] } } })
+      Meteor.users.update(
+        { _id: Meteor.userId() },
+        { $pull: { 'profile.locations': { $in: [place_id] } } }
+      );
     }
     return Records.remove({ _id });
   },
   'record.update'(criteria, { sort, reproduction, square, cropYield, status }) {
+    // What is 'criteria'?
     // check()
     return Records.update(criteria, { $set: {
       reproduction,
@@ -102,7 +105,6 @@ Meteor.methods({
     // {
     // recordId: record body
     // }
-    //
     Object.keys(dataObj).forEach((id) => {
       Records.update({ _id: id }, { $set: {
         sort: dataObj[id].sort,

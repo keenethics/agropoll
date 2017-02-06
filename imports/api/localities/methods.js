@@ -35,7 +35,7 @@ Meteor.methods({
 
     if (!locality) {
       const addressComponents = place.address_components;
-      const type = place.types[0];
+      const type = place.address_components[0].types[0];
 
       // Remove place and country from addressComponents
       addressComponents.shift();
@@ -84,13 +84,16 @@ function getParent(addressComponents, i) {
 
   if (!name.includes('міськрада') && !name.includes('місто')) {
     const parentPlace = getPlace(name);
+    console.log(parentPlace.address_components[0].long_name);
+    console.log('|-->',parentPlace.address_components[0].types);
+    console.log(parentPlace.types);
     const dbParentPlace = Localities.findOne({ place_id: parentPlace.place_id });
     // if there is no record in db
     if (!dbParentPlace) {
       const fullAddress = parentPlace.formatted_address.substr(0, parentPlace.formatted_address.lastIndexOf(','));
 
       locality = {
-        type: parentPlace.types[0],
+        type: parentPlace.address_components[0].types[0],
         name: parentPlace.address_components[0].long_name,
         place_id: parentPlace.place_id,
         parentId: null,

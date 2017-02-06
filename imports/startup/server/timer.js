@@ -56,5 +56,5 @@ Meteor.startup(() => {
         console.log(`  [${record.year}] ( ${cluster.farmersCount}/${usersCount} шт || ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
-  }, 10000);
+  }, 60000);
 });

@@ -7,7 +7,7 @@ A project, designed to help farmers in forehanded planning of crops growing. Wor
 # Setup & start
 
 To start project on local server run `$ git clone https://github.com/keenethics/agromonitor.git && cd agromonitor`.
-Then install dependencies via `$ meteor npm install` and start server with `$ meteor`.
+Then install dependencies via `$ meteor npm install` and start server with `$ meteor --settings settings.json`.
 
 # Workflow
 

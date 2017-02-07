@@ -8,10 +8,11 @@ export default class StatisticsTableRow extends React.Component {
           <span>{this.props.crop.name}</span>
         </div>
         <div className="cell coll-2">
-          <span>{this.props.cropsView.totalSquare.toFixed(0)}</span>
+          <span>{this.props.crop.baseSquare.toFixed(0)}</span>
         </div>
         <div className="cell coll-3">
-          <span>{this.props.cropsView.harvest.toFixed(0)}</span>
+          <span>{this.props.cropsView.totalSquare.toFixed(0)}</span>
+          {/* <span>{this.props.cropsView.harvest.toFixed(0)}</span> */}
         </div>
       </div>
     );

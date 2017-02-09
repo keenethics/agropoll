@@ -6,6 +6,8 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Clusters } from '/imports/api/clusters/clusters.js';
 
 Meteor.startup(() => {
+  console.log('App run at', Meteor.absoluteUrl());
+
   Groups.remove({});
   const groups = Assets.getText('groups.csv').split('\n').filter((item) => item).map((item) => item.split(','));
   console.log('groups =', groups);

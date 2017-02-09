@@ -8,6 +8,7 @@ import '/imports/api/localities/methods.js';
 import '/imports/api/users/methods.js';
 import '/imports/api/records/methods.js';
 
-import '/imports/api/users/mailgun.js';
+// import '/imports/api/users/mailgun.js';
+import '/imports/api/users/email.js';
 
 // ?????????

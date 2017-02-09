@@ -6,8 +6,7 @@
 //     check(email, String);
 //     check(body, String);
 //
-//
-//     // this.unblock(); // ????
+//     this.unblock();
 //     const postURL = `${Meteor.settings.private.MAILGUN_API_URL}/${Meteor.settings.private.MAILGUN_DOMAIN}/messages`;
 //     const options = {
 //       auth: `api:${Meteor.settings.private.MAILGUN_API_KEY}`,

@@ -78,12 +78,12 @@ const container = createContainer((props) => {
   Meteor.subscribe('groups.all');
   const recordsHandler = Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
   console.info('Records ready:', recordsHandler.ready());
-
+  const records = recordsHandler.ready() ? Records.find({}).fetch() : [];
   return {
     user,
     crops: Crops.find({}).fetch(),
     groups: Groups.find({}).fetch(),
-    records: Records.find({}).fetch(),
+    records,
   };
 }, StatisticsPage);
 

@@ -1,9 +1,6 @@
 {
   "private": {
-    "MAILGUN_API_KEY": "key-5898d0feccba3a650ede5567d5298dd4",
-    "MAILGUN_DOMAIN": "sandboxec56f480438b46199b016a64f060dbf4.mailgun.org",
-    "MAILGUN_API_URL": "https://api.mailgun.net/v2",
-
-    "SENDGRID_API_KEY": "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"
+    "SENDGRID_API_KEY": "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",
+    "MAIL_URL": "smtp://postmaster%40sandbox8d965c7795334a1e9152402bb4b9241b.mailgun.org:c25a5f2dce5d401db8879bb4a690d0b2@smtp.mailgun.org:587"
   }
 }

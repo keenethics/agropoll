@@ -3,6 +3,8 @@ import { HTTP } from 'meteor/http';
 import { check } from 'meteor/check';
 import { Localities } from './localities.js';
 
+const apiKey = Meteor.settings.private.GOOGLE_MAPS_API_KEY;
+
 Meteor.methods({
   'localities.addPlace'(place) {
     console.log(place);
@@ -60,7 +62,7 @@ Meteor.methods({
 
 function getPlace(addr) {
   const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?';
-  const key = 'key=AIzaSyA_T9PkPMXTRoTBhlX5awCWurylQ2B-QaE';
+  const key = `key=${apiKey}`;
   const language = 'language=uk&';
   const address = `address=${addr.replace(/ /g, '+')}&`;
   const type = 'components=country:UA&';

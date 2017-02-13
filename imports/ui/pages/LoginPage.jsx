@@ -295,7 +295,7 @@ class LoginPage extends React.Component {
               >
                 <option value="other" className="select-filter-option">Інше (внесені дані не враховуються)</option>
                 <option value="company" className="select-filter-option">Сільськогосподарське підприємство</option>
-                <option value="personal" className="select-filter-option">Особисте селянське господарство</option>
+                <option value="household" className="select-filter-option">Особисте селянське господарство</option>
               </select>
             </label>
           </div>

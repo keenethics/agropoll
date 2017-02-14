@@ -2,13 +2,16 @@
 import { Meteor } from 'meteor/meteor';
 import { LoginSessions } from '/imports/api/login-sessions/login-sessions.js';
 import { check } from 'meteor/check';
+import { Roles } from 'meteor/alanning:roles';
 
 Accounts.onCreateUser((options, user) => {
   // Use provided profile in options, or create an empty object
   user.profile = options.profile || {};
-  // Assigns first and last names to the newly created user object
-  user.profile.name = options.email;
+  // Assigns name to the newly created user object
+  user.profile.name = options.email.split('@')[0];
+  // Assigns dafault type
   user.profile.type = 'other';
+
   // Returns the user object
   return user;
 });
@@ -79,7 +82,13 @@ Meteor.methods({
     });
 
     if (!user) {
-      Accounts.createUser({ email });
+      const userId = Accounts.createUser({ email });
+
+      console.log('user created:', Meteor.users.findOne({ 'emails.0.address': email }));
+      if (email === 'andrew.tatomyr@keenethics.com') {
+        console.log('added admin:', userId);
+        Roles.addUsersToRoles(userId, 'admin');
+      }
     }
 
     const now = (new Date()).toString();

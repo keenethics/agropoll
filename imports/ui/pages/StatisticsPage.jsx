@@ -81,8 +81,8 @@ const container = createContainer((props) => {
   const records = recordsHandler.ready() ? Records.find({}).fetch() : [];
   return {
     user,
-    crops: Crops.find({}).fetch(),
-    groups: Groups.find({}).fetch(),
+    crops: Crops.find({}, { sort: { id: 1 } }).fetch(),
+    groups: Groups.find({}, { sort: { id: 1 } }).fetch(),
     records,
   };
 }, StatisticsPage);

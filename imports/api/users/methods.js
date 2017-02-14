@@ -74,7 +74,7 @@ Meteor.methods({
     return true;
   },
 
-  'LoginProcedure': (email) => {
+  LoginProcedure: (email) => {
     check(email, String);
 
     const user = Meteor.users.findOne({
@@ -105,7 +105,7 @@ Meteor.methods({
     })(email, hash, now);
   },
 
-  'Login': (hash) => {
+  Login: (hash) => {
     check(hash, String);
 
     const session = LoginSessions.findOne({ _id: hash });
@@ -128,7 +128,7 @@ Meteor.methods({
     })(user._id, hash);
   },
 
-  'Logout': () => {
+  Logout: () => {
     Meteor.users.update(Meteor.userId(), { $pull: { 'services.resume.loginTokens': {} } });
   },
 });

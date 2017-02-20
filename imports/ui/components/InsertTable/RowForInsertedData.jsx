@@ -53,13 +53,14 @@ class RowForGroup extends React.Component {
     } else if (currentValue === 'planted') {
       newStatus = 'harvested';
     }
-    e.currentTarget.innerText = newStatus;
+    // e.currentTarget.innerText = newStatus;
     Meteor.call('record.updateStatus', { recordId, newStatus }, (err) => {
       if (err) {
         console.error(err);
       }
     });
   }
+
   render() {
     return (
       <div className="trow-crop">

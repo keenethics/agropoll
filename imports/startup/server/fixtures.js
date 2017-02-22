@@ -8,6 +8,9 @@ import { Clusters } from '/imports/api/clusters/clusters.js';
 Meteor.startup(() => {
   console.log('App run at', Meteor.absoluteUrl());
 
+  const regions = Assets.getText('regions.csv').split('\n').filter((item) => item).map((item) => item.split(',')[1]);
+  console.log('regions', regions);
+
   Groups.remove({});
   const groups = Assets.getText('groups.csv').split('\n').filter((item) => item).map((item) => item.split(','));
   console.log('groups =', groups);
@@ -19,13 +22,19 @@ Meteor.startup(() => {
   Crops.remove({});
   const crops = Assets.getText('crops.csv').split('\n').filter((item) => item).map((item) => item.split(','));
   console.log('crops =', crops);
-  crops.forEach((crop) => Crops.insert({
-    id: Number(crop[0]),
-    name: crop[2],
-    groupId: Number(crop[1]),
-    baseSquare: Number(crop[3]),
-    avgCropYield: Number(crop[4]),
-  }));
+  crops.forEach((crop) => {
+    const cropObj = {
+      id: Number(crop[0]),
+      name: crop[2],
+      groupId: Number(crop[1]),
+      avgCropYield: Number(crop[3]),
+    };
+    regions.forEach((regionId, i) => {
+      cropObj[`square:${regionId}`] = Number(crop[4 + i]);
+    });
+
+    Crops.insert(cropObj);
+  });
 
   Clusters.remove({});
   const clusters = [

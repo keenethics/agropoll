@@ -58,6 +58,7 @@ class StatisticsPage extends React.Component {
                   crop.groupId === group.id
                 ).map(crop => (
                   <StatisticsTableRow
+                    regionId={this.props.statisticsTable.administrative_area_level_1}
                     key={crop.id}
                     crop={crop}
                     cropsView={cropsView.find((item) => item.cropId === crop.id)}

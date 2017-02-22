@@ -5,7 +5,7 @@ import { check, Match } from 'meteor/check';
 
 import { Records } from '../records.js';
 
-Meteor.publish('records.filter', function (filters) {
+Meteor.publish('records.filter', function(filters) {
   check(filters, {
     planned: Boolean,
     planted: Boolean,
@@ -30,7 +30,7 @@ Meteor.publish('records.filter', function (filters) {
     status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
   };
 
-  if (locationFilter) {
+  if (locationFilter !== 'null') {
     query.$or = [
       { 'location.administrative_area_level_1': locationFilter },
       { 'location.administrative_area_level_2': locationFilter },

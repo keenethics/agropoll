@@ -1,7 +1,7 @@
 import * as types from '/imports/ui/actions/types';
 
 const initialState = {
-  administrative_area_level_1: null,
+  administrative_area_level_1: 'none',
   administrative_area_level_2: null,
   place_id: null,
 

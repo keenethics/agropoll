@@ -98,7 +98,7 @@ function getParent(addressComponents, i) {
         type: parentPlace.address_components[0].types[0],
         name: parentPlace.address_components[0].long_name,
         place_id: parentPlace.place_id,
-        parentId: null,
+        parentId: 'none',
         fullAddress,
       };
 

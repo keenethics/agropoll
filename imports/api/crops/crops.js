@@ -14,8 +14,9 @@ Crops.schema = new SimpleSchema({
   groupId: { type: Number, optional: true },
   baseSquare: { type: Number, optional: true, decimal: true },
   avgCropYield: { type: Number, optional: true, decimal: true },
+  squares: { type: Object, blackbox: true },
 });
-// Crops.attachSchema(Crops.schema);
+Crops.attachSchema(Crops.schema);
 
 Groups.schema = new SimpleSchema({
   _id: { type: String, optional: true },

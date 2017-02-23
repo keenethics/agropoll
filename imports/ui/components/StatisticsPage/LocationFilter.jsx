@@ -28,7 +28,7 @@ class LocationFilter extends React.Component {
     return (
       <div className="float-left filter-select-container">
         <select className="select-filter" name={name} onChange={this.selectAdmLevel}>
-          <option className="select-filter-option" value="null">{title}</option>
+          <option className="select-filter-option" value="none">{title}</option>
           {this.props[items].map(item => (
             <option className="select-filter-option" key={item.place_id} value={item.place_id}>{item.name}</option>
           ))}

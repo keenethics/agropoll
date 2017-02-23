@@ -6,6 +6,8 @@ import { Localities } from '/imports/api/localities/localities.js';
 import { Records } from './records.js';
 
 const getParentLocations = (locationObj, parentId) => {
+  console.log('parentId =', parentId);
+
   const parentLocation = Localities.findOne({ place_id: parentId });
   const newLocationObj = Object.assign({}, locationObj);
 
@@ -23,7 +25,7 @@ const getParentLocations = (locationObj, parentId) => {
       break;
   }
 
-  if (parentLocation.parentId) {
+  if (parentLocation.parentId !== 'none') {
     return getParentLocations(newLocationObj, parentLocation.parentId);
   }
 
@@ -50,7 +52,7 @@ Meteor.methods({
       administrative_area_level_3: null,
     };
 
-    if (location.parentId) {
+    if (location.parentId !== 'none') {
       locationObj = getParentLocations(locationObj, location.parentId);
     }
 

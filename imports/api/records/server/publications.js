@@ -30,7 +30,7 @@ Meteor.publish('records.filter', function(filters) {
     status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
   };
 
-  if (locationFilter !== 'null') {
+  if (locationFilter !== 'none') {
     query.$or = [
       { 'location.administrative_area_level_1': locationFilter },
       { 'location.administrative_area_level_2': locationFilter },

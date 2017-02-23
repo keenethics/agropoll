@@ -29,8 +29,10 @@ Meteor.startup(() => {
       groupId: Number(crop[1]),
       avgCropYield: Number(crop[3]),
     };
+
+    cropObj.squares = {};
     regions.forEach((regionId, i) => {
-      cropObj[`square:${regionId}`] = Number(crop[4 + i]);
+      cropObj.squares[regionId] = Number(crop[4 + i]);
     });
 
     Crops.insert(cropObj);

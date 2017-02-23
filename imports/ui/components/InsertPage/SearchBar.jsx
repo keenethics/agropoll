@@ -32,8 +32,7 @@ class SearchBar extends React.Component {
     });
 
     autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      this.setState({ selectedPlace: place });
+      this.setState({ selectedPlace: autocomplete.getPlace() });
     });
   //  this.setState({ autocomplete });
   }
@@ -71,6 +70,7 @@ class SearchBar extends React.Component {
     }
     this.props.actions.startSpinner();
     if (this.state.selectedPlace) {
+      console.log('-->',this.state.selectedPlace);
       Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
         if (!err) {
           this.props.actions.hideSpinner();
@@ -92,27 +92,27 @@ class SearchBar extends React.Component {
     return new google.maps.places.Autocomplete(input, options);
   }
 
-  // It's needed by Google API
-  change() {}
+  change() {
+    // It's needed by Google API
+  }
 
 
   render() {
     return (
-
       <div className="modal-location">
-        <div className="percent-100 text-center font-size-1_5rem"> Type locality name </div>
+        <div className="percent-100 text-center font-size-1_5rem">Вкажіть населений пункт</div>
         <div className="percent-100 padding-top-bot-25">
           <div className="searchBar-wrapper">
             <input
               className="input-country"
               ref="inputCountry"
               type="text"
-              placeholder="Country..."
+              placeholder="Населений пункт..."
               onKeyPress={this.submitPlace}
               onChange={this.change}
             />
             <div className="search-icon-div cursor-pointer">
-              <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>
+              {/*<i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>*/}
             </div>
           </div>
         </div>

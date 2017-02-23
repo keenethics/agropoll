@@ -7,7 +7,7 @@ const apiKey = Meteor.settings.private.GOOGLE_MAPS_API_KEY;
 
 Meteor.methods({
   'localities.addPlace'(place) {
-    console.log(place);
+    // console.log('place =', place);
     check(place.name, String);
     check(place.formatted_address, String);
     check(place.place_id, String);
@@ -16,12 +16,29 @@ Meteor.methods({
     }
     check(place.types[0], String);
 
+
+    // console.log('--->',  place.place_id, Localities.findOne({ place_id: place.place_id }));
+
+    place.address_components.some((item) => {
+      console.log(':-->', item.long_name, item.types[0], getPlace(item.long_name));
+
+
+      return false; // true
+    });
+
+
+
+
+
     // removing ', Україна'
     const index = place.formatted_address.lastIndexOf(',');
     let fullAddress = (index !== -1) ? place.formatted_address.substr(0, place.formatted_address.lastIndexOf(',')) : place.formatted_address;
     let locality = Localities.findOne({
       place_id: place.place_id,
     });
+
+
+
 
     if (index !== -1 && place.address_components.length === 4 &&
       !place.address_components[1].long_name.includes('міськрада') &&
@@ -76,6 +93,9 @@ function getPlace(addr) {
   console.log('END of request');
   const content = JSON.parse(response.content);
   return content.results[0];
+
+
+
 }
 
 function getParent(addressComponents, i) {
@@ -85,8 +105,9 @@ function getParent(addressComponents, i) {
   let locality;
 
   if (!name.includes('міськрада') && !name.includes('місто')) {
+
     const parentPlace = getPlace(name);
-    console.log(parentPlace.address_components[0].long_name);
+    console.log('name::::::::',name,parentPlace.address_components[0].long_name);
     // console.log('|-->',parentPlace.address_components[0].types);
     // console.log(parentPlace.types);
     const dbParentPlace = Localities.findOne({ place_id: parentPlace.place_id });

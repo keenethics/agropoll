@@ -34,7 +34,7 @@ class SearchBar extends React.Component {
     autocomplete.addListener('place_changed', () => {
       this.setState({ selectedPlace: autocomplete.getPlace() });
     });
-  //  this.setState({ autocomplete });
+    // this.setState({ autocomplete });
   }
 
 
@@ -122,7 +122,7 @@ class SearchBar extends React.Component {
               className="btn"
               onClick={this.submitPlace}
             >
-              Add
+              Додати
             </button>
           </div>
           <div className="percent-50 float-left text-center">
@@ -130,7 +130,7 @@ class SearchBar extends React.Component {
               className="btn"
               onClick={this.hideModal}
             >
-              Cancel
+              Назад
             </button>
           </div>
         </div>

@@ -18,9 +18,37 @@ Meteor.methods({
 
 
     // console.log('--->',  place.place_id, Localities.findOne({ place_id: place.place_id }));
+    // console.log('=-->', place.address_components.map((item, i) => item.long_name).join(', '), getPlace(place.address_components.map((item, i) => item.long_name).join(', ')));
 
-    place.address_components.some((item) => {
-      console.log(':-->', item.long_name, item.types[0], getPlace(item.long_name));
+
+    const parents = place.address_components.filter((item, i) =>
+      item.types[0] !== 'administrative_area_level_3' && i
+    ).map((item) =>
+      // item.long_name.includes('область') ? `${item.long_name} область` :
+      item.long_name
+    );
+    console.log('parents =', parents);
+
+
+
+    parents.filter((_, i) => i < parents.length - 1).some((item, i) => {
+      // const searchArray = parents.filter((_, j) => j >= i).map((item) =>
+      //   item.includes('область') ? `${item} область` : item
+      // );
+      // if (searchArray.length === 1 && searchArray[0].split(' ').contains('область')) {
+      //   searchArray[0] += ' область';
+      // }
+
+      // Workaround for Google API issue with some Ukrainian regions (like Ivano-Frankivsk region)
+      const searchAddress = parents.filter((_, j) => j >= i).map((item) =>
+        item.includes('область') ? `${item} область` : item
+      ).join('+');
+      console.log(':===:', searchAddress);
+      console.log(':---:', getPlace(searchAddress));
+
+
+
+      // console.log(':-->', item.long_name, item.types[0], i && getPlace(item.long_name) || place);
 
 
       return false; // true

@@ -26,7 +26,7 @@ function getPlace(addr) {
   const key = `key=${apiKey}`;
   const language = 'language=uk&';
   const address = `address=${addr.replace(/ /g, '+')}&`;
-  const type = 'components=country:UA&';
+  const type = 'components=country:UA&'; // ''; // clutch because of Crimea (disabled)
   const fullUrl = encodeURI(baseUrl + address + type + language + key);
 
   const response = Meteor.wrapAsync((fullUrl, callback) => {
@@ -43,26 +43,30 @@ function addPlace(place) {
   const parents = place.address_components.filter((item, i) =>
     item.types[0] !== 'administrative_area_level_3' && i
   ).map((item) => item.long_name);
-  console.log('parents =', parents);
 
   if (place.address_components[0].types[0] === 'country') return { place_id: 'none' };
 
   if (Localities.findOne({ place_id: place.place_id })) return place;
 
   // Workaround for Google maps API issue with some Ukrainian regions (like Ivano-Frankivsk region)
-  const searchAddress = parents.map((item) =>
+  let parentAddress = parents.map((item) =>
     (item.includes('область') ? `${item} область` : item)
   ).join('+');
+
+  // Workaround for Kyiv in Google maps API
+  if (parentAddress.includes('місто Київ')) parentAddress = 'Київська область'; // '';
+
+  console.log('parent =', parentAddress);
 
   const locality = {
     place_id: place.place_id,
     name: place.address_components[0].long_name,
     type: place.address_components[0].types[0],
-    parentId: addPlace(getPlace(searchAddress)).place_id,
+    parentId: parentAddress && addPlace(getPlace(parentAddress)).place_id || 'none',
     fullAddress: place.formatted_address,
   };
 
-  console.log('RESULT / locality:', locality);
+  console.log('RESULT_LOCALITY =', locality);
 
   Localities.insert(locality);
 

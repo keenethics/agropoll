@@ -7,7 +7,7 @@ const apiKey = Meteor.settings.private.GOOGLE_MAPS_API_KEY;
 
 Meteor.methods({
   'localities.addPlace'(place) {
-    // console.log('place =', place);
+    check(place, Object);
     check(place.name, String);
     check(place.formatted_address, String);
     check(place.place_id, String);
@@ -16,92 +16,8 @@ Meteor.methods({
     }
     check(place.types[0], String);
 
-
-    // console.log('--->',  place.place_id, Localities.findOne({ place_id: place.place_id }));
-    // console.log('=-->', place.address_components.map((item, i) => item.long_name).join(', '), getPlace(place.address_components.map((item, i) => item.long_name).join(', ')));
-
-
-    const parents = place.address_components.filter((item, i) =>
-      item.types[0] !== 'administrative_area_level_3' && i
-    ).map((item) =>
-      // item.long_name.includes('область') ? `${item.long_name} область` :
-      item.long_name
-    );
-    console.log('parents =', parents);
-
-
-
-    parents.filter((_, i) => i < parents.length - 1).some((item, i) => {
-      // const searchArray = parents.filter((_, j) => j >= i).map((item) =>
-      //   item.includes('область') ? `${item} область` : item
-      // );
-      // if (searchArray.length === 1 && searchArray[0].split(' ').contains('область')) {
-      //   searchArray[0] += ' область';
-      // }
-
-      // Workaround for Google API issue with some Ukrainian regions (like Ivano-Frankivsk region)
-      const searchAddress = parents.filter((_, j) => j >= i).map((item) =>
-        item.includes('область') ? `${item} область` : item
-      ).join('+');
-      console.log(':===:', searchAddress);
-      console.log(':---:', getPlace(searchAddress));
-
-
-
-      // console.log(':-->', item.long_name, item.types[0], i && getPlace(item.long_name) || place);
-
-
-      return false; // true
-    });
-
-
-
-
-
-    // removing ', Україна'
-    const index = place.formatted_address.lastIndexOf(',');
-    let fullAddress = (index !== -1) ? place.formatted_address.substr(0, place.formatted_address.lastIndexOf(',')) : place.formatted_address;
-    let locality = Localities.findOne({
-      place_id: place.place_id,
-    });
-
-
-
-
-    if (index !== -1 && place.address_components.length === 4 &&
-      !place.address_components[1].long_name.includes('міськрада') &&
-      !place.address_components[1].long_name.includes('місто')) {
-      const positionOfComa = fullAddress.indexOf(',');
-      fullAddress = [
-        fullAddress.slice(0, positionOfComa),
-        ', ',
-        place.address_components[1].long_name,
-        fullAddress.slice(positionOfComa),
-      ].join('');
-    }
-
-    if (!locality) {
-      const addressComponents = place.address_components;
-      const type = place.address_components[0].types[0];
-
-      // Remove place and country from addressComponents
-      addressComponents.shift();
-      addressComponents.pop();
-
-      locality = {
-        type,
-        name: place.name,
-        place_id: place.place_id,
-        fullAddress,
-      };
-
-      if (addressComponents.length > 0) {
-        const parentId = getParent(addressComponents, 0)
-        locality.parentId = parentId;
-      }
-
-      Localities.insert(locality);
-    }
+    // console.log('place =', place);
+    addPlace(place);
   },
 });
 
@@ -121,48 +37,34 @@ function getPlace(addr) {
   console.log('END of request');
   const content = JSON.parse(response.content);
   return content.results[0];
-
-
-
 }
 
-function getParent(addressComponents, i) {
-  const name = addressComponents[i].long_name;
-  let place_id;
-  let parentId;
-  let locality;
+function addPlace(place) {
+  const parents = place.address_components.filter((item, i) =>
+    item.types[0] !== 'administrative_area_level_3' && i
+  ).map((item) => item.long_name);
+  console.log('parents =', parents);
 
-  if (!name.includes('міськрада') && !name.includes('місто')) {
+  if (place.address_components[0].types[0] === 'country') return { place_id: 'none' };
 
-    const parentPlace = getPlace(name);
-    console.log('name::::::::',name,parentPlace.address_components[0].long_name);
-    // console.log('|-->',parentPlace.address_components[0].types);
-    // console.log(parentPlace.types);
-    const dbParentPlace = Localities.findOne({ place_id: parentPlace.place_id });
-    // if there is no record in db
-    if (!dbParentPlace) {
-      const fullAddress = parentPlace.formatted_address.substr(0, parentPlace.formatted_address.lastIndexOf(','));
+  if (Localities.findOne({ place_id: place.place_id })) return place;
 
-      locality = {
-        type: parentPlace.address_components[0].types[0],
-        name: parentPlace.address_components[0].long_name,
-        place_id: parentPlace.place_id,
-        parentId: 'none',
-        fullAddress,
-      };
+  // Workaround for Google maps API issue with some Ukrainian regions (like Ivano-Frankivsk region)
+  const searchAddress = parents.map((item) =>
+    (item.includes('область') ? `${item} область` : item)
+  ).join('+');
 
-      place_id = locality.place_id;
-      // if there is more addressComponents after current
-      if (addressComponents.length - 1 > i) {
-        parentId = getParent(addressComponents, ++i);
-        locality.parentId = parentId;
-      }
-      Localities.insert(locality);
-    } else {
-      place_id = dbParentPlace.place_id;
-    }
-  } else if (addressComponents.length - 1 > i) {
-    place_id = getParent(addressComponents, ++i)
-  }
-  return place_id;
+  const locality = {
+    place_id: place.place_id,
+    name: place.address_components[0].long_name,
+    type: place.address_components[0].types[0],
+    parentId: addPlace(getPlace(searchAddress)).place_id,
+    fullAddress: place.formatted_address,
+  };
+
+  console.log('RESULT / locality:', locality);
+
+  Localities.insert(locality);
+
+  return place;
 }

@@ -33,3 +33,23 @@ Install `linter` and `linter-eslint` packages in Atom.
 # Sign in/up application
 
 To sign user in/up, submit your email at `login` page. In case you caught an error, revise Terminal and copy `body` parameter found there. Paste into browser this URL: `localhost:3000/login/<body>`.
+
+# Test deployment on Now
+
+Install CLI tools & log in:
+```
+$ npm i -g now meteor-now
+$ now --login
+```
+
+Deploy with CLI:
+```
+$ meteor-now -e ROOT_URL=https://agromonitor-test.now.sh -e MONGO_URL=mongodb://<dbuser>:<dbpassword>@ds145009.mlab.com:45009/agromonitor
+```
+Note, that `-e ROOT_URL` goes first of all other parameters.
+You can also specify `-e NODE_ENV` parameter.
+
+Finally, set the alias for current deployment:
+```
+$ now alias https://<the-deployment-auto-name>.now.sh agromonitor-test.now.sh
+```

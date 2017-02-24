@@ -226,18 +226,20 @@ class LoginPage extends React.Component {
     if (!user) {
       return (
         <div>
-          <h1>Login</h1>
+          <h3>Для входу чи реєстрації вкажіть Ваш e-mail. Ми надішлемо вам одноразове посилання для входу на вказану пошту</h3>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
-            <label htmlFor="login-email">Email: </label>
-            <input type="email" name="login-email" id="login-email" />
-            <input type="submit" id="login-button" />
+            <label htmlFor="login-email">Ваш e-mail: </label>
+            <input type="email" name="login-email" id="login-email" placeholder="@" />
+            <input type="submit" id="login-button" value="Надіслати" />
           </form>
         </div>
       );
     }
     return (
       <div className="login-page">
-        <div className="title-page title-color">Welcome { user.profile ? user.profile.name : user.emails[0].address}</div>
+        <div className="title-page title-color">Вітаємо, { user.profile ? user.profile.name : user.emails[0].address}</div>
+
+        {/*
         <div className="percent-100 float-left text-left margin-top-20">
           <form id="nameChangeForm" ref="nameChangeForm" onSubmit={this.onNameSubmit}>
             <div className="float-left percent-80">
@@ -281,6 +283,7 @@ class LoginPage extends React.Component {
             </div>
           </form>
         </div>
+        */}
 
         <div className="percent-100 float-left text-left margin-top-20">
           <div className="float-left percent-80">
@@ -302,18 +305,18 @@ class LoginPage extends React.Component {
         </div>
 
         <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
-          Your locations:
+          Внесені площі:
         </div>
         <div className="percent-100 float-left text-left margin-top-5">
           {this.renderPins()}
         </div>
         <div className="percent-100 float-left text-left">
-          <span>Exit from device: </span>
-          <button className="login-submit" onClick={this.logoutFromDevice}> Logout </button>
+          <span>Вийти на цьому пристрої: </span>
+          <button className="login-submit" onClick={this.logoutFromDevice}>Вихід</button>
         </div>
         <div className="percent-100 float-left text-left">
-          <span>Full exit: </span>
-          <button className="login-submit" onClick={this.logout}> Logout </button>
+          <span>Вийти на всіх пристроях: </span>
+          <button className="login-submit" onClick={this.logout}>Вихід</button>
         </div>
       </div>
     );

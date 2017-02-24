@@ -176,7 +176,7 @@ class InsertPage extends React.Component {
       );
     } else {
       return (
-        <h3>Please auth to insert</h3>
+        <h3>Для того, щоби вносити дані, будь ласка, авторизуйтеся</h3>
       );
     }
   }

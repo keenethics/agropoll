@@ -8,7 +8,6 @@ export const Groups = new Mongo.Collection('groups');
 
 // Defining schemas for collections
 Crops.schema = new SimpleSchema({
-  _id: { type: String, optional: true },
   id: { type: Number, optional: true },
   name: { type: String, optional: true },
   groupId: { type: Number, optional: true },
@@ -19,7 +18,6 @@ Crops.schema = new SimpleSchema({
 Crops.attachSchema(Crops.schema);
 
 Groups.schema = new SimpleSchema({
-  _id: { type: String, optional: true },
   id: { type: Number, optional: true },
   name: { type: String, optional: true },
 });

@@ -5,7 +5,6 @@ export const Localities = new Mongo.Collection('localities');
 
 // Defining a schema for collection
 Localities.schema = new SimpleSchema({
-  _id: { type: String, optional: true },
   type: { type: String, optional: true },
   name: { type: String, optional: true },
   place_id: { type: String, optional: true },

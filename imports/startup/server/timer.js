@@ -45,15 +45,22 @@ Meteor.startup(() => {
           ...JSON.parse(cluster.conditions)
         }).fetch().reduce((sum, item) => sum + item.square, 0);
 
-        const squareNorm = cluster.farmersCount &&
-          record.square * cluster.farmersCount / usersCount ||
-          cluster.totalArea &&
+        const squareNorm = cluster.totalArea && totalSquare &&
           record.square * cluster.totalArea / totalSquare ||
           0;
 
-        Records.update(record._id, { $set: { squareNorm } });
+        Records.update(record._id, { $set: {
+          squareNorm,
+          squaresRatio: totalSquare / cluster.totalArea,
+          usersCount
+        } });
 
-        console.log(`  [${record.year}] ( ${cluster.farmersCount}/${usersCount} шт || ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
+        // Clusters.update(cluster._id, { $set: {
+        //   squaresRatio: { [record.year]: totalSquare / cluster.totalArea },
+        //   usersCount: { [record.year]: usersCount },
+        // } });
+
+        console.log(`  [${record.year}] [${usersCount} user(s)] ( ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
   }, 60000);

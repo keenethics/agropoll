@@ -27,7 +27,7 @@
   margin: 1px;
   display: inline-block;
   padding: 1px 0px;
-  width: 33%;
+  width: 24%;
   letter-spacing: 1px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
   -moz-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
@@ -135,4 +135,14 @@
 
 .planned, .planted, .harvested {
   cursor: pointer;
+}
+
+.square-base {
+  height: 18px;
+  background-color: grey;
+}
+
+.square-forecast {
+  height: 18px;
+  background-color: blue;
 }

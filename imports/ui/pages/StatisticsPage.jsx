@@ -33,6 +33,18 @@ class StatisticsPage extends React.Component {
       )
     );
 
+    const totalSquareByFilter = {
+      base: this.props.crops.reduce((prev, next) =>
+        prev + next.squares[this.props.statisticsTable.administrative_area_level_1],
+        0
+      ),
+      forecast: cropsView.reduce((prev, next) =>
+        prev + next.totalSquare,
+        0
+      ),
+    };
+    console.log('-->', totalSquareByFilter);
+
     return (
       <div>
         <div className="filter-bar">
@@ -62,6 +74,7 @@ class StatisticsPage extends React.Component {
                     key={crop.id}
                     crop={crop}
                     cropsView={cropsView.find((item) => item.cropId === crop.id)}
+                    totalSquareByFilter={totalSquareByFilter}
                   />
                 ))}
               </div>

@@ -146,3 +146,7 @@
   height: 18px;
   background-color: blue;
 }
+
+.square-empty {
+  background-color: white;
+}

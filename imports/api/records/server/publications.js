@@ -68,3 +68,19 @@ Meteor.publish('records.user', function () {
     },
   });
 });
+
+// Only for Admin
+Meteor.publish('records.all', function () {
+  // IF ADMIN
+  if (false) {
+    throw new Meteor.Error('not-authorized');
+  }
+
+  return Records.find({}, {
+    fields: {
+      // userId: 0,
+      // squareNorm: 0,
+      // farmlandArea: 0,
+    },
+  });
+});

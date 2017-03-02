@@ -12,6 +12,7 @@
     "better-react-spinkit": "^2.0.0-4",
     "eslint": "^3.6.0",
     "eslint-plugin-react": "^6.8.0",
+    "griddle-react": "^1.0.1",
     "inline-style-prefixer": "^2.0.5",
     "meteor-node-stubs": "~0.2.3",
     "react": "^15.4.1",

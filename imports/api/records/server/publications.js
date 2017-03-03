@@ -7,7 +7,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Records } from '../records.js';
 
 
-Meteor.publish('records.filter', function(filters) {
+Meteor.publish('records.filter', function (filters) {
   check(filters, {
     planned: Boolean,
     planted: Boolean,

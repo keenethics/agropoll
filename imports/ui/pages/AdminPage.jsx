@@ -4,6 +4,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 // import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
+import { Localities } from '/imports/api/localities/localities.js';
+import { Clusters } from '/imports/api/clusters/clusters.js';
 
 
 // import StatisticsTableRow from '/imports/ui/components/StatisticsPage/StatisticsTableRow.jsx';
@@ -18,23 +20,23 @@ import { connect } from 'react-redux';
 
 class AdminPage extends React.Component {
   griddleData() {
-    console.log(Records.findOne());
-
     return this.props.users.length && this.props.users.map((user) => ({
       User: user.emails[0].address,
-      'Total square': this.props.records.filter((item) => item.userId === user._id).reduce((prev, next) => prev + +next.square, 0),
-      Locations: user.profile.locations,
+      'Total square': this.props.records.filter((item) =>
+        item.userId === user._id
+      ).reduce((prev, next) => prev + +next.square, 0),
+      Locations: user.profile.locations && this.props.localities &&
+        user.profile.locations.map((place_id) => (
+          <div key={place_id}>
+            {(this.props.localities.find((item) =>
+              item.place_id === place_id
+            ) || []).fullAddress}
+          </div>
+        )),
       Type: user.profile.type,
       Cluster: '',
-      Role: '',
-    })) || [{
-      User: '',
-      'Total square': '',
-      Locations: '',
-      Type: '',
-      Cluster: '',
-      Role: '',
-    }];
+      Role: user.roles && user.roles.join('; '),
+    })).filter((item) => item['Total square'] > 0);
   }
 
   render() {
@@ -53,7 +55,9 @@ class AdminPage extends React.Component {
         </div>
 
         <div className="statistic-content">
-          <Griddle data={this.griddleData()} />
+          <Griddle
+            results={this.griddleData()}
+          />
         </div>
 
       </div>
@@ -62,24 +66,19 @@ class AdminPage extends React.Component {
 }
 
 const container = createContainer((props) => {
-  const user = Meteor.user();
   const usersHandler = Meteor.subscribe('users.all');
-  // Meteor.subscribe('crops.all');
-  // Meteor.subscribe('groups.all');
   const recordsHandler = Meteor.subscribe('records.filter.admin', { ...props.statisticsTable, ...props.all });
-  // console.info('Records ready:', recordsHandler.ready());
-  // const records = recordsHandler.ready() ? Records.find({}).fetch() : [];
   const users = usersHandler.ready() ? Meteor.users.find({}).fetch() : [];
+  Meteor.subscribe('localities.all');
+  Meteor.subscribe('clusters');
+
   return {
-    user,
     users,
-    // crops: Crops.find({}, { sort: { id: 1 } }).fetch(),
-    // groups: Groups.find({}, { sort: { id: 1 } }).fetch(),
     records: Records.find({}).fetch(),
+    localities: Localities.find({}).fetch(),
+    clusters: Clusters.find({}).fetch(),
   };
 }, AdminPage);
-
-// export default container;
 
 const mapStateToProps = (state) => ({ statisticsTable: state.statisticsTable, all: state.all });
 export default connect(mapStateToProps)(container);

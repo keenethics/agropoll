@@ -6,8 +6,6 @@ import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Clusters } from '/imports/api/clusters/clusters.js';
 
 Meteor.startup(() => {
-  console.log('App run at', Meteor.absoluteUrl());
-
   const regions = Assets.getText('regions.csv').split('\n').filter((item) => item).map((item) => item.split(',')[1]);
   console.log('regions', regions);
 

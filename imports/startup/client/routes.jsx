@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -24,8 +25,8 @@ const store = createStore(
   applyMiddleware(thunk, logger),
 );
 
-Meteor.startup (() => {
-  render (
+Meteor.startup(() => {
+  render(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={MainLayout}>
@@ -40,5 +41,5 @@ Meteor.startup (() => {
       </Router>
     </Provider>,
     document.getElementById('react-root')
-  )
-})
+  );
+});

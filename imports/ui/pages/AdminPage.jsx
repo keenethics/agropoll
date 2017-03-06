@@ -56,6 +56,14 @@ class AdminPage extends React.Component {
 
         <div className="statistic-content">
           <Griddle
+            columnMetadata={[
+              { columnName: 'User' },
+              { columnName: 'Total square', customCompareFn: (a, b) => a - b },
+              { columnName: 'Locations' },
+              { columnName: 'Type' },
+              { columnName: 'Cluster' },
+              { columnName: 'Role' },
+            ]}
             results={this.griddleData()}
           />
         </div>

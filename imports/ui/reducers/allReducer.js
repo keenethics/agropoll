@@ -1,7 +1,7 @@
 import * as types from '/imports/ui/actions/types';
 
 const initialState = {
-  year: '2016-17', // localStorage.getItem('year'), // <-- Put there actual marketing year
+  year: '2016-17', // <-- Put there actual agricultural year
 };
 
 export default function yearSelectorReducer(state = initialState, action = {}) {

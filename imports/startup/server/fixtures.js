@@ -4,8 +4,18 @@
 import { Meteor } from 'meteor/meteor';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Clusters } from '/imports/api/clusters/clusters.js';
+import { AdminSettings } from '/imports/api/adminSettings/adminSettings.js';
 
 Meteor.startup(() => {
+  const adminSettings = JSON.parse(Assets.getText('adminSettings.json'));
+  console.log('ADMIN SETTINGS =', adminSettings);
+
+  AdminSettings.remove({});
+  AdminSettings.insert({
+    year: adminSettings.year,
+    baseYear: adminSettings.baseYear,
+  });
+
   const regions = Assets.getText('regions.csv').split('\n').filter((item) => item).map((item) => item.split(',')[1]);
   // console.log('regions', regions);
 
@@ -37,11 +47,12 @@ Meteor.startup(() => {
   });
 
   Clusters.remove({});
+  // const clusters = JSON.parse(Assets.getText('clusters.js'));
   const clusters = [
-    { conditions: '{ "type": "other" }', totalArea: 0 }, // Technical condition to nulify Others
-    { conditions: '{ "type": "enterprise", "farmlandArea": { "$gt": 0, "$lte": 100 } }', totalArea: 4000 },
-    { conditions: '{ "type": "enterprise", "farmlandArea": { "$gt": 100 } }', totalArea: 2000 },
-    { conditions: '{ "type": "household", "farmlandArea": { "$gt": 0 } }', totalArea: 3000 },
+    { conditions: '{ "profile.type": "other" }', totalArea: 0 }, // Technical condition to nulify Others
+    { conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 0, "$lte": 100 } }', totalArea: 4000 },
+    { conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 100 } }', totalArea: 2000 },
+    { conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 } }', totalArea: 3000 },
   ];
   clusters.forEach((cluster) => Clusters.insert({
     conditions: cluster.conditions,

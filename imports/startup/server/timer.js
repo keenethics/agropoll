@@ -11,7 +11,7 @@ Meteor.startup(() => {
     console.log();
     console.log('---', `YEAR = ${year} & DATE =`, (Date.now() / 1000).toFixed(0), '---');
 
-    // Updating each User to relate him to certain Cluster
+    // Updating each User to relate him to certain Cluster FOR THE CURRENT YEAR
     Meteor.users.find().fetch().forEach((user) => {
       const records = Records.find({
         userId: user._id,
@@ -35,7 +35,7 @@ Meteor.startup(() => {
           // Create the new region-related element
           squaresByRegion.push({
             region: record.location.administrative_area_level_1,
-            square: record.square
+            square: record.square,
           });
         }
       }
@@ -46,8 +46,6 @@ Meteor.startup(() => {
         'profile.farmlandArea': farmlandArea,
         'profile.mainRegion': mainRegionSquare.region,
       } });
-
-
     });
 
 
@@ -73,13 +71,40 @@ Meteor.startup(() => {
 
     // Passing over all Clusters
     Clusters.find().fetch().forEach((cluster) => {
+      // All users, related to the cluster over condition
       const users = Meteor.users.find(JSON.parse(cluster.conditions)).fetch();
-      // users
+
+      // Total square, inputted in the cluster
+      const totalSquare = users.reduce((sum, user) =>
+        sum + user.profile.farmlandArea,
+        0
+      );
+
+      // Updating claster parameters this year
+      Clusters.update(cluster._id, { $set: {
+        usersCount: users.length,
+        totalSquare,
+      } });
+
+      // Updating normalized square in all recods related to the cluster this year
+      users.forEach((user) => {
+        console.log('..user-------->', user.profile.name);
+        Records.find({
+          userId: user._id,
+          year, // ??
+        }).fetch().forEach((record) => {
+          const squareNorm = totalSquare && record.square * cluster.totalArea / totalSquare || 0;
+          console.log('....squareNorm----------->', record.square,'*',cluster.totalArea,'/',totalSquare,'=',squareNorm);
+          Records.update(record._id, { $set: {
+            squareNorm,
+          } });
+        });
+      });
+
+      console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);
     });
 
-
-
-
+    /*
     // OLD-->
     Clusters.find().fetch().forEach((cluster) => {
       console.log('records:', Records.find(JSON.parse(cluster.conditions)).fetch().length, '| conditions =', cluster.conditions);
@@ -118,5 +143,7 @@ Meteor.startup(() => {
         console.log(`  [${record.year}] [${usersCount} user(s)] ( ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
+    */
+
   }, 60000);
 });

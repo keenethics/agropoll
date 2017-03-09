@@ -50,8 +50,8 @@ Meteor.publish('records.filter', function (filters) {
       'location.administrative_area_level_3': 0,
       userId: 0,
       square: 0,
-      type: 0,
-      farmlandArea: 0,
+      // type: 0,
+      // farmlandArea: 0,
       updatedAt: 0,
     },
   });

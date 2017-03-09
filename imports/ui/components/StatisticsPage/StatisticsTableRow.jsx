@@ -6,15 +6,16 @@ export default class StatisticsTableRow extends React.Component {
       base: this.props.crop.squares[this.props.regionId] / this.props.totalSquareByFilter.base * 100,
       forecast: this.props.cropsView.totalSquare / (this.props.totalSquareByFilter.forecast || 1) * 100,
     };
+    const structureRatio = 100 * structure.base / (structure.base + structure.forecast);
 
     return (
       <div className="row">
         <div className="cell coll-1">
           <span>{this.props.crop.name}</span>
         </div>
-        <div className="cell coll-2">
+        {/*<div className="cell coll-2">
           <span>{structure.base.toFixed(2)}</span>
-        </div>
+        </div>*/}
         <div className="cell coll-3">
           <div
             className={`square-forecast ${!structure.forecast && 'square-empty'}`}
@@ -22,16 +23,17 @@ export default class StatisticsTableRow extends React.Component {
           >
             <div
               className={`square-base ${!structure.base && 'square-empty'}`}
-              style={{ width: `${100 * structure.base / (structure.base + structure.forecast)}%` }}
+              style={{ width: `${structureRatio}%` }}
               title={this.props.crop.squares[this.props.regionId].toFixed(2)}
             >
+              {structureRatio > 0 && `${structure.base.toFixed(1)}%` || ''}
             </div>
+              {structureRatio < 100 && `${structure.forecast.toFixed(1)}%` || ''}
           </div>
         </div>
-        <div className="cell coll-4">
+        {/*<div className="cell coll-4">
           <span>{structure.forecast.toFixed(2)}</span>
-          {/* <span>{this.props.cropsView.harvest.toFixed(0)}</span> */}
-        </div>
+        </div>*/}
       </div>
     );
   }

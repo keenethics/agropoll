@@ -27,7 +27,7 @@
   margin: 1px;
   display: inline-block;
   padding: 1px 0px;
-  width: 24%;
+  width: 49%;
   letter-spacing: 1px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
   -moz-box-shadow: 10px 10px 5px 0px rgba(130, 155, 200, 0.75);;
@@ -50,6 +50,11 @@
 
 .cell.coll-1 {
   text-align: left;
+  /*width: 30%;*/
+}
+
+.cell.coll-3 {
+  /*width: 59%;*/
 }
 
 .table-header .cell.coll-1 {
@@ -138,13 +143,21 @@
 }
 
 .square-base {
+  display: inline-block;
+  float: left;
   height: 18px;
   background-color: grey;
+
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .square-forecast {
   height: 18px;
   background-color: blue;
+
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .square-empty {

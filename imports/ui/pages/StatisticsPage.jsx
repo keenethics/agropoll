@@ -3,6 +3,7 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Crops, Groups } from '/imports/api/crops/crops.js';
 import { Records } from '/imports/api/records/records.js';
+import { AdminSettings } from '/imports/api/adminSettings/adminSettings.js';
 
 import StatisticsTableRow from '/imports/ui/components/StatisticsPage/StatisticsTableRow.jsx';
 import StatisticsTableHeader from '/imports/ui/components/StatisticsPage/StatisticsTableHeader.jsx';
@@ -60,7 +61,7 @@ class StatisticsPage extends React.Component {
         </div>
         <div className="statistic-content">
           <div className="table-container">
-            <StatisticsTableHeader />
+            <StatisticsTableHeader adminSettings={this.props.adminSettings} />
             {this.props.groups.map(group => (
               <div key={group.id} className="group">
                 <div className="head-row">
@@ -93,11 +94,14 @@ const container = createContainer((props) => {
   const recordsHandler = Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
   console.info('Records ready:', recordsHandler.ready());
   const records = recordsHandler.ready() ? Records.find({}).fetch() : [];
+  Meteor.subscribe('adminSettings');
+
   return {
     user,
     crops: Crops.find({}, { sort: { id: 1 } }).fetch(),
     groups: Groups.find({}, { sort: { id: 1 } }).fetch(),
     records,
+    adminSettings: AdminSettings.findOne(),
   };
 }, StatisticsPage);
 

@@ -18,7 +18,7 @@ Meteor.startup(() => {
         year,
       }).fetch();
 
-      const farmlandArea = records.reduce((sum, record) => sum + Number(record.square), 0);
+      const farmlandArea = records.reduce((sum, record) => sum + +record.square, 0);
       // console.log(': farmlandArea =', farmlandArea);
 
       // Finding total squares for each mentioned in the 'records' region
@@ -99,6 +99,10 @@ Meteor.startup(() => {
             squareNorm,
           } });
         });
+
+        Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
+          'profile.cluster': cluster._id,
+        } }, { multi: true });
       });
 
       console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);

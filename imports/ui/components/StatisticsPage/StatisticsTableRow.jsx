@@ -28,7 +28,7 @@ export default class StatisticsTableRow extends React.Component {
             >
               {structureRatio > 0 && `${structure.base.toFixed(1)}%` || ''}
             </div>
-              {structureRatio < 100 && `${structure.forecast.toFixed(1)}%` || ''}
+            {structureRatio < 100 && `${structure.forecast.toFixed(1)}%` || ''}
           </div>
         </div>
         {/*<div className="cell coll-4">

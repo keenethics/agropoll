@@ -34,7 +34,7 @@ class AdminPage extends React.Component {
           </div>
         )),
       Type: user.profile.type,
-      Cluster: '',
+      Cluster: Clusters.findOne(user.profile.cluster).conditions,
       Role: user.roles && user.roles.join('; '),
     })).filter((item) => item['Total square'] > 0);
   }

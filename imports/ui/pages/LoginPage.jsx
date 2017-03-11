@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { Localities } from '/imports/api/localities/localities.js';
 
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
+import TypeSelector from '/imports/ui/components/TypeSelector.jsx';
 import * as actions from '/imports/ui/actions/InsertPageActions.js';
 
 
@@ -287,20 +288,7 @@ class LoginPage extends React.Component {
 
         <div className="percent-100 float-left text-left margin-top-20">
           <div className="float-left percent-80">
-            <label className="label" htmlFor="selectType">
-              Вкажіть тип господарства, щоби дані відображалися в загальній статистиці
-              <select
-                ref="type"
-                id="selectType"
-                onChange={this.changeType}
-                value={user.profile.type}
-                className="select-filter"
-              >
-                <option value="other" className="select-filter-option">Інше (внесені дані не враховуються)</option>
-                <option value="enterprise" className="select-filter-option">Сільськогосподарське підприємство</option>
-                <option value="household" className="select-filter-option">Особисте селянське господарство</option>
-              </select>
-            </label>
+            <TypeSelector type={user.profile.type} />
           </div>
         </div>
 

@@ -14,6 +14,7 @@ import SearchBar from '/imports/ui/components/InsertPage/SearchBar.jsx';
 import LocationPin from '/imports/ui/components/InsertPage/LocationPin.jsx';
 import TableInsert from '/imports/ui/components/InsertTable/TableInsert.jsx';
 import YearSelector from '/imports/ui/components/YearSelector.jsx';
+import TypeSelector from '/imports/ui/components/TypeSelector.jsx';
 
 class InsertPage extends React.Component {
   constructor(props) {
@@ -104,7 +105,10 @@ class InsertPage extends React.Component {
             <TableInsert />
           </div>
           <div className="insert-button-container text-center padding-top-5">
-            <button className="btn btn-insert" onClick={this.saveCropData}>Save</button>
+            {this.props.user.profile.type === 'other' ?
+              <TypeSelector type={this.props.user.profile.type} /> :
+              <button className="btn btn-insert" onClick={this.saveCropData}>Зберегти</button>
+            }
           </div>
         </div>
       );
@@ -153,7 +157,7 @@ class InsertPage extends React.Component {
             </div>
             <div className="insert-two">
               <div className="float-left add-location-wrapper">
-                <button className="btn" onClick={this.showModal}>Add location</button>
+                <button className="btn" onClick={this.showModal}>Додати локацію</button>
               </div>
               <div className="pins-wraper">
                 <div

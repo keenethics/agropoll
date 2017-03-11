@@ -21,30 +21,39 @@ class StatisticsPage extends React.Component {
     // It had sorted on server
     const records = this.props && this.props.records || [];
 
+    const statuses = {
+      planned: this.props.statisticsTable.planned,
+      planted: this.props.statisticsTable.planted,
+      harvested: this.props.statisticsTable.harvested,
+    };
+    console.log('statuses =', statuses);
+
     const cropsView = this.props.crops.map((crop) =>
       records.filter((record) =>
-        record.cropId === crop.id
+        record.cropId === crop.id &&
+        // Filtering by status
+        statuses[record.status]
       ).reduce((prev, next) =>
         ({
           cropId: prev.cropId,
-          totalSquare: prev.totalSquare + Number(next.squareNorm),
+          totalSquare: prev.totalSquare + +next.squareNorm,
           harvest: prev.harvest + next.squareNorm * next.cropYield,
         }),
         { cropId: crop.id, totalSquare: 0, harvest: 0 }
       )
     );
 
-    const totalSquareByFilter = {
-      base: this.props.crops.reduce((prev, next) =>
-        prev + next.squares[this.props.statisticsTable.administrative_area_level_1],
+    const totalSquareByRegion = {
+      base: this.props.crops.reduce((sum, crop) =>
+        sum + +crop.squares[this.props.statisticsTable.administrative_area_level_1],
         0
       ),
-      forecast: cropsView.reduce((prev, next) =>
-        prev + next.totalSquare,
+      forecast: records.reduce((sum, record) =>
+        sum + +record.squareNorm,
         0
       ),
     };
-    console.log('-->', totalSquareByFilter);
+    console.log('Total square in region =', totalSquareByRegion);
 
     return (
       <div>
@@ -75,7 +84,7 @@ class StatisticsPage extends React.Component {
                     key={crop.id}
                     crop={crop}
                     cropsView={cropsView.find((item) => item.cropId === crop.id)}
-                    totalSquareByFilter={totalSquareByFilter}
+                    totalSquareByRegion={totalSquareByRegion}
                   />
                 ))}
               </div>

@@ -3,8 +3,8 @@ import React from 'react';
 export default class StatisticsTableRow extends React.Component {
   render() {
     const structure = {
-      base: this.props.crop.squares[this.props.regionId] / this.props.totalSquareByFilter.base * 100,
-      forecast: this.props.cropsView.totalSquare / (this.props.totalSquareByFilter.forecast || 1) * 100,
+      base: this.props.crop.squares[this.props.regionId] / this.props.totalSquareByRegion.base * 100,
+      forecast: this.props.cropsView.totalSquare / (this.props.totalSquareByRegion.forecast || 1) * 100,
     };
     const structureRatio = 100 * structure.base / (structure.base + structure.forecast);
 

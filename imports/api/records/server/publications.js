@@ -18,18 +18,18 @@ Meteor.publish('records.filter', function (filters) {
     year: String,
   });
 
-  const statuses = {
-    planned: filters.planned,
-    planted: filters.planted,
-    harvested: filters.harvested,
-  };
+  // const statuses = {
+  //   planned: filters.planned,
+  //   planted: filters.planted,
+  //   harvested: filters.harvested,
+  // };
 
   const locationFilter = filters.place_id || filters.administrative_area_level_2 ||
   filters.administrative_area_level_1;
 
   const query = {
     year: filters.year,
-    status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
+    // status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
     // Only not banned records
     // banned: { $ne: true },
   };

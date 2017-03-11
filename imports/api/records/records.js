@@ -27,5 +27,6 @@ Records.schema = new SimpleSchema({
 
   // usersCount: { type: Number, optional: true },
   // squaresRatio: { type: Number, optional: true, decimal: true },
+  // banned: { type: Boolean, optional: true },
 });
 Records.attachSchema(Records.schema);

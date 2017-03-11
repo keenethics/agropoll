@@ -1,5 +1,6 @@
 /* global Accounts */
 // ???
+/*
 Accounts.validateLoginAttempt((attempt) => {
   const allowed = [
     'login',
@@ -11,3 +12,4 @@ Accounts.validateLoginAttempt((attempt) => {
   }
   return false;
 });
+*/

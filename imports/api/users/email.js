@@ -16,7 +16,7 @@ Meteor.methods({
       to: email,
       from: 'agropoll.in.ua@gmail.com',
       subject: 'Вхід на сайт "Agropoll"',
-      text: `Ваше посилання для входу: ${Meteor.absoluteUrl()}login/${body}\nЯкщо Ви не реєструвалися на сайті ${Meteor.absoluteUrl()}, повідомте нас за цією адресою.`,
+      text: `Ваше посилання для входу: ${Meteor.absoluteUrl()}login/${body}\n\nЯкщо Ви не реєструвалися на сайті ${Meteor.absoluteUrl()}, повідомте нас за цією адресою або просто проігноруйте цього листа.`,
     });
   },
 });

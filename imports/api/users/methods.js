@@ -131,4 +131,48 @@ Meteor.methods({
   Logout: () => {
     Meteor.users.update(Meteor.userId(), { $pull: { 'services.resume.loginTokens': {} } });
   },
+
+  'user.ban'(userId) {
+    check(userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
+      // throw new Meteor.Error('User is not Admin!');
+    }
+
+    Roles.addUsersToRoles(userId, 'banned');
+  },
+
+  'user.unban'(userId) {
+    check(userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
+      // throw new Meteor.Error('User is not Admin!');
+    }
+
+    Roles.removeUsersFromRoles(userId, 'banned');
+  },
+
+  'user.setAsAdmin'(userId) {
+    check(userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
+      // throw new Meteor.Error('User is not Admin!');
+    }
+
+    Roles.addUsersToRoles(userId, 'admin');
+  },
+
+  'user.unsetAdmin'(userId) {
+    check(userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
+      // throw new Meteor.Error('User is not Admin!');
+    }
+
+    Roles.removeUsersFromRoles(userId, 'admin');
+  },
 });

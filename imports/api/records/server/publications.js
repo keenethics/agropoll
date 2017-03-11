@@ -30,6 +30,8 @@ Meteor.publish('records.filter', function (filters) {
   const query = {
     year: filters.year,
     status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
+    // Only not banned records
+    // banned: { $ne: true },
   };
 
   if (locationFilter !== 'none') {

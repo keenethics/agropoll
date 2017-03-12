@@ -172,9 +172,13 @@ class LoginPage extends React.Component {
 
   handleLoginSubmit(e) {
     e.preventDefault();
+
+    this.props.actions.startSpinner();
     const email = document.getElementById('login-email').value.trim();
 
     Meteor.call('LoginProcedure', email, (err, res) => {
+      this.props.actions.hideSpinner();
+
       if (err) {
         console.error(err);
       } else {

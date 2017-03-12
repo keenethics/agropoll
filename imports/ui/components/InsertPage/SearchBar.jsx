@@ -1,3 +1,5 @@
+/* globals google */
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { connect } from 'react-redux';
@@ -24,6 +26,8 @@ class SearchBar extends React.Component {
   componentDidMount() {
     // It's needed by Google API
     this.change();
+
+    console.log('--- change ---');
 
     this.inputCountry = this.refs.inputCountry;
     const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
@@ -62,20 +66,32 @@ class SearchBar extends React.Component {
     }
   }
   submitPlace(e) {
+    console.log('--- event ---', e.charCode, e.nativeEvent);
+
     if (!this.refs.inputCountry.value) {
       return;
     }
-    if (e.type !== 'click' && e.charCode !== 13) {
+    if (e.type !== 'click' /* && e.charCode !== 13 */) {
       return;
     }
+
+    console.log('--- enter event ---', this.state.selectedPlace, this.refs.inputCountry);
+
     this.props.actions.startSpinner();
+
+    // if (!this.state.selectedPlace) {
+    //   return;
+    // }
+
     if (this.state.selectedPlace) {
-      console.log('-->',this.state.selectedPlace);
+      console.log('-->', this.state.selectedPlace);
       Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
+        this.props.actions.hideSpinner();
+
         if (!err) {
-          this.props.actions.hideSpinner();
+          // OK
         } else {
-           console.error(err.reason);
+          console.error(err.reason);
         }
       });
       const fullAddress = this.getFullAddress();
@@ -96,7 +112,6 @@ class SearchBar extends React.Component {
     // It's needed by Google API
   }
 
-
   render() {
     return (
       <div className="modal-location">
@@ -112,7 +127,7 @@ class SearchBar extends React.Component {
               onChange={this.change}
             />
             <div className="search-icon-div cursor-pointer">
-              {/*<i className="search-icon" onClick={this.submitPlace}> &nbsp; </i>*/}
+              {/* <i className="search-icon" onClick={this.submitPlace}> &nbsp; </i> */}
             </div>
           </div>
         </div>

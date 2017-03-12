@@ -1,5 +1,5 @@
 {
-  "name": "agromonitor",
+  "name": "agropoll",
   "private": true,
   "scripts": {
     "start": "meteor run",

@@ -1,4 +1,4 @@
-# Agromonitor
+# Agropoll
 
 A project, designed to help farmers in forehanded planning of crops growing. Workflow consist of two main steps:
 * getting familiar with current/planned situation in agriculture (plant growing)

@@ -180,7 +180,9 @@ class InsertPage extends React.Component {
       );
     } else {
       return (
-        <h3>Для того, щоби вносити дані, будь ласка, авторизуйтеся</h3>
+        <div style={{ textAlign: 'center' }}>
+          <h3>Для того, щоби вносити дані, будь ласка, авторизуйтеся</h3>
+        </div>
       );
     }
   }

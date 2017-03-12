@@ -326,7 +326,7 @@ div.trow-crop {
   padding-bottom: 20px;
   width: 75%;
   margin: 0 auto;
-  align-items: center;
+  /*align-items: center;*/
   justify-content: center;
   text-align: center;
 }
@@ -491,7 +491,7 @@ div.trow-crop {
 
 @media screen and (max-width: 500px) {
   .control-bar {
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;
     flex-direction: column;
   }

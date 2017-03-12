@@ -226,11 +226,10 @@ class LoginPage extends React.Component {
     const user = this.props.user;
     if (!user) {
       return (
-        <div>
+        <div className="login-page">
           <h3>Для входу чи реєстрації вкажіть Ваш e-mail. Ми надішлемо вам одноразове посилання для входу на вказану пошту</h3>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
-            <label htmlFor="login-email">Ваш e-mail: </label>
-            <input type="email" name="login-email" id="login-email" placeholder="@" />
+            <input type="email" name="login-email" id="login-email" placeholder="Ваша@пошта" />
             <input type="submit" id="login-button" value="Надіслати" />
           </form>
         </div>

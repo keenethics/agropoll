@@ -110,9 +110,12 @@ Meteor.startup(() => {
           } });
         });
 
-        Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
+        // Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
+        //   'profile.cluster': cluster.name,
+        // } }, { multi: true });
+        Meteor.users.update(user._id, { $set: {
           'profile.cluster': cluster.name,
-        } }, { multi: true });
+        } });
       });
 
       console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);

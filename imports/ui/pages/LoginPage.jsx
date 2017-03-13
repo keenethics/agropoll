@@ -289,23 +289,23 @@ class LoginPage extends React.Component {
         </div>
         */}
 
-        <div className="percent-100 float-left text-left margin-top-20">
-          <div className="float-left percent-80">
+        <div className="percent-100 text-left margin-top-20">
+          <div className="percent-80">
             <TypeSelector type={user.profile.type} />
           </div>
         </div>
 
-        <div className="percent-100 float-left text-left margin-top-5 margin-left-3">
+        <div className="percent-100 text-left margin-top-5 margin-left-3">
           Внесені площі:
         </div>
-        <div className="percent-100 float-left text-left margin-top-5">
+        <div className="percent-100 text-left margin-top-5">
           {this.renderPins()}
         </div>
-        <div className="percent-100 float-left text-left">
+        <div className="percent-100 text-left">
           <span>Вийти на цьому пристрої: </span>
           <button className="login-submit" onClick={this.logoutFromDevice}>Вихід</button>
         </div>
-        <div className="percent-100 float-left text-left">
+        <div className="percent-100 text-left">
           <span>Вийти на всіх пристроях: </span>
           <button className="login-submit" onClick={this.logout}>Вихід</button>
         </div>

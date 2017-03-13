@@ -11,7 +11,7 @@ Meteor.startup(() => {
   Meteor.setInterval(() => {
     const year = JSON.parse(Assets.getText('adminSettings.json')).year;
     console.log();
-    console.log('---', `YEAR = ${year} & DATE =`, (Date.now() / 1000).toFixed(0), '---');
+    console.log('⋘ ', `YEAR = ${year} & DATE =`, (Date.now() / 1000).toFixed(0), '⋙');
 
     // Updating each User to relate him to certain Cluster FOR THE CURRENT YEAR
     // We don't consider whether user is banned or not yet
@@ -95,30 +95,35 @@ Meteor.startup(() => {
         totalSquare,
       } });
 
+      // Updating Users with cluster
+      Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
+        'profile.cluster': cluster.name,
+      } }, { multi: true });
+      console.log('cluster =', cluster.name);
+
       // Updating normalized square in all recods related to the cluster this year
       Meteor.users.find(JSON.parse(cluster.conditions)).fetch().forEach((user) => {
-        console.log('..user-------->', user.profile.name, user.roles);
+        console.log('├─user⟶', user.profile.name, '☆', user.roles);
         Records.find({
           userId: user._id,
           year, // ??
         }).fetch().forEach((record) => {
           const squareNorm = !Roles.userIsInRole(user._id, 'banned') && totalSquare &&
             record.square * cluster.totalArea / totalSquare || 0;
-          console.log('....squareNorm----------->', record.square, '*', cluster.totalArea, '/', totalSquare, '=', squareNorm);
+          console.log('├───squareNorm⟶', record.square, '*', cluster.totalArea, '/', totalSquare, '=', squareNorm);
           Records.update(record._id, { $set: {
             squareNorm,
           } });
         });
 
-        // Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
+
+        // Meteor.users.update(user._id, { $set: {
         //   'profile.cluster': cluster.name,
-        // } }, { multi: true });
-        Meteor.users.update(user._id, { $set: {
-          'profile.cluster': cluster.name,
-        } });
+        // } });
+        // console.log('cluster-->', cluster.name);
       });
 
-      console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);
+      // console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);
     });
 
     /*

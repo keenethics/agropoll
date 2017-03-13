@@ -88,7 +88,7 @@ class AdminPage extends React.Component {
   clustersData() {
     return this.props.clusters.length && this.props.clusters.map((cluster) => ({
       'Cluster name': cluster.name,
-      'Cluster coiditions': cluster.conditions,
+      'Cluster conditions': cluster.conditions,
       'Total area per cluster': cluster.totalArea,
       'Total square submitted': cluster.totalSquare,
       'Users count': cluster.usersCount,
@@ -146,7 +146,7 @@ class AdminPage extends React.Component {
           <Griddle
             columnMetadata={[
               { columnName: 'Cluster ID' },
-              { columnName: 'Cluster coiditions' },
+              { columnName: 'Cluster conditions' },
               { columnName: 'Total area per cluster', customCompareFn: (a, b) => a - b },
               { columnName: 'Total square submitted', customCompareFn: (a, b) => a - b },
               { columnName: 'Users count', customCompareFn: (a, b) => a - b },

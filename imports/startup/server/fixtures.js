@@ -49,12 +49,13 @@ Meteor.startup(() => {
   Clusters.remove({});
   // const clusters = JSON.parse(Assets.getText('clusters.js'));
   const clusters = [
-    { conditions: '{ "profile.type": "other" }', totalArea: 0 }, // Technical condition to nulify Others
-    { conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 0, "$lte": 100 } }', totalArea: 40000 },
-    { conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 100 } }', totalArea: 20000 },
-    { conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 } }', totalArea: 10000 },
+    { name: 'other', conditions: '{ "$or": [ { "profile.type": "other" }, { "profile.farmlandArea": 0 } ] }', totalArea: 0 }, // Technical condition to nulify Others && empty fields
+    { name: 'small enterprises', conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 0, "$lte": 100 } }', totalArea: 40000 },
+    { name: 'large enterprises', conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 100 } }', totalArea: 20000 },
+    { name: 'households', conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 } }', totalArea: 10000 },
   ];
   clusters.forEach((cluster) => Clusters.insert({
+    name: cluster.name,
     conditions: cluster.conditions,
     farmersCount: cluster.farmersCount,
     totalArea: cluster.totalArea,

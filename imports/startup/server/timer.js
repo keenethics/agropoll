@@ -111,7 +111,7 @@ Meteor.startup(() => {
         });
 
         Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
-          'profile.cluster': cluster._id,
+          'profile.cluster': cluster.name,
         } }, { multi: true });
       });
 

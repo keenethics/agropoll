@@ -44,7 +44,7 @@ class AdminPage extends React.Component {
           </div>
         )),
       Type: user.profile.type,
-      Cluster: (Clusters.findOne(user.profile.cluster) || {}).conditions,
+      Cluster: user.profile.cluster,
       Role: user.roles && user.roles.join('; '),
       'Ban/unban': [
         <button
@@ -66,7 +66,7 @@ class AdminPage extends React.Component {
       'Main region': (this.props.localities.find((item) =>
         item.place_id === user.profile.mainRegion
       ) || {}).fullAddress,
-      Cluster: (Clusters.findOne(user.profile.cluster) || {}).conditions,
+      Cluster: user.profile.cluster,
       Role: user.roles && user.roles.join('; '),
       'Ban/unban': [
         <button
@@ -87,7 +87,7 @@ class AdminPage extends React.Component {
 
   clustersData() {
     return this.props.clusters.length && this.props.clusters.map((cluster) => ({
-      'Cluster ID': cluster._id,
+      'Cluster name': cluster.name,
       'Cluster coiditions': cluster.conditions,
       'Total area per cluster': cluster.totalArea,
       'Total square submitted': cluster.totalSquare,

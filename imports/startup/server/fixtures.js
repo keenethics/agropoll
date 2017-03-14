@@ -49,10 +49,12 @@ Meteor.startup(() => {
   Clusters.remove({});
   // const clusters = JSON.parse(Assets.getText('clusters.js'));
   const clusters = [
-    { name: 'other', conditions: '{ "$or": [ { "profile.type": "other" }, { "profile.farmlandArea": 0 } ] }', totalArea: 0 }, // Technical condition to nulify Others && empty fields
+    { name: 'others', conditions: '{ "$or": [ { "profile.type": "other" }, { "profile.farmlandArea": 0 } ] }', totalArea: 0 }, // Technical condition to nulify Others && empty fields
     { name: 'small enterprises', conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 0, "$lte": 100 } }', totalArea: 40000 },
     { name: 'large enterprises', conditions: '{ "profile.type": "enterprise", "profile.farmlandArea": { "$gt": 100 } }', totalArea: 20000 },
-    { name: 'households', conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 } }', totalArea: 10000 },
+    { name: 'households (Polissia)', conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 }, "profile.mainRegion": { "$in": [ "ChIJBYI5hgM0JEcRQED2iIQGAQE", "ChIJC9KIyxTxK0cRoED2iIQGAQE", "ChIJDQKKqwsTOUcRLtC2-ZaZ5Fk", "ChIJHTiwNGzBMEcRn1rIHA4suJc", "ChIJb5xjPmndOkcRYj26h4iMDWM", "ChIJERyljUNML0cRIED2iIQGAQE", "ChIJT7SGL2DAKkERMEH2iIQGAQE" ] } }', totalArea: 3972.1e3 },
+    { name: 'households (Forest steppe)', conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 }, "profile.mainRegion": { "$in": [ "ChIJiy6tDP5UzUARsED2iIQGAQE", "ChIJ94pF_F3O1EARB10ge68K4KY", "ChIJ5cdqFjh110ARcEH2iIQGAQE", "ChIJYaRz_CACKUER0KUajIxyN1A", "ChIJZdKe1ltLMEcRUED2iIQGAQE", "ChIJAfZeLutYJ0ERoEH2iIQGAQE", "ChIJtbpfwCz5LUcRkED2iIQGAQE", "ChIJg26lOnZL0UARiu-AtokbRyg", "ChIJH2F-TOwINEcR3I8UhwBnFyw" ] } }', totalArea: 4739.1e3 },
+    { name: 'households (Steppe)', conditions: '{ "profile.type": "household", "profile.farmlandArea": { "$gt": 0 }, "profile.mainRegion": { "$in": [ "ChIJoevoYl_c20ARlxgBvjfDzlk", "ChIJe9U9ohib30ARJEyiBAomT7o", "ChIJ0U8jLBVn3EARjGp5k7-Oh-E", "ChIJ_Y7vgK9C0EARlBkNFDXFp9g", "ChIJ8zUQQaAY4EARuDtkU2fs3IQ", "ChIJydRVsbqaxUARLq1R8Q3RgpM", "ChIJaRSOmoExxkARxdd-tWjwax8", "ChIJh1TvTkORw0ARQEH2iIQGAQE" ] } }', totalArea: 6321e3 },
   ];
   clusters.forEach((cluster) => Clusters.insert({
     name: cluster.name,

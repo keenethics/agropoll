@@ -11,7 +11,7 @@ Meteor.startup(() => {
   Meteor.setInterval(() => {
     const year = JSON.parse(Assets.getText('adminSettings.json')).year;
     console.log();
-    console.log('⋘ ', `YEAR = ${year} & DATE =`, (Date.now() / 1000).toFixed(0), '⋙');
+    console.log('⋘', ` YEAR = ${year} & DATE =`, (Date.now() / 1000).toFixed(0), '⋙');
 
     // Updating each User to relate him to certain Cluster FOR THE CURRENT YEAR
     // We don't consider whether user is banned or not yet
@@ -22,7 +22,6 @@ Meteor.startup(() => {
       }).fetch();
 
       const farmlandArea = records.reduce((sum, record) => sum + +record.square, 0);
-      // console.log(': farmlandArea =', farmlandArea);
 
       // Finding of where the most significant part of user fields located is
       // 1. Finding total squares for each mentioned in the 'records' region
@@ -43,8 +42,6 @@ Meteor.startup(() => {
           });
         }
       }
-      // console.log(': user =', user.emails[0].address, ': farmlandArea =', farmlandArea, ': squaresByRegion =', squaresByRegion.sort((a, b) => -a.square + b.square));
-      // console.log(': squaresByRegion =', squaresByRegion.sort((a, b) => -a.square + b.square));
       // 2. Finding main region
       const mainRegionSquare = squaresByRegion.sort((a, b) => -a.square + b.square)[0] || { region: null };
       // 3. Updating user's profile
@@ -53,25 +50,6 @@ Meteor.startup(() => {
         'profile.mainRegion': mainRegionSquare.region,
       } });
     });
-
-
-    /*
-    // Updating each Record to relate it to a Cluster
-    Records.find().fetch().forEach((record) => {
-      const farmlandArea = Records.find({
-        userId: record.userId,
-        year: record.year,
-      }).fetch().reduce((sum, item) => sum + Number(item.square), 0);
-
-      const type = Meteor.users.findOne({ _id: record.userId }).profile.type;
-
-      Records.update(record._id, { $set: { farmlandArea, type } });
-      // Sake of untracked clasters can be updated with squareNorm to 0
-      if (farmlandArea === 0) {
-        Records.update(record._id, { $set: { squareNorm: 0 } });
-      }
-    });
-    */
 
 
     // Passing over all Clusters
@@ -99,73 +77,23 @@ Meteor.startup(() => {
       Meteor.users.update(JSON.parse(cluster.conditions), { $set: {
         'profile.cluster': cluster.name,
       } }, { multi: true });
-      console.log('cluster =', cluster.name);
+      console.log('cluster⟶', cluster.name);
 
       // Updating normalized square in all recods related to the cluster this year
       Meteor.users.find(JSON.parse(cluster.conditions)).fetch().forEach((user) => {
-        console.log('├─user⟶', user.profile.name, '☆', user.roles);
+        console.log('├─user⟶', user.emails[0].address, '☆', user.roles);
         Records.find({
           userId: user._id,
           year, // ??
         }).fetch().forEach((record) => {
           const squareNorm = !Roles.userIsInRole(user._id, 'banned') && totalSquare &&
             record.square * cluster.totalArea / totalSquare || 0;
-          console.log('├───squareNorm⟶', record.square, '*', cluster.totalArea, '/', totalSquare, '=', squareNorm);
+          console.log('├───squareNorm⟶', record.square, '×', cluster.totalArea, '/', totalSquare, '=', squareNorm);
           Records.update(record._id, { $set: {
             squareNorm,
           } });
         });
-
-
-        // Meteor.users.update(user._id, { $set: {
-        //   'profile.cluster': cluster.name,
-        // } });
-        // console.log('cluster-->', cluster.name);
-      });
-
-      // console.log('cluster =', cluster.conditions, 'usersCount =', users.length, 'totalSquare =', totalSquare);
-    });
-
-    /*
-    // OLD-->
-    Clusters.find().fetch().forEach((cluster) => {
-      console.log('records:', Records.find(JSON.parse(cluster.conditions)).fetch().length, '| conditions =', cluster.conditions);
-
-      // Passing over each Record to find the appropriate Normalized Sqare
-      Records.find(JSON.parse(cluster.conditions)).fetch().forEach((record) => {
-        const usersCount = Meteor.wrapAsync((callback) =>
-          Records.rawCollection().distinct('userId', {
-            // For the same year ...
-            year: record.year,
-            // ... & for the same cluster!!
-            ...JSON.parse(cluster.conditions)
-          }, callback)
-        )().length;
-
-        const totalSquare = Records.find({
-          year: record.year,
-          ...JSON.parse(cluster.conditions)
-        }).fetch().reduce((sum, item) => sum + item.square, 0);
-
-        const squareNorm = cluster.totalArea && totalSquare &&
-          record.square * cluster.totalArea / totalSquare ||
-          0;
-
-        Records.update(record._id, { $set: {
-          squareNorm,
-          squaresRatio: totalSquare / cluster.totalArea,
-          usersCount
-        } });
-
-        // Clusters.update(cluster._id, { $set: {
-        //   squaresRatio: { [record.year]: totalSquare / cluster.totalArea },
-        //   usersCount: { [record.year]: usersCount },
-        // } });
-
-        console.log(`  [${record.year}] [${usersCount} user(s)] ( ${cluster.totalArea}/${totalSquare} га ) x ${record.square} => ${squareNorm}`);
       });
     });
-    */
-
   }, 60000);
 });

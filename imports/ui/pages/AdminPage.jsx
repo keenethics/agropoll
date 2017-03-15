@@ -117,7 +117,7 @@ class AdminPage extends React.Component {
               { columnName: 'User' },
               { columnName: 'Crops' },
               { columnName: 'Total square', customCompareFn: (a, b) => a - b },
-              { columnName: '‹Normalized square›', customCompareFn: (a, b) => a - b },
+              { columnName: '‹Normalized square›', customCompareFn: (a, b) => a.trim().slice(1, -1) - b.trim().slice(1, -1) },
               { columnName: 'Locations' },
               { columnName: 'Type' },
               { columnName: 'Cluster' },

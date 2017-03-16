@@ -84,6 +84,7 @@ body {
 .main-layout {
   margin-top: 70px;
   width: 100%;
+  padding-bottom: 30px;
 }
 
 .title-color {

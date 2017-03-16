@@ -23,8 +23,8 @@ class AppContainer extends React.Component {
     };
     return (
       <div className="main-layout">
-      {this.props.children}
-      {this.props.insertPage.seekingLocation ? <div style={backgroundStyle}><Circle size={100} color="white" style={spinnerStyle} /></div> : ''}
+        {this.props.children}
+        {this.props.insertPage.seekingLocation ? <div style={backgroundStyle}><Circle size={100} color="white" style={spinnerStyle} /></div> : ''}
       </div>
     );
   }

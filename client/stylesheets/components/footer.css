@@ -17,4 +17,14 @@
 .footer-item {
   text-align: center;
   line-height: 100px;
+  color: grey;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;;
 }

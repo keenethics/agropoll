@@ -27,6 +27,7 @@ class RowForGroup extends React.Component {
   }
 
   changeSquare(e) {
+    console.log('[CHANGE]', e.target)
     const id = this.props.dataId;
     const square = e.target.value;
     this.props.actions.changeSquare(id, square);

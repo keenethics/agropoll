@@ -125,7 +125,11 @@ class RowForGroup extends React.Component {
           onClick={this.changeStatus}
           data-status={this.props.defaultStatus}
         >
-          {{ planned: 'Заплановано', planted: 'Посіяно', harvested: 'Зібрано' }[this.props.defaultStatus]}
+          {{
+            planned: { ua: 'Заплановано', en: 'Planned' }[localStorage.getItem('language') || 'ua'],
+            planted: { ua: 'Посіяно', en: 'Planted' }[localStorage.getItem('language') || 'ua'],
+            harvested: { ua: 'Зібрано', en: 'Harvested' }[localStorage.getItem('language') || 'ua'],
+          }[this.props.defaultStatus]}
         </div>
       </div>
     );

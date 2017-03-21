@@ -6,23 +6,28 @@ export default class Footer extends React.Component {
   changeLanguage(language) {
     localStorage.setItem('language', language);
     console.log('---->', localStorage.getItem('language'));
+    location.reload();
   }
 
 
   render() {
     return (
       <div className="footer">
-        other languages:
-        <button
-          onClick={() => this.changeLanguage('ua')}
-        >
-          Українська
-        </button>
-        <button
-          onClick={() => this.changeLanguage('en')}
-        >
-          English
-        </button>
+        <div className="footer-item">
+          other languages:
+          &nbsp;
+          <button
+            onClick={() => this.changeLanguage('ua')}
+          >
+            Українська
+          </button>
+          &nbsp;
+          <button
+            onClick={() => this.changeLanguage('en')}
+          >
+            English
+          </button>
+        </div>
 
         <div className="footer-item">
           developed by&nbsp;

@@ -11,12 +11,14 @@
   display: flex;
   /*align-content: center;*/
   /*text-align: center;*/
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: column;
+
 }
 
 .footer-item {
   text-align: center;
-  line-height: 100px;
+  /*line-height: 100px;*/
   color: grey;
 }
 

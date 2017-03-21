@@ -27,15 +27,15 @@ class StatusFilter extends React.Component {
         <div className="float-left statistic-param">
           <div className="float-left">
             <input id="planned" className="statistic-input" type="checkbox" ref="planned" checked={this.props.state.planned} onChange={this.changeStatusFilter} />
-            <label htmlFor="planned" className="checkbox-span planned">заплановано</label>
+            <label htmlFor="planned" className="checkbox-span planned">{{ ua: 'заплановано', en: 'planned' }[localStorage.getItem('language') || 'ua']}</label>
           </div>
           <div className="float-left">
             <input id="planted" className="statistic-input" type="checkbox" ref="planted" checked={this.props.state.planted} onChange={this.changeStatusFilter} />
-            <label htmlFor="planted" className="checkbox-span planted">посіяно</label>
+            <label htmlFor="planted" className="checkbox-span planted">{{ ua: 'посіяно', en: 'platned' }[localStorage.getItem('language') || 'ua']}</label>
           </div>
           <div className="float-left">
             <input id="harvested" className="statistic-input" type="checkbox" ref="harvested" checked={this.props.state.harvested} onChange={this.changeStatusFilter} />
-            <label htmlFor="harvested" className="checkbox-span harvested">зібрано</label>
+            <label htmlFor="harvested" className="checkbox-span harvested">{{ ua: 'зібрано', en: 'harvested' }[localStorage.getItem('language') || 'ua']}</label>
           </div>
         </div>
       </div>

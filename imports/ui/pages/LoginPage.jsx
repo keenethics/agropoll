@@ -176,7 +176,7 @@ class LoginPage extends React.Component {
     this.props.actions.startSpinner();
     const email = document.getElementById('login-email').value.trim();
 
-    Meteor.call('LoginProcedure', email, (err, res) => {
+    Meteor.call('LoginProcedure', email, localStorage.getItem('language'), (err, res) => {
       this.props.actions.hideSpinner();
 
       if (err) {
@@ -194,7 +194,7 @@ class LoginPage extends React.Component {
   }
 
   logout() {
-    Meteor.call('LoginProcedure', this.props.user.emails[0].address);
+    Meteor.call('LoginProcedure', this.props.user.emails[0].address, localStorage.getItem('language'));
     Meteor.call('Logout');
     Meteor.logout();
   }
@@ -231,17 +231,33 @@ class LoginPage extends React.Component {
     if (!user) {
       return (
         <div className="login-page">
-          <h3>Для входу чи реєстрації вкажіть Ваш e-mail. Ми надішлемо вам одноразове посилання для входу на вказану пошту</h3>
+          <h3>
+            {{
+              ua: 'Для входу чи реєстрації вкажіть Ваш e-mail. Ми надішлемо вам одноразове посилання для входу на вказану пошту',
+              en: 'To sign in/up type your e-mail. We\'ll send you one-time link for enter the site on specified e-mail',
+            }[localStorage.getItem('language') || 'ua']}
+          </h3>
           <form id="loginForm" ref="loginForm" onSubmit={this.handleLoginSubmit}>
-            <input type="email" name="login-email" id="login-email" placeholder="Ваша@пошта" />
-            <input type="submit" id="login-button" value="Надіслати" />
+            <input
+              type="email"
+              name="login-email"
+              id="login-email"
+              placeholder={{ ua: 'Ваша@пошта', en: 'Your@email' }[localStorage.getItem('language') || 'ua']}
+            />
+            <input
+              type="submit"
+              id="login-button"
+              value={{ ua: 'Надіслати', en: 'Send' }[localStorage.getItem('language') || 'ua']}
+            />
           </form>
         </div>
       );
     }
     return (
       <div className="login-page">
-        <div className="title-page title-color">Вітаємо, { user.profile ? user.profile.name : user.emails[0].address}</div>
+        <div className="title-page title-color">
+          {{ ua: 'Вітаємо', en: 'Hi' }[localStorage.getItem('language') || 'ua']}, { user.profile ? user.profile.name : user.emails[0].address}
+        </div>
 
         {/*
         <div className="percent-100 float-left text-left margin-top-20">
@@ -296,18 +312,24 @@ class LoginPage extends React.Component {
         </div>
 
         <div className="percent-100 text-left margin-top-5 margin-left-3">
-          Внесені площі:
+          {{ ua: 'Внесені площі:', en: 'Entered localities:' }[localStorage.getItem('language') || 'ua']}
         </div>
         <div className="percent-100 text-left margin-top-5">
           {this.renderPins()}
         </div>
         <div className="percent-100 text-left">
-          <span>Вийти на цьому пристрої: </span>
+          <span>
+            {{ ua: 'Вийти на цьому пристрої: ', en: 'Exit this device: ' }[localStorage.getItem('language') || 'ua']}
+          </span>
           <button className="login-submit" onClick={this.logoutFromDevice}>Вихід</button>
         </div>
         <div className="percent-100 text-left">
-          <span>Вийти на всіх пристроях: </span>
-          <button className="login-submit" onClick={this.logout}>Вихід</button>
+          <span>
+            {{ ua: 'Вийти на всіх пристроях: ', en: 'Exit all devices: ' }[localStorage.getItem('language') || 'ua']}
+          </span>
+          <button className="login-submit" onClick={this.logout}>
+            {{ ua: 'Вихід', en: 'Exit' }[localStorage.getItem('language') || 'ua']}
+          </button>
         </div>
       </div>
     );

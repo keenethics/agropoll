@@ -6,7 +6,7 @@ import { Email } from 'meteor/email';
 // console.log(process.env.MAIL_URL);
 
 Meteor.methods({
-  emailLogin(email, body = 'hello') {
+  emailLogin(email, body = 'hello', language = 'ua') {
     check(email, String);
     check(body, String);
 
@@ -15,8 +15,14 @@ Meteor.methods({
     Email.send({
       to: email,
       from: 'agropoll.in.ua@gmail.com',
-      subject: 'Вхід на сайт "Agropoll"',
-      text: `Ваше посилання для входу: ${Meteor.absoluteUrl()}login/${body}\n\nЯкщо Ви не реєструвалися на сайті ${Meteor.absoluteUrl()}, повідомте нас за цією адресою або просто проігноруйте цього листа.`,
+      subject: {
+        ua: 'Вхід на сайт "Agropoll"',
+        en: 'Sign in "Agropoll"',
+      }[language],
+      text: {
+        ua: `Ваше посилання для входу: ${Meteor.absoluteUrl()}login/${body}\n\nЯкщо Ви не реєструвалися на сайті ${Meteor.absoluteUrl()}, повідомте нас за цією адресою або просто проігноруйте цього листа.`,
+        en: `Your link for sign up/in: ${Meteor.absoluteUrl()}login/${body}\n\nIf don't intend to reach site ${Meteor.absoluteUrl()}, send us email or just ignore this letter.`,
+      }[language],
     });
   },
 });

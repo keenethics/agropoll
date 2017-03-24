@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
         </div>
         <div className="text-center percent-50 padding-top-10">
           <NavigatinButton toLink="/statistics" text={{ ua: 'Статистика', en: 'Statistics' }[localStorage.getItem('language') || 'ua']} />
-          <NavigatinButton toLink="/insert" text={{ ua: 'Внести дані', en: 'Input data' }[localStorage.getItem('language') || 'ua']} />
+          <NavigatinButton toLink="/insert" text={{ ua: 'Внести дані', en: 'Submit data' }[localStorage.getItem('language') || 'ua']} />
         </div>
         <div className="text-right percent-25 padding-top-10">
           <NavigatinButton toLink="/login" text={this.props.user ? { ua: 'Профіль', en: 'Profile' }[localStorage.getItem('language') || 'ua'] : { ua: 'Увійти', en: 'Sing up' }[localStorage.getItem('language') || 'ua']} />

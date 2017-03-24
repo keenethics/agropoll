@@ -74,7 +74,7 @@ Meteor.methods({
     return true;
   },
 
-  LoginProcedure: (email) => {
+  LoginProcedure: (email, language) => {
     check(email, String);
 
     const user = Meteor.users.findOne({
@@ -101,7 +101,7 @@ Meteor.methods({
 
     return Meteor.wrapAsync((email, hash, startTime, callback) => {
       console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `);
-      return Meteor.call('emailLogin', email, hash, callback);
+      return Meteor.call('emailLogin', email, hash, language, callback);
     })(email, hash, now);
   },
 

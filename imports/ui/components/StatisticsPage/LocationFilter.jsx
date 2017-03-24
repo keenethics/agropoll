@@ -40,7 +40,11 @@ class LocationFilter extends React.Component {
   render() {
     return (
       <div className="LocationFilter-wrapper percent-100 float-left">
-        {this.renderSelect('administrative_area_level_1', 'Вся Україна', 'admLevel1Items')}
+        {this.renderSelect(
+          'administrative_area_level_1',
+          { ua: 'Вся Україна', en: 'Whole Ukraine' }[localStorage.getItem('language')],
+          'admLevel1Items'
+        )}
         {/*
         {this.props.administrative_area_level_1 ? this.renderSelect('administrative_area_level_2', 'Вся область', 'admLevel2Items') : ''}
         {this.props.administrative_area_level_2 ? this.renderSelect('place_id', 'Весь район', 'places') : ''}

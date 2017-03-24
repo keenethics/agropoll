@@ -10,7 +10,10 @@ export default class TypeSelector extends React.Component {
     return (
       <div>
         <label className="label" htmlFor="selectType">
-          Вкажіть тип господарства, щоби дані відображалися в загальній статистиці
+          {{
+            ua: 'Вкажіть тип господарства, щоби дані відображалися в загальній статистиці',
+            en: 'Select type of farmland so data will be appeared in overall statistics',
+          }[localStorage.getItem('language') || 'ua']}
           <select
             ref="type"
             id="selectType"
@@ -18,9 +21,15 @@ export default class TypeSelector extends React.Component {
             value={this.props.type}
             className="select-filter"
           >
-            <option value="other" className="select-filter-option">Інше (внесені дані не враховуються)</option>
-            <option value="enterprise" className="select-filter-option">Сільськогосподарське підприємство</option>
-            <option value="household" className="select-filter-option">Особисте селянське господарство</option>
+            <option value="other" className="select-filter-option">
+              {{ ua: 'Інше (внесені дані не враховуються)', en: 'Other (data isn\'t included)' }[localStorage.getItem('language') || 'ua']}
+            </option>
+            <option value="enterprise" className="select-filter-option">
+              {{ ua: 'Сільськогосподарське підприємство', en: 'Agricultural enterprise' }[localStorage.getItem('language') || 'ua']}
+            </option>
+            <option value="household" className="select-filter-option">
+              {{ ua: 'Особисте селянське господарство', en: 'Household' }[localStorage.getItem('language') || 'ua']}
+            </option>
           </select>
         </label>
       </div>

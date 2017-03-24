@@ -14,8 +14,6 @@ export default class Footer extends React.Component {
     return (
       <div className="footer">
         <div className="footer-item">
-          other languages:
-          &nbsp;
           <button
             onClick={() => this.changeLanguage('ua')}
           >

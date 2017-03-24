@@ -107,7 +107,9 @@ class InsertPage extends React.Component {
           <div className="insert-button-container text-center padding-top-5">
             {this.props.user.profile.type === 'other' ?
               <TypeSelector type={this.props.user.profile.type} /> :
-              <button className="btn btn-insert" onClick={this.saveCropData}>Зберегти</button>
+              <button className="btn btn-insert" onClick={this.saveCropData}>
+                {{ ua: 'Зберегти', en: 'Save' }[localStorage.getItem('language') || 'ua']}
+              </button>
             }
           </div>
         </div>
@@ -157,7 +159,9 @@ class InsertPage extends React.Component {
             </div>
             <div className="insert-two">
               <div className="float-left add-location-wrapper">
-                <button className="btn" onClick={this.showModal}>Додати локацію</button>
+                <button className="btn" onClick={this.showModal}>
+                  {{ ua: 'Додати локацію', en: 'Add location' }[localStorage.getItem('language') || 'ua']}
+                </button>
               </div>
               <div className="pins-wraper">
                 <div
@@ -181,7 +185,12 @@ class InsertPage extends React.Component {
     } else {
       return (
         <div style={{ textAlign: 'center' }}>
-          <h3>Для того, щоби вносити дані, будь ласка, авторизуйтеся</h3>
+          <h3>
+            {{
+              ua: 'Для того, щоби вносити дані, будь ласка, авторизуйтеся',
+              en: 'To enter your data, please authorize',
+            }[localStorage.getItem('language') || 'ua']}
+          </h3>
         </div>
       );
     }

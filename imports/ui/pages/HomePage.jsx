@@ -6,7 +6,13 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div className="homePage">
-        <div className="title-page title-color">Agropoll. Дізнайтесь що планують сіяти інші</div>
+        <div className="title-page title-color">
+          Agropoll.
+          {{
+            ua: ' Дізнайтесь що планують сіяти інші',
+            en: ' Find out what others plan to plant',
+          }[localStorage.getItem('language') || 'ua']}
+        </div>
         <article>
           <div className="title-article">Про проект</div>
           <p>

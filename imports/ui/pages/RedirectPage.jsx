@@ -6,8 +6,10 @@ export default class LoginPage extends React.Component {
     return (
       <div style={{ textAlign: 'center' }}>
         <h2>
-          Дані для входу надіслано на вказану пошту.
-          Перевірте також папку «Спам»
+          {{
+            ua: 'Дані для входу надіслано на вказану пошту. Перевірте також папку «Спам»',
+            en: 'Your link was sent to specified e-mail. Please, check also a "Junk" folder',
+          }[localStorage.getItem('language') || 'ua']}
         </h2>
       </div>
     );

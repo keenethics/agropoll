@@ -115,14 +115,16 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div className="modal-location">
-        <div className="percent-100 text-center font-size-1_5rem">Вкажіть населений пункт</div>
+        <div className="percent-100 text-center font-size-1_5rem">
+          {{ ua: 'Вкажіть населений пункт', en: 'Choose locality' }[localStorage.getItem('language') || 'ua']}
+        </div>
         <div className="percent-100 padding-top-bot-25">
           <div className="searchBar-wrapper">
             <input
               className="input-country"
               ref="inputCountry"
               type="text"
-              placeholder="Населений пункт..."
+              placeholder={{ ua: 'Населений пункт...', en: 'Locality...' }[localStorage.getItem('language') || 'ua']}
               onKeyPress={this.submitPlace}
               onChange={this.change}
             />
@@ -137,7 +139,7 @@ class SearchBar extends React.Component {
               className="btn"
               onClick={this.submitPlace}
             >
-              Додати
+              {{ ua: 'Додати', en: 'Add' }[localStorage.getItem('language') || 'ua']}
             </button>
           </div>
           <div className="percent-50 float-left text-center">
@@ -145,7 +147,7 @@ class SearchBar extends React.Component {
               className="btn"
               onClick={this.hideModal}
             >
-              Назад
+              {{ ua: 'Назад', en: 'Cancel' }[localStorage.getItem('language') || 'ua']}
             </button>
           </div>
         </div>

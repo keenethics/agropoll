@@ -13,48 +13,85 @@ export default class HomePage extends React.Component {
             en: ' Find out what others plan to plant',
           }[localStorage.getItem('language') || 'ua']}
         </div>
-        <article>
-          <div className="title-article">Про проект</div>
-          <p>
-            Наша мета — підвищити ефективність ведення сільського господарства в Україні,
-            зокрема, за рахунок зменшення коливань цін на сільськогосподарську продукцію,
-            яка виникає внаслідок невідповідності пропозиції до попиту.
-          </p>
-          <p>
-            Під час планування обсягів вирощування культур, агровиробники обмежені сівозміною,
-            кліматом, грунтами, наявною технікою тощо.
-          </p>
-          <p>
-            Однак, залишається певний простір для вибору виду культури,
-            і одним із аргументів виступає фінансовий чинник.
-          </p>
-          <p>
-            Багато виробників відштовхуються від цін попереднього року,
-            які часто зумовлені випадковими чинниками.
-            Оскільки значна частка з них діє за схожим сценарієм,
-            то часто трапляються “перекоси”: пере- або недовиробництво певних культур
-            (це не стосується експортних позицій).
-          </p>
-          <img src="img/2.png" alt="x" />
-          <p>
-            Agropoll призначений для публікації виробниками попередніх планів вирощування культур
-            до їх остаточного затвердження, так, щоби аграрії могли визначити оптимальний перелік культур,
-            відштовхуючись від планів інших виробників.
-          </p>
-          <p>
-            Agropoll орієнтований в основному на невеликих виробників,
-            які зосереджені на виробництві культур для потреб внутрішнього ринку.
-          </p>
+        {{
+          ua: (
+            <article>
+              <div className="title-article">Про проект</div>
+              <p>
+                Наша мета — підвищити ефективність ведення сільського господарства в Україні,
+                зокрема, за рахунок зменшення коливань цін на сільськогосподарську продукцію,
+                яка виникає внаслідок невідповідності пропозиції до попиту.
+              </p>
+              <p>
+                Під час планування обсягів вирощування культур, агровиробники обмежені сівозміною,
+                кліматом, грунтами, наявною технікою тощо.
+              </p>
+              <p>
+                Однак, залишається певний простір для вибору виду культури,
+                і одним із аргументів виступає фінансовий чинник.
+              </p>
+              <p>
+                Багато виробників відштовхуються від цін попереднього року,
+                які часто зумовлені випадковими чинниками.
+                Оскільки значна частка з них діє за схожим сценарієм,
+                то часто трапляються “перекоси”: пере- або недовиробництво певних культур
+                (це не стосується експортних позицій).
+              </p>
+              <img src="img/2.png" alt="x" />
+              <p>
+                Agropoll призначений для публікації виробниками попередніх планів вирощування культур
+                до їх остаточного затвердження, так, щоби аграрії могли визначити оптимальний перелік культур,
+                відштовхуючись від планів інших виробників.
+              </p>
+              <p>
+                Agropoll орієнтований в основному на невеликих виробників,
+                які зосереджені на виробництві культур для потреб внутрішнього ринку.
+              </p>
 
-          <p>
-            Робота сайту побудована на одночасному внесенні
-            сільськогосподарськими виробниками інформації про хід польових робіт та плани на майбутнє.
-            Система опрацьовує результат і дає змогу стежити за ходом посівної та збиральної кампаній
-            практично в реальному часі, причому як в цілому по Україні, так і в окремих регіонах.
-          </p>
-        </article>
+              <p>
+                Робота сайту побудована на одночасному внесенні
+                сільськогосподарськими виробниками інформації про хід польових робіт та плани на майбутнє.
+                Система опрацьовує результат і дає змогу стежити за ходом посівної та збиральної кампаній
+                практично в реальному часі, причому як в цілому по Україні, так і в окремих регіонах.
+              </p>
+            </article>
+          ),
+          en: (
+            <article>
+              <div className="title-article">About</div>
+              <p>
+                While planning sowing campaign, farmers are restricted by crops rotation,
+                climate, soil type, available machinery etc.
+              </p>
+              <p>
+                However, sometimes they have to select from a few equivalent
+                (in terms of availability) positions.
+              </p>
+              <p>
+                The problem is that the lack of information could lead to a situation
+                when many farms will be sowing the same crops. Consequently,
+                it may result in overproduction (and underproduction in opposite case) of some crops.
+                This may negatively influence the market (especially what concerns non-export positions).
+              </p>
+              <img src="img/2.png" alt="x" />
+              <p>
+                Agropoll is the platform for help farmers with the forehanded planning of crops sowing.
 
-        <article>
+              </p>
+              <p>
+                Farmers share their plans on crops sowing in advance,
+                so they could see what others are planning and thus avoid of over- and underproduction.
+              </p>
+
+              <p>
+                This allows to reach a more stable agricultural market,
+                so neither developers will need to sell their production with lower price nor customers have to overpay.
+              </p>
+            </article>
+          )
+        }[localStorage.getItem('language') || 'ua']}
+
+        {/*<article>
           <div className="title-article">Концепція</div>
           <div className='percent-100 display-inlBlock relative'>
             <div className="float-left percent-80">
@@ -80,7 +117,7 @@ export default class HomePage extends React.Component {
             </div>
 
           </div>
-        </article>
+        </article>*/}
       </div>
     );
   }

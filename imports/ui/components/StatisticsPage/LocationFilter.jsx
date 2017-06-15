@@ -42,7 +42,7 @@ class LocationFilter extends React.Component {
       <div className="LocationFilter-wrapper percent-100 float-left">
         {this.renderSelect(
           'administrative_area_level_1',
-          { ua: 'Вся Україна', en: 'Whole Ukraine' }[localStorage.getItem('language')],
+          { ua: 'Вся Україна', en: 'Whole Ukraine' }[localStorage.getItem('language') || 'ua'],
           'admLevel1Items'
         )}
         {/*

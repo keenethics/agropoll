@@ -17,11 +17,9 @@ Meteor.startup(() => {
   });
 
   const regions = Assets.getText('regions.csv').split('\n').filter((item) => item).map((item) => item.split(',')[1]);
-  // console.log('regions', regions);
 
   Groups.remove({});
   const groups = Assets.getText('groups.csv').split('\n').filter((item) => item).map((item) => item.split(','));
-  // console.log('groups =', groups);
   groups.forEach((group) => Groups.insert({
     id: Number(group[0]),
     name: group[1],
@@ -29,7 +27,6 @@ Meteor.startup(() => {
 
   Crops.remove({});
   const crops = Assets.getText('crops.csv').split('\n').filter((item) => item).map((item) => item.split(','));
-  // console.log('crops =', crops);
   crops.forEach((crop) => {
     const cropObj = {
       id: Number(crop[0]),

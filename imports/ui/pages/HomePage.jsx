@@ -9,8 +9,8 @@ export default class HomePage extends React.Component {
         <div className="title-page title-color">
           Agropoll.
           {{
-            ua: ' Дізнайтесь що планують сіяти інші',
-            en: ' Find out what others plan to plant',
+            ua: ' Поділіться своїми планами',
+            en: ' Share your plans',
           }[localStorage.getItem('language') || 'ua']}
         </div>
         {{

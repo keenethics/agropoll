@@ -321,7 +321,9 @@ class LoginPage extends React.Component {
           <span>
             {{ ua: 'Вийти на цьому пристрої: ', en: 'Exit this device: ' }[localStorage.getItem('language') || 'ua']}
           </span>
-          <button className="login-submit" onClick={this.logoutFromDevice}>Вихід</button>
+          <button className="login-submit" onClick={this.logoutFromDevice}>
+            {{ ua: 'Вихід', en: 'Exit' }[localStorage.getItem('language') || 'ua']}
+          </button>
         </div>
         <div className="percent-100 text-left">
           <span>

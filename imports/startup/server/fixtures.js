@@ -31,14 +31,15 @@ Meteor.startup(() => {
   crops.forEach((crop) => {
     const cropObj = {
       id: Number(crop[0]),
-      name: crop[2],
+      'name-ua': crop[2],
+      'name-en': crop[3],
       groupId: Number(crop[1]),
-      avgCropYield: Number(crop[3]),
+      avgCropYield: Number(crop[4]),
     };
 
     cropObj.squares = {};
     regions.forEach((regionId, i) => {
-      cropObj.squares[regionId] = Number(crop[4 + i]);
+      cropObj.squares[regionId] = Number(crop[5 + i]);
     });
 
     Crops.insert(cropObj);

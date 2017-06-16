@@ -11,7 +11,7 @@ export default class StatisticsTableRow extends React.Component {
     return (
       <div className="row">
         <div className="cell coll-1">
-          <span>{this.props.crop.name}</span>
+          <span>{this.props.crop[`name-${localStorage.getItem('language') || 'ua'}`]}</span>
         </div>
         {/*<div className="cell coll-2">
           <span>{structure.base.toFixed(2)}</span>

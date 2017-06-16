@@ -149,7 +149,7 @@ class TableInsert extends React.Component {
             <RowForCrop
               addCropElem={this.addCropElem}
               cropId={crop.id}
-              cropName={crop.name}
+              cropName={crop[`name-${localStorage.getItem('language') || 'ua'}`]}
               squareValue={squareValue}
               avgCropYield={avgCropYield}
             />
@@ -162,7 +162,7 @@ class TableInsert extends React.Component {
             <RowForCrop
               addCropElem={this.addCropElem}
               cropId={crop.id}
-              cropName={crop.name}
+              cropName={crop[`name-${localStorage.getItem('language') || 'ua'}`]}
               squareValue={squareValue}
               avgCropYield={avgCropYield}
             />

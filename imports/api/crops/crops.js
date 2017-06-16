@@ -19,6 +19,7 @@ Crops.attachSchema(Crops.schema);
 
 Groups.schema = new SimpleSchema({
   id: { type: Number, optional: true },
-  name: { type: String, optional: true },
+  'name-ua': { type: String, optional: true },
+  'name-en': { type: String, optional: true },
 });
 Groups.attachSchema(Groups.schema);

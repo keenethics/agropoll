@@ -74,7 +74,7 @@ class StatisticsPage extends React.Component {
             {this.props.groups.map(group => (
               <div key={group.id} className="group">
                 <div className="head-row">
-                  <div className="head">{group.name}</div>
+                  <div className="head">{group[`name-${localStorage.getItem('language') || 'ua'}`]}</div>
                 </div>
                 {this.props.crops.filter(crop =>
                   crop.groupId === group.id

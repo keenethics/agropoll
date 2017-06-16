@@ -22,7 +22,8 @@ Meteor.startup(() => {
   const groups = Assets.getText('groups.csv').split('\n').filter((item) => item).map((item) => item.split(','));
   groups.forEach((group) => Groups.insert({
     id: Number(group[0]),
-    name: group[1],
+    'name-ua': group[1],
+    'name-en': group[2],
   }));
 
   Crops.remove({});

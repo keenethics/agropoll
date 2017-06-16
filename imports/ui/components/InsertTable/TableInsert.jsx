@@ -180,7 +180,7 @@ class TableInsert extends React.Component {
         <div key={group.id}>
           <RowForGroup
             groupId={group.id}
-            groupName={group.name}
+            groupName={group[`name-${localStorage.getItem('language') || 'ua'}`]}
             collapseCrops={this.collapseCrops}
           />
           { this.renderCropsRows(crops) }

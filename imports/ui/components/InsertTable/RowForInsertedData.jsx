@@ -81,7 +81,7 @@ class RowForGroup extends React.Component {
                 type="text"
                 ref={`sort${this.props.dataId}`}
                 defaultValue={this.props.defaultSort}
-                placeholder="сорт ..."
+                placeholder={{ ua: 'сорт...', en: 'sort...' }[localStorage.getItem('language') || 'ua']}
                 onChange={this.changeSort}
               />
             </div>
@@ -92,7 +92,7 @@ class RowForGroup extends React.Component {
               type="text"
               ref={`reproduction${this.props.dataId}`}
               defaultValue={this.props.defaultReproduction}
-              placeholder="репродукція ..."
+              placeholder={{ ua: 'репродукція...', en: 'reproduction...' }[localStorage.getItem('language') || 'ua']}
               onChange={this.changeReproduction}
             />
           </div>

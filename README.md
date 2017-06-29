@@ -44,12 +44,14 @@ $ now --login
 
 Deploy with CLI:
 ```
-$ meteor-now -e ROOT_URL=https://agromonitor-test.now.sh -e MONGO_URL=mongodb://<dbuser>:<dbpassword>@ds145009.mlab.com:45009/agromonitor
+$ meteor-now -e ROOT_URL=https://agropoll.now.sh -e MONGO_URL=mongodb://<dbuser>:<password>@ds133260.mlab.com:33260/agropoll -d
 ```
 Note, that `-e ROOT_URL` goes first of all other parameters.
 You can also specify `-e NODE_ENV` parameter.
 
 Finally, set the alias for current deployment:
 ```
-$ now alias https://<the-deployment-auto-name>.now.sh agromonitor-test.now.sh
+$ now alias https://<the-deployment-auto-name>.now.sh agropoll.now.sh
 ```
+
+If you want to kill some `now` instances you can type `$ now ls` and `$ now rm <instance url>`

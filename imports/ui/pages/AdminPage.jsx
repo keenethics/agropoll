@@ -25,7 +25,7 @@ class AdminPage extends React.Component {
         item.userId === user._id
       ).map((item) => (
         <div key={item._id}>
-          {(Crops.findOne({ id: item.cropId }) || {}).name}: {item.square} ‹{item.squareNorm.toFixed(0)}›
+          {(Crops.findOne({ id: item.cropId }) || {})[`name-${localStorage.getItem('language') || 'ua'}`]}: {item.square} ‹{item.squareNorm.toFixed(0)}›
         </div>
       )),
       'Total square': this.props.records.filter((item) =>

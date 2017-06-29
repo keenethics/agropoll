@@ -1,6 +1,6 @@
 {
   "private": {
     "GOOGLE_MAPS_API_KEY": "AIzaSyCJ48JLZudWoZZ23eg9B0baVsH2qjKC1gU",
-    "MAIL_URL": "smtp://agropoll.in.ua@gmail.com:Zz88Fyff@smtp.gmail.com:465/"
+    "SENDGRID_API_KEY": "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"
   }
 }

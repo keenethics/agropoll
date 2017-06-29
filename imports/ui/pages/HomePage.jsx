@@ -37,7 +37,7 @@ export default class HomePage extends React.Component {
                 то часто трапляються “перекоси”: пере- або недовиробництво певних культур
                 (це не стосується експортних позицій).
               </p>
-              <img src="img/2.png" alt="x" />
+              <img src="img/2-ua.png" alt="x" />
               <p>
                 Agropoll призначений для публікації виробниками попередніх планів вирощування культур
                 до їх остаточного затвердження, так, щоби аграрії могли визначити оптимальний перелік культур,
@@ -73,7 +73,7 @@ export default class HomePage extends React.Component {
                 it may result in overproduction (and underproduction in opposite case) of some crops.
                 This may negatively influence the market (especially what concerns non-export positions).
               </p>
-              <img src="img/2.png" alt="x" />
+              <img src="img/2-en.png" alt="x" />
               <p>
                 Agropoll is the platform for help farmers with the forehanded planning of crops sowing.
 

@@ -30,10 +30,6 @@ Then install dependencies via `$ meteor npm install` and start server with `$ me
 
 Install `linter` and `linter-eslint` packages in Atom.
 
-# Sign in/up application
-
-To sign user in/up, submit your email at `login` page. In case you caught an error, revise Terminal and copy `body` parameter found there. Paste into browser this URL: `localhost:3000/login/<body>`.
-
 # Test deployment on Now
 
 Install CLI tools & log in:

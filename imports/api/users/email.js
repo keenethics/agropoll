@@ -3,9 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Email } from 'meteor/email';
 
-// process.env.MAIL_URL = process.env.MAIL_URL || Meteor.settings.private.MAIL_URL;
-// console.log(process.env.MAIL_URL);
-
 Meteor.methods({
   emailLogin(email, body = 'hello', language = 'ua') {
     check(email, String);
@@ -36,8 +33,6 @@ import sendgrid from 'sendgrid';
 
 const helper = sendgrid.mail;
 const sg = sendgrid(Meteor.settings.private.SENDGRID_API_KEY);
-// console.log('env-------->',process.env.SENDGRID_API_KEY);
-// const sg = sendgrid(process.env.SENDGRID_API_KEY);
 
 Meteor.methods({
   emailLogin: (email, body = 'hello', language = 'ua') => {
@@ -56,8 +51,6 @@ Meteor.methods({
       en: `Your link for sign up/in: ${Meteor.absoluteUrl()}login/${body}\n\nIf don't intend to reach site ${Meteor.absoluteUrl()}, send us email or just ignore this letter.`,
     }[language || 'ua']);
     const mail = new helper.Mail(from, subject, to, content);
-
-    // console.log('~~!>', `${Meteor.absoluteUrl()}login/${body}`, helper, sg, Meteor.settings.private.SENDGRID_API_KEY);
 
     const request = sg.emptyRequest({
       method: 'POST',

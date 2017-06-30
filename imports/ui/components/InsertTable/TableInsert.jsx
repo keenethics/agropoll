@@ -59,7 +59,6 @@ class TableInsert extends React.Component {
       elem.location.place_id === this.props.insertPage.place_id &&
       elem.year === this.props.all.year
     ));
-    // return true;
   }
 
   collapseCrops(e) {

@@ -6,8 +6,6 @@ import { Localities } from '/imports/api/localities/localities.js';
 import { Records } from './records.js';
 
 const getParentLocations = (locationObj, parentId) => {
-  console.log('parentId =', parentId);
-
   const parentLocation = Localities.findOne({ place_id: parentId });
   const newLocationObj = Object.assign({}, locationObj);
 

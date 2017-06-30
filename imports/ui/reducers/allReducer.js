@@ -8,7 +8,7 @@ export default function yearSelectorReducer(state = initialState, action = {}) {
   switch (action.type) {
     case types.SELECT_YEAR: {
       const { year } = action;
-      return { ...state, year }; // return Object.assign({}, state, { year });
+      return { ...state, year };
     }
     default: return state;
   }

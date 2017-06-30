@@ -16,8 +16,6 @@ import { connect } from 'react-redux';
 class StatisticsPage extends React.Component {
 
   render() {
-    console.info('Subscribed records:', this.props.records);
-
     // It had sorted on server
     const records = this.props && this.props.records || [];
 
@@ -26,7 +24,6 @@ class StatisticsPage extends React.Component {
       planted: this.props.statisticsTable.planted,
       harvested: this.props.statisticsTable.harvested,
     };
-    console.log('statuses =', statuses);
 
     const cropsView = this.props.crops.map((crop) =>
       records.filter((record) =>
@@ -53,7 +50,6 @@ class StatisticsPage extends React.Component {
         0
       ),
     };
-    console.log('Total square in region =', totalSquareByRegion);
 
     return (
       <div>
@@ -101,7 +97,6 @@ const container = createContainer((props) => {
   Meteor.subscribe('crops.all');
   Meteor.subscribe('groups.all');
   const recordsHandler = Meteor.subscribe('records.filter', { ...props.statisticsTable, ...props.all });
-  console.info('Records ready:', recordsHandler.ready());
   const records = recordsHandler.ready() ? Records.find({}).fetch() : [];
   Meteor.subscribe('adminSettings');
 

@@ -100,7 +100,7 @@ Meteor.methods({
     });
 
     return Meteor.wrapAsync((email, hash, startTime, callback) => {
-      console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `);
+      // console.log(`------------ \nNew Message\n to: ${email}\n body: ${hash} `);
       return Meteor.call('emailLogin', email, hash, language, callback);
     })(email, hash, now);
   },

@@ -5,7 +5,6 @@ export default class Footer extends React.Component {
 
   changeLanguage(language) {
     localStorage.setItem('language', language);
-    console.log('---->', localStorage.getItem('language'));
     location.reload();
   }
 

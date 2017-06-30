@@ -22,11 +22,5 @@ Records.schema = new SimpleSchema({
   cropYield: { type: Number, optional: true, decimal: true },
   status: { type: String, optional: true },
   updatedAt: { type: Number, optional: true, decimal: true },
-  // farmlandArea: { type: Number, optional: true, decimal: true },
-  // type: { type: String, optional: true },
-
-  // usersCount: { type: Number, optional: true },
-  // squaresRatio: { type: Number, optional: true, decimal: true },
-  // banned: { type: Boolean, optional: true },
 });
 Records.attachSchema(Records.schema);

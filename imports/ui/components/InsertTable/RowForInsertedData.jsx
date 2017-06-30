@@ -46,7 +46,7 @@ class RowForGroup extends React.Component {
   }
 
   changeStatus(e) {
-    const currentValue = e.currentTarget.dataset.status; // e.currentTarget.innerText;
+    const currentValue = e.currentTarget.dataset.status;
     const recordId = this.props.dataId;
     let newStatus = 'planned';
     if (currentValue === 'planned') {
@@ -54,7 +54,6 @@ class RowForGroup extends React.Component {
     } else if (currentValue === 'planted') {
       newStatus = 'harvested';
     }
-    // e.currentTarget.innerText = newStatus;
     Meteor.call('record.updateStatus', { recordId, newStatus }, (err) => {
       if (err) {
         console.error(err);

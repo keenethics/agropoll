@@ -81,7 +81,7 @@ Meteor.startup(() => {
 
       // Updating normalized square in all recods related to the cluster this year
       Meteor.users.find(JSON.parse(cluster.conditions)).fetch().forEach((user) => {
-        console.log('├─user⟶', user.emails[0].address, '☆', user.roles);
+        console.log('├─user⟶', user.profile.name, '☆', user.roles);
         Records.find({
           userId: user._id,
           year, // ??

@@ -27,8 +27,6 @@ class SearchBar extends React.Component {
     // It's needed by Google API
     this.change();
 
-    console.log('--- change ---');
-
     this.inputCountry = this.refs.inputCountry;
     const autocomplete = this.initGoogleAutocomplete(this.inputCountry, {
       types: ['(regions)'],
@@ -66,8 +64,6 @@ class SearchBar extends React.Component {
     }
   }
   submitPlace(e) {
-    console.log('--- event ---', e.charCode, e.nativeEvent);
-
     if (!this.refs.inputCountry.value) {
       return;
     }
@@ -75,22 +71,13 @@ class SearchBar extends React.Component {
       return;
     }
 
-    console.log('--- enter event ---', this.state.selectedPlace, this.refs.inputCountry);
-
     this.props.actions.startSpinner();
 
-    // if (!this.state.selectedPlace) {
-    //   return;
-    // }
-
     if (this.state.selectedPlace) {
-      console.log('-->', this.state.selectedPlace);
       Meteor.call('localities.addPlace', this.state.selectedPlace, (err, res) => {
         this.props.actions.hideSpinner();
 
-        if (!err) {
-          // OK
-        } else {
+        if (err) {
           console.error(err.reason);
         }
       });

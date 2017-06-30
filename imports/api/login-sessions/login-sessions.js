@@ -5,7 +5,6 @@ export const LoginSessions = new Mongo.Collection('loginSessions');
 
 // Defining a schema for collection
 LoginSessions.schema = new SimpleSchema({
-  // _id: { type: String, optional: true },
   email: { type: String, optional: true },
   sent: { type: String, optional: true }
 });

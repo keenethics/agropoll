@@ -142,24 +142,12 @@ class LoginPage extends React.Component {
         url: 'https://outlook.live.com'
       },
       {
-        domain: 'yandex.ru',
-        url: 'https://mail.yandex.ru'
-      },
-      {
-        domain: 'mail.ru',
-        url: 'https://mail.ru'
-      },
-      {
         domain: 'zoho.com',
         url: 'https://www.zoho.com/mail/'
       },
       {
         domain: 'icloud.com',
         url: 'https://www.icloud.com/mail'
-      },
-      {
-        domain: 'rambler.ru',
-        url: 'https://mail.rambler.ru'
       },
       {
         domain: 'yahoo.com',
@@ -336,7 +324,6 @@ class LoginPage extends React.Component {
       </div>
     );
   }
-  // }
 }
 
 const mapStateToProps = (state) => ({});

@@ -8,6 +8,5 @@ Meteor.publish('users.all', function () {
     // throw new Meteor.Error('User is not Admin!');
   }
 
-  // console.log('all users =', Meteor.users.find({}).fetch());
   return Meteor.users.find({});
 });

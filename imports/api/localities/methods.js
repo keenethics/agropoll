@@ -16,7 +16,6 @@ Meteor.methods({
     }
     check(place.types[0], String);
 
-    // console.log('place =', place);
     addPlace(place);
   },
 });
@@ -26,7 +25,7 @@ function getPlace(addr) {
   const key = `key=${apiKey}`;
   const language = 'language=uk&';
   const address = `address=${addr.replace(/ /g, '+')}&`;
-  const type = 'components=country:UA&'; // ''; // clutch because of Crimea (disabled)
+  const type = 'components=country:UA&'; // ''; // crutch because of Crimea (disabled)
   const fullUrl = encodeURI(baseUrl + address + type + language + key);
 
   const response = Meteor.wrapAsync((fullUrl, callback) => {

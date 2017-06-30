@@ -18,20 +18,11 @@ Meteor.publish('records.filter', function (filters) {
     year: String,
   });
 
-  // const statuses = {
-  //   planned: filters.planned,
-  //   planted: filters.planted,
-  //   harvested: filters.harvested,
-  // };
-
   const locationFilter = filters.place_id || filters.administrative_area_level_2 ||
   filters.administrative_area_level_1;
 
   const query = {
     year: filters.year,
-    // status: { $in: Object.keys(statuses).filter((item) => statuses[item]) },
-    // Only not banned records
-    // banned: { $ne: true },
   };
 
   if (locationFilter !== 'none') {
@@ -44,7 +35,6 @@ Meteor.publish('records.filter', function (filters) {
 
   console.log('query =', query);
 
-  // Віддавати без локаліті (як мінімум без place_id)
   return Records.find(query, {
     fields: {
       'location.place_id': 0,
@@ -52,8 +42,6 @@ Meteor.publish('records.filter', function (filters) {
       'location.administrative_area_level_3': 0,
       userId: 0,
       square: 0,
-      // type: 0,
-      // farmlandArea: 0,
       updatedAt: 0,
     },
   });

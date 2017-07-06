@@ -69,7 +69,7 @@ Meteor.publish('records.filter.admin', function (filters) {
 
   if (!Roles.userIsInRole(this.userId, 'admin')) {
     console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
-    // throw new Meteor.Error('User is not Admin!');
+    throw new Meteor.Error('User is not Admin!');
   }
 
   const statuses = {

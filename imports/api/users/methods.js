@@ -137,7 +137,7 @@ Meteor.methods({
 
     if (!Roles.userIsInRole(this.userId, 'admin')) {
       console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
-      // throw new Meteor.Error('User is not Admin!');
+      throw new Meteor.Error('User is not Admin!');
     }
 
     Roles.addUsersToRoles(userId, 'banned');
@@ -148,7 +148,7 @@ Meteor.methods({
 
     if (!Roles.userIsInRole(this.userId, 'admin')) {
       console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
-      // throw new Meteor.Error('User is not Admin!');
+      throw new Meteor.Error('User is not Admin!');
     }
 
     Roles.removeUsersFromRoles(userId, 'banned');
@@ -159,7 +159,7 @@ Meteor.methods({
 
     if (!Roles.userIsInRole(this.userId, 'admin')) {
       console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
-      // throw new Meteor.Error('User is not Admin!');
+      throw new Meteor.Error('User is not Admin!');
     }
 
     Roles.addUsersToRoles(userId, 'admin');
@@ -170,7 +170,7 @@ Meteor.methods({
 
     if (!Roles.userIsInRole(this.userId, 'admin')) {
       console.log(`! WARNING ! \nUser '${this.userId}' was trying to access to admin page!`);
-      // throw new Meteor.Error('User is not Admin!');
+      throw new Meteor.Error('User is not Admin!');
     }
 
     Roles.removeUsersFromRoles(userId, 'admin');
